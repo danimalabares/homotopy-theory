@@ -5,20 +5,19 @@
 \addbibresource{homotopy-theory.bib}
 
 \usepackage[left=4cm, right=4cm]{geometry}
-\usepackage{palatino}%Fuente
-\usepackage{eulervm}%Fuente
-\usepackage{graphicx}%Imágenes
-\usepackage{float}%Imágenes
-\usepackage{subcaption}%Imágenes
-\usepackage{enumitem}%Listas
-\usepackage{parskip}%Espacio entre párrafos
+\usepackage{palatino}
+\usepackage{eulervm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{parskip}
 \usepackage{multicol}
 \usepackage{amsthm,thmtools,xcolor}
-\usepackage{amssymb}%Mate
-\usepackage{amsmath}%Mate
-\usepackage{tikz}%Mate (diagramas)
+\usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{dutchcal}
-\usepackage{tikz-cd}
+\usepackage{tikz,tikz-cd}
 \usepackage{xcolor}
 \definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
 \usetikzlibrary{%
@@ -28,7 +27,7 @@
 	shapes,
 	decorations.markings,backgrounds,calc,intersections
 }
-\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}%Links a lugares en el texto
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
 \hypersetup{%colores
 	colorlinks=true,
 	urlcolor=blue,
@@ -38,10 +37,8 @@
 	urlbordercolor=white,
 	linkbordercolor=white,
 	citebordercolor=white,
-	filebordercolor=white
-}
+	filebordercolor=white}
 \usepackage{cleveref}
-
 \numberwithin{equation}{section}
 
 \makeatletter %Hide section number
@@ -254,27 +251,45 @@ We want to construct a category where weak homotopy equivalences are isomorphism
 \section{elementary concepts}
 \begin{defn}\leavevmode
 	\begin{itemize}
+		\item Let $X$ and $Y$ be topological spaces and $f,g:X\to Y$ continuous maps. An \textbf{\textit{homotopy}} from $f$ to $g$ is a continuous map
+		\[H:X\times[0,1]\to Y,\qquad(x,t)\mapsto H(x,t)=H_t(x)\])
+		such that $f(x)=H(x,0)$ and $g(x)=H(x,1)$ for all $x\in X$. We denote this situation by $f\simeq g$. The homotopy relation $\simeq$ is an equivalence relation on the set of continuous maps $X\to Y$. A homotopy of maps $H_t:X\to Y$ is called \textbf{\textit{relative to $A\subset X$}} if $H_t|_A$ is constant.
+		
 		\item Topological spaces and homotopy classes of maps form a quotient category of $\Top$, the \textbf{\textit{homotopy category $\hTop$}}, where comoposition of homotopy classes is induced by composition of representing maps. If $f:X\to Y$ represents an isomorphism in $\hTop$, then $f$ is called a \textbf{\textit{homotopy equivalence}} or \textbf{\textit{$\operatorname{h}$-equivalence}}. In explicit termins this means $f:X\to Y$ is a homotopy equivalence if there exists $g:Y\to X$, a \textbf{\textit{homotopy inverse of $f$}}, such that $gf$ and $fg$ are both homotopic to the identity. Spaces $X$ and $Y$ are called \textbf{\textit{homotopy equivalent}} or of the same \textbf{\textit{homotopy type}} if there exists a homotopy equivalence $X\to Y$. A space is \textbf{\textit{contractible}} if it is homotopy equivalent to a point. A map $f:X\to Y$ is \textbf{\textit{null homotopic}} if it is homotopic to a constant map.
 		
-		\item Let $(X,x_0)$ be a pointed topological space and $s_0\in S^n$. The elements of the \textbf{\textit{$n$-th homotopy group}} are homotopy classes of maps $(S^n,s_0)\to (X,x_0)$. Equivalently, they are homotopy classes of maps $(I^n,\partial I^n)\to (X,x_0)$. (Homotopies are required to preserve the base points, $s_0\mapsto x_0$ or $\partial I^n\mapsto x_0$.)		
-		\begin{thm}
+		\item Let $(X,x_0)$ be a pointed topological space and $s_0\in S^n$. The elements of the \textbf{\textit{$n$-th homotopy group}} are homotopy classes of maps $(S^n,s_0)\to (X,x_0)$. Equivalently, they are homotopy classes of maps $(I^n,\partial I^n)\to (X,x_0)$. (Homotopies are required to preserve the base points, $s_0\mapsto x_0$ or $\partial I^n\mapsto x_0$.)
+		
+		Also,
+		\[\pi_n(X,*)=[(I^n,\partial I^n),(X,\{*\})]\cong[I^n/\partial I^n,X]^0\]
+		where $[X,Y]$ denotes the set of homotopy classes $[f]$ of maps $[f]:X\to Y$.
+		\begin{prop}
 			$\pi_n(X,x_0)$ is an abelian group for all $n\in\N$.
-		\end{thm}
-		\item Let $A$ be a subspace of $X$ and $x_0\in A$. The elements of the \textbf{\textit{relative homotopy group $\pi_n(X,A,x_0)$}} are homotopy classes of maps $(I^n,\partial I^n,J^{n-1})\to (X,A,x_0)$ where $J^{n-1}$ is the union of all but one face of $I^n$.
+		\end{prop}
+				
+		\item Let $A$ be a subspace of $X$ and $x_0\in A$. The elements of the \textbf{\textit{relative homotopy group $\pi_n(X,A,x_0)$}} are homotopy classes of maps $(I^n,\partial I^n,J^{n-1})\to (X,A,x_0)$ where $J^{n-1}$ is the union of all but one face of $I^n$. That is,
+		\[\pi_{n+1}(X,A,*)=[(I^{n+1},\partial I^{n+1},J^n),(X,A,*)].\]
 		
 		The elements of such a group are homotopy classes of based maps $D^n\to X$ which carry the boundary $S^{n-1}$ into $A$. Two maps $f,g$ are called \textbf{\textit{homotopic relative to $A$}} if they are homotopic by a basepoint-preserving homotopy $F:D_n\times[0,1]\to X$ such that, for each $p$ in $S^{n-1}$ and $t$ in $[0,1]$, the element $F(p,t)$ is in $A$. Ordinary homotopy groups are recovered for the case in which $A=\{x_0\}$.
-		
-		Recall that, in general, a homotopy of maps $H_t:X\to Y$ is called \textbf{\textit{relative to $A\subset X$}} if $H_t|_A$ is constant.
 		\begin{remark}
-			This construction is motivated by looking for the kernel of the induced map $i_*:\pi_n(A,x_0)\to\pi_n(X,x_0)$ by the inclusion. This map is in general not injective, and the kernel consists of 
+			This construction is motivated by looking for the kernel of the induced map $i_*:\pi_n(A,x_0)\to\pi_n(X,x_0)$ by the inclusion. This map is in general not injective, and the kernel consists of ?
 		\end{remark}
 		\item For any pair $(X,A,x)$ we have a long exact sequence
 		\[\begin{tikzcd}[column sep=small]
-			\pi_n(A,x)\arrow[r]&\pi_{n}(X,x)\arrow[r]&\pi_{n-1}(A,x)\arrow[r]&\pi_{n-1}(X,x)\arrow[r]&\cdots\arrow[r]&\pi_0(X,x)
+			\pi_n(A,x_0)\arrow[r,"i_*"]&\pi_{n}(X,x_0)\arrow[r,"j_*"]&\pi_{n-1}(A,x_0)\arrow[r,"\partial"]&\pi_{n-1}(X,x_0)\arrow[r]&\cdots\arrow[r]&\pi_0(X,x_0)
 		\end{tikzcd}\]
-		\item $n$-connected spaces, $n$-connected pair, $n$-equivalence.
+		where $i$ and $j$ are the inclusions $(A,x_0)\hookrightarrow(X,x_0)$ and $(X,x_0,x_0)\hookrightarrow(X,A,x_0)$. The map $\partial$ comes from restricting maps $(I^n,\partial I^n,J^{n-1})\to (X,A,x_0)$ to $I^{n-1}$, or by restricting maps $(D^n,S^{n-1},s_0)\to (X,A,x_0)$. The map, called the \textbf{\textit{boundary map}}, is a homomorphism when $n>1$.
+		
+		\item A space $X$ with basepoint $x_0$ is called \textbf{\textit{$n$-connected}} if $\pi_i(X,x_0)=0$ for $i\leq n$. Thus 0-connected means path-connected and 1 connected means simply-connected.
+		
+		\item A pair $(X,A)$ is \textbf{\textit{$n$-connected}} if $\pi(X,A,x_0)=0$ for $i\leq n$.
+		
+		\item Two pointed spaces $(X,x_0)$ and $(Y,y_0)$ are \textbf{\textit{$n$-equivalent}} if $\pi_i(X,x_0)\cong\pi_i(Y,y_0)$ for all $i\leq n$.
 	\end{itemize}
 \end{defn}
+\section{Whitehead theorem}
+\begin{thm}[4.5, \cite{hatcher-at}]
+	If a map $f:X\to Y$ between connected CW complexes induces isomorphisms $f_*:\pi_n(X)\to\pi_n(Y)$ for all $n$, then $f$ is a homotopy equivalence. In case $f$ is the inclusion of a cubcomplex $X\hookrightarrow Y$, the conlusion is stronger: $X$ is a deformation retract of $Y$.
+\end{thm}
 \section{the right category}
 	\begin{itemize}
 		\item We don't care so much about $\Top$. We care much more about $\CGWH$, the full subcategory of $\Top$ on \textbf{\textit{compactly generated wakly Hausdorff}} spaces.
@@ -576,7 +591,7 @@ and then
 \[[S^0,\Omega^2X]=[\Sigma S^0,\Omega X]=[\Sigma^2 S^0,X]=[S^2,X]=\pi_2(X)\]
 
 
-\subsection{21 march}
+\subsection{21 march (Serre fibration long exact sequence)}
 
 We've been talking a lot about Hurewickz fibrations. Let's talk about Serre fibrations. Notice that H. fibration $\implies$ S. fibration. What is the most natural example of a Serre fibration?
 
@@ -638,7 +653,7 @@ We've been talking a lot about Hurewickz fibrations. Let's talk about Serre fibr
 	is an isomorphism for $i<m+n$ and sujerctive for $i=m+n$.
 \end{thm}
 
-\subsection{26 march}
+\subsection{26 march (Blakers-Massey)}
 First I show some basic constructions from Tom Dieck (sec. 5.7). Let $f:X\to Y$ be a map. Consider the pullback
 \[\begin{tikzcd}
 	W(f)\arrow[r]\arrow[d,"(q\text{,}p)",swap]&Y^I\arrow[d,"(\ev_0\text{,}\ev_1)"]\\
