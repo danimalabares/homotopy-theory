@@ -1,0 +1,700 @@
+\documentclass{article}
+\usepackage{titlesec}
+%Referencias
+\usepackage[style=authortitle,backend=bibtex]{biblatex}
+\addbibresource{analysis.bib}
+
+%Paquetes
+\usepackage[left=4cm, right=4cm]{geometry}
+\usepackage{palatino}%Fuente
+\usepackage{eulervm}%Fuente
+\usepackage{graphicx}%Imágenes
+\usepackage{float}%Imágenes
+\usepackage{subcaption}%Imágenes
+\usepackage{enumitem}%Listas
+\usepackage{parskip}%Espacio entre párrafos
+\usepackage{multicol}
+\usepackage{amsthm,thmtools,xcolor}
+\usepackage{amssymb}%Mate
+\usepackage{amsmath}%Mate
+\usepackage{tikz}%Mate (diagramas)
+\usepackage{dutchcal}
+\usepackage{tikz-cd}
+\usepackage{xcolor}
+\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
+\usetikzlibrary{%
+	matrix,%
+	calc,%
+	arrows,%
+	shapes,
+	decorations.markings,backgrounds,calc,intersections
+}
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}%Links a lugares en el texto
+\hypersetup{%colores
+	colorlinks=true,
+	urlcolor=blue,
+	linkcolor=magenta,
+	citecolor=blue,
+	filecolor=blue,
+	urlbordercolor=white,
+	linkbordercolor=white,
+	citebordercolor=white,
+	filebordercolor=white
+}
+
+\makeatletter %Hide section number
+\def\@seccntformat#1{%
+	\expandafter\ifx\csname c@#1\endcsname\c@section\else
+	\csname the#1\endcsname\quad
+	\fi}
+\makeatother
+\usepackage{sectsty}
+\sectionfont{\fontsize{13}{20}\selectfont}
+\usepackage{cleveref}
+
+%Referencias
+%\usepackage[style=authortitle,backend=bibtex]{biblatex}
+%\addbibresource{analysis.bib}
+
+\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
+\definecolor{azure}{rgb}{0.0, 0.5, 1.0}
+\definecolor{green(ncs)}{rgb}{0.0, 0.62, 0.42}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
+\definecolor{palatinateblue}{rgb}{0.15, 0.23, 0.89}
+\definecolor{trueblue}{rgb}{0.0, 0.45, 0.81}
+\definecolor{goldenyellow}{rgb}{1.0, 0.87, 0.0}
+\definecolor{fashionfuchsia}{rgb}{0.96, 0.0, 0.63}
+\definecolor{brightcerulean}{rgb}{0.11, 0.67, 0.84}
+\definecolor{jonquil}{rgb}{0.98, 0.85, 0.37}
+\definecolor{lavendermagenta}{rgb}{0.93, 0.51, 0.93}
+\definecolor{peru}{rgb}{0.8, 0.52, 0.25}
+\definecolor{persimmon}{rgb}{0.93, 0.35, 0.0}
+\definecolor{persianred}{rgb}{0.8, 0.2, 0.2}
+\definecolor{persianblue}{rgb}{0.11, 0.22, 0.73}
+\definecolor{persiangreen}{rgb}{0.0, 0.65, 0.58}
+\definecolor{persianyellow}{rgb}{0.9, 0.89, 0.0}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+
+\declaretheoremstyle[headfont=\color{trueblue}\normalfont\bfseries,]{colored1}
+\declaretheoremstyle[headfont=\color{forestgreen}\normalfont\bfseries,]{colored2}
+\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored3}
+\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored4}
+\declaretheoremstyle[headfont=\color{brightcerulean}\normalfont\bfseries,]{colored5}
+\declaretheoremstyle[headfont=\color{lavendermagenta}\normalfont\bfseries,]{colored6}
+\declaretheoremstyle[headfont=\color{blue-violet}\normalfont\bfseries,]{colored7}
+\declaretheoremstyle[headfont=\color{green(ncs)}\normalfont\bfseries,]{colored8}
+\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored9}
+\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored10}
+
+\declaretheorem[style=colored1,numberwithin=section,name=Theorem]{thm}
+\declaretheorem[style=colored2,numberwithin=section,numberlike=thm,name=proposition]{prop}
+\declaretheorem[style=colored3,numberwithin=section,numberlike=thm,name=lemma]{lemma}
+\declaretheorem[style=colored4,numberwithin=section,numberlike=thm,name=corollary]{coro}
+\declaretheorem[style=colored5,numbered=no,name=example]{example}
+\declaretheorem[style=colored5,numbered=no,name=examples]{exemplos}
+\declaretheorem[style=colored6,numbered=no,name=exercise]{exercise}
+\declaretheorem[style=colored7,numberwithin=section,name=remark]{remark}
+\declaretheorem[style=colored8,numbered=no,name=claim]{claim}
+\declaretheorem[style=colored9,numbered=no,name=definition]{defn}
+\declaretheorem[style=colored10,numbered=no,name=question]{question}
+
+\numberwithin{equation}{section}
+
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\D}{\mathbb{D}}
+\renewcommand{\P}{\mathbb{P}}
+
+\newcommand{\Ac}{\mathcal{A}}
+\newcommand{\Bc}{\mathcal{B}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Ec}{\mathcal{E}}
+\newcommand{\Fc}{\mathcal{F}}
+\newcommand{\Gc}{\mathcal{G}}
+\newcommand{\Hc}{\mathcal{H}}
+\newcommand{\Ic}{\mathcal{I}}
+\newcommand{\Jc}{\mathcal{J}}
+\newcommand{\Kc}{\mathcal{K}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Mc}{\mathcal{M}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Oc}{\mathcal{O}}
+\newcommand{\Pc}{\mathcal{P}}
+\newcommand{\Qc}{\mathcal{Q}}
+\newcommand{\Rc}{\mathcal{R}}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Tc}{\mathcal{T}}
+\newcommand{\Uc}{\mathcal{U}}
+\newcommand{\Vc}{\mathcal{V}}
+\newcommand{\Wc}{\mathcal{W}}
+\newcommand{\Xc}{\mathcal{X}}
+\newcommand{\Yc}{\mathcal{Y}}
+\newcommand{\Zc}{\mathcal{Z}}
+
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\pt}{pt}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\hTop}{h-Top}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Top}{Top}
+\DeclareMathOperator{\Set}{Set}
+\DeclareMathOperator{\CGWH}{CGWH}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Tot}{Tot}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\hofib}{hofib}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\coker}{coker}
+
+\begin{document}
+{\LARGE algebraic topology}
+	
+\section{abstract nonsense}
+\begin{defn}\leavevmode
+	\begin{itemize}
+		\item A \textbf{\textit{pullback}} of the morphisms $f$ and $g$ consists of an object $P$ and two morphisms $p_1:P\to X$ and $p_2:P\to Y$ satisfying the following universal property:
+		\[\begin{tikzcd}
+			Q\arrow[rrd,bend left,"q_2"]\arrow[ddr,"q_1",swap,bend right]\arrow[dr,dashed,"\phi"]\\
+			&P\arrow[r,"p_2"] \arrow[rd, phantom, "\lrcorner", very near start]\arrow[d,"p_1",swap]&Y\arrow[d,"g"]\\
+			&X\arrow[r,"f",swap]&Z
+		\end{tikzcd}\]
+		\item A \textbf{\textit{pushout}} of the morphisms $f$ and $g$ consists of an object $P$ and two morphisms $i_1:P\to X$ and $i_2:P\to Y$ satisfying the following universal property:
+		\[\begin{tikzcd}
+			Z\arrow[r,"g"]\arrow[d,swap,"f"]&Y\arrow[d,"i_2"]\arrow[ddr,bend left,"j_2"]\\
+			X\arrow[r,"i_1",swap]\arrow[drr,bend right,swap,"j_1"]&P\arrow[ul, phantom, "\ulcorner", very near start]\arrow[dr,dashed,"\phi"]\\
+			&&Q
+		\end{tikzcd}\]
+		\item A \textbf{\textit{product}} of $X$ and $Y$ is an object $X\sqcup Y$ and a pair of morphisms $p_1:X\sqcap Y\to X$, $p_2:X\sqcap Y\to Y$ satisfying the following universal property:
+		\[\begin{tikzcd}
+			Q\arrow[rrd,bend left,"q_2"]\arrow[ddr,"q_1",swap,bend right]\arrow[dr,dashed,"\phi"]\\
+			&X\sqcap Y\arrow[r,"p_2"]\arrow[d,"p_1",swap]&Y\\
+			&X
+		\end{tikzcd}\]
+		\item A \textbf{\textit{coproduct}} of $X$ and $Y$ is an object $X\sqcup Y$ and a pair of morphisms $i_1:X\to X\sqcup Y$, $i_2:Y\to X\sqcup Y$ satisfying the following universal property:
+		\[\begin{tikzcd}
+			&Y\arrow[d,"i_2"]\arrow[ddr,bend left,"j_2"]\\
+			X\arrow[r,"i_1",swap]\arrow[drr,bend right,swap,"j_1"]&X\sqcup Y\arrow[dr,dashed,"\phi"]\\
+			&&Q
+		\end{tikzcd}\]
+		\item A morphism $i$ has the \textbf{\textit{left lifting property with respect to a morphism $p$}} and $p$ has the \textbf{\textit{right lifting property with respect to $i$}} if for each morphisms $f$ and $g$, if the outer square in the following diagram commutes, there exists $\phi$ (I think not necessarily unique) completing the diagram:
+		\[\begin{tikzcd}[row sep=large]
+			A\arrow[r,"f"]\arrow[d,"i",swap]&X\arrow[d,"p"]\\
+			B\arrow[r,"g",swap]\arrow[ur,dashed,"\phi"]&Y
+		\end{tikzcd}\]
+		\item The \textbf{\textit{kernel}} of a morphism is that part of its domain which is sent to zero. Formally, in a category with an initial object 0 and pullbacks, the \textbf{\textit{kernel $\ker f$}} of a morphism $f:A\to B$ is the pullback $\ker(f)\to A$ along $f$ of the unique morphism $0\to B$
+		
+		More explicitly, this characterizes the object $\ker(f)$ as \textit{the} object (unique up to isomorphism) that satisfies the following universal property:
+		\begin{quote}
+			for every object $C$ and every morphism $h:C\to A$ such that $f\circ h=0$ is the zero morphism, there is a unique morphism $\phi:C\to\ker(f)$ such that $h=p\circ\phi$.
+		\end{quote}
+		\[\begin{tikzcd}
+			C\arrow[dr,dashed,"\phi"]\arrow[ddr,bend right,swap,"h"]\\
+			&\ker(f)\arrow[d]\arrow[r]&0\arrow[d]\\
+			&A\arrow[r,"f",swap]&B\arrow[ul, phantom, "\ulcorner", very near start]
+		\end{tikzcd}\]
+		\item In a category with a terminal object 1, the \textbf{\textit{cokernel}} of a morphism $f:A\to B$ is the pushout (arrows $h$ and $\phi$ apply if terminal object is zero)
+		\[\coker(f):=1\sqcup_AB\qquad\qquad\begin{tikzcd}
+			A\arrow[r,"f"]\arrow[d]\arrow[dr, phantom, "\lrcorner", very near start]&B\arrow[d]\arrow[rdd,bend left,"h"]\\
+			1\arrow[r]&\coker(f)\arrow[dr,dashed,"\phi"]\\
+			&&C
+		\end{tikzcd}\]
+		In the case when the terminal object is in fact zero object, one can, more explicitly, characterize the object $\coker(f)$ with the following universal property:
+		\begin{quote}
+			for every object $C$ and every morphism $h:B\to C$ such that $h\circ f=0$ is the zero morphism, there is a unique morphism $\phi:\coker(f)\to C$ such that $h=\phi\circ i$.
+		\end{quote}
+		
+		\item A morphism $f:X\to Y$ is a \textbf{\textit{monomorphism}} if for every object $Z$ and every pair of morphisms $g_1,g_2:Z\to X$ then
+		\[f\circ g_1=f\circ g_2\implies g_1=g_2.\]
+		\[\begin{tikzcd}
+			Z\arrow[r,shift={(0,.06)},"g_1"]\arrow[r,swap,shift={(0,-.06)},"g_2"]\arrow[rr,bend left,"f\circ g_1"]\arrow[rr,bend right,swap,"f\circ g_2"]&X\arrow[r,"f"]&Y
+		\end{tikzcd}\]
+		Equivalently, $f$ is a monomorphism if for every $Z$ the hom-functor $\Hom(Z,-)$ takes it to an injective function
+		\[\begin{tikzcd}
+			\Hom(Z,X)\arrow[r,hook,"f_*"]&\Hom(Z,Y).
+		\end{tikzcd}\]
+		Being a monomorphism in a category $\Cc$ means equivalently that it is an epimorphism in the opposite category $\Cc^{\op}$.
+		
+		\item A morphism $f:X\to Y$ is a \textbf{\textit{epimorphism}} if for every object $Z$ and every pair of morphisms $g_1,g_2:Y\to Z$ then
+		\[g_1\circ f=g_2\circ f\implies g_1=g_2.\]
+		\[\begin{tikzcd}
+			X\arrow[r,"f"]\arrow[rr,bend right,swap,"g_2\circ f"]\arrow[rr,bend left,"g_1\circ f"]&Y\arrow[r,shift={(0,.06)},"g_1"]\arrow[r,swap,shift={(0,-.06)},"g_2"]&Z
+		\end{tikzcd}\]
+		Equivalently, $f$ is a epimorphism if for every $Z$ the hom-functor $\Hom(-,Z)$ takes it to an injective function
+		\[\begin{tikzcd}
+			\Hom(Y,Z)\arrow[r,hook,"f^*"]&\Hom(X,Z).
+		\end{tikzcd}\]
+		Being a monomorphism in a category $\Cc$ means equivalently that it is an monomorphism in the opposite category $\Cc^{\op}$.
+	\end{itemize}
+\end{defn}
+
+\section{elementary concepts}
+
+For the proof of long exact homotopy sequence see theorem 4.3 in Hatcher. I couldn't properly explain the last paragraph
+
+\begin{defn}\leavevmode
+\begin{itemize}
+	\item Topological spaces and homotopy classes of maps form a quotient category of $\Top$, the \textbf{\textit{homotopy category $\hTop$}}, where comoposition of homotopy classes is induced by composition of representing maps. If $f:X\to Y$ represents an isomorphism in $\hTop$, then $f$ is called a \textbf{\textit{homotopy equivalence}} or \textbf{\textit{$\operatorname{h}$-equivalence}}. In explicit termins this means $f:X\to Y$ is a homotopy equivalence if there exists $g:Y\to X$, a \textbf{\textit{homotopy inverse of $f$}}, such that $gf$ and $fg$ are both homotopic to the identity. Spaces $X$ and $Y$ are called \textbf{\textit{homotopy equivalent}} or of the same \textbf{\textit{homotopy type}} if there exists a homotopy equivalence $X\to Y$. A space is \textbf{\textit{contractible}} if it is homotopy equivalent to a point. A map $f:X\to Y$ is \textbf{\textit{null homotopic}} if it is homotopic to a constant map.
+
+	\item Let $(X,x_0)$ be a pointed topological space and $s_0\in S^n$. The elements of the \textbf{\textit{$n$-th homotopy group}} are homotopy classes of maps $(S^n,s_0)\to (X,x_0)$. Equivalently, they are homotopy classes of maps $(I^n,\partial I^n)\to (X,x_0)$. (Homotopies are required to preserve the base points, $s_0\mapsto x_0$ or $\partial I^n\mapsto x_0$.)
+
+	\begin{thm}
+		$\pi_n(X,x_0)$ is an abelian group for all $n\in\N$.
+	\end{thm}
+	\item Let $A$ be a subspace of $X$ and $x_0\in A$. The elements of the \textbf{\textit{relative homotopy group $\pi_n(X,A,x_0)$}} are homotopy classes of maps $(I^n,\partial I^n,J^{n-1})\to (X,A,x_0)$ where $J^{n-1}$ is the union of all but one face of $I^n$.
+	
+	The elements of such a group are homotopy classes of based maps $D^n\to X$ which carry the boundary $S^{n-1}$ into $A$. Two maps $f,g$ are called \textbf{\textit{homotopic relative to $A$}} if they are homotopic by a basepoint-preserving homotopy $F:D_n\times[0,1]\to X$ such that, for each $p$ in $S^{n-1}$ and $t$ in $[0,1]$, the element $F(p,t)$ is in $A$. Ordinary homotopy groups are recovered for the case in which $A=\{x_0\}$.
+	
+	Recall that, in general, a homotopy of maps $H_t:X\to Y$ is called \textbf{\textit{relative to $A\subset X$}} if $H_t|_A$ is constant.
+	\begin{remark}
+		This construction is motivated by looking for the kernel of the induced map $i_*:\pi_n(A,x_0)\to\pi_n(X,x_0)$ by the inclusion. This map is in general not injective, and the kernel consists of 
+	\end{remark}
+	\item For any pair $(X,A,x)$ we have a long exact sequence
+	\[\begin{tikzcd}[column sep=small]
+		\pi_n(A,x)\arrow[r]&\pi_{n}(X,x)\arrow[r]&\pi_{n-1}(A,x)\arrow[r]&\pi_{n-1}(X,x)\arrow[r]&\cdots\arrow[r]&\pi_0(X,x)
+	\end{tikzcd}\]
+	\item $n$-connected spaces, $n$-connected pair, $n$-equivalence.
+\end{itemize}
+\section{the right category to work at}
+\begin{itemize}
+	\item We don't care so much about $\Top$. We care much more about $\CGWH$, the full subcategory of $\Top$ on \textbf{\textit{compactly generated wakly Hausdorff}} spaces.
+	\item $X$ is \textbf{\textit{compactly generated}} if, for any subset $C\subset X$, and for all continuous maps $f:K\to X$ from compact Housdorff spaces, \[\text{if } f^{-1}(C) \text{is closed in }K\text{, then } C\text{ is closed}.\]
+	\begin{claim}
+		If $X$ is compactly generated, then $X$ is weakly Hausdorff if the diagonal subset $\Delta_X\subset X\times X$ is {\color{orange}$k$-closed}.
+	\end{claim}
+	In $\CGWH$, $\Hom(X,Y)$ is a space with the compact-open topology. {\color{orange} This is a compactly generated space, $\mathbf{k}(\Hom(X,Y))$}. 
+	\begin{align*}
+		\Map(X,Y):=\text{ the space of maps }X\to Y.\\
+		\Map(X\times Y,Z)\cong\Map(X,\Map(Y,Z))\\
+		\Hom(X\times Y,Z)\cong \Hom(X,\Map(Y,Z))
+	\end{align*}
+	In the last line, product is product in $\CGWH$, not in $\Top$.
+	
+	The functor $-\times Y$ is left adjoint to $\Map(Y,-)$.
+	
+	\item A \textbf{\textit{homotopy}} $X\times I\to Y$ is the same as a map $X\to \Map(I,Y)$.
+	\item A map $A\to X$ is a \textbf{\textit{Hurewicz cofibration}} for any $g:X\to Y$ and any homotopy $H:A\times I\to Y$ such that \[\begin{tikzcd}
+		A\times\{0\}\arrow[r]\arrow[d]&A\times I\arrow[d]\\
+		X\arrow[r,"g",swap]&Y
+	\end{tikzcd}\]
+	there is $H:X\times I\to Y$,
+	\[\begin{tikzcd}
+		X\times\{0\}\arrow[r]\arrow[d,"g"]&A\times I\arrow[d]\\
+		X\times I\arrow[r,"H'",swap]&Y
+	\end{tikzcd}\]
+	
+	\[\begin{tikzcd}
+		A\times I\arrow[dr,"H"]\arrow[d]\\
+		X\times I\arrow[r,"H'",swap]&Y
+	\end{tikzcd}\]
+	{\color{cyan}(This is a standard notion, you can look it up.)}
+\end{itemize}
+\end{defn}
+	
+\begin{example}
+	$\partial D^n\to D$ is a Huerwich cofibration. {\color{orange} Why?}
+\end{example}
+\begin{defn}
+	A \textbf{\textit{model structure}} on a category $\Ac$ is a choice of subcategories $\Wc,\Cc,\Fc$ called \textbf{\textit{weak-equivalences}}, \textbf{\textit{cofibrations}} and \textbf{\textit{fibrations}} with the following properties:
+	\begin{enumerate}
+		\item Given $\bullet\overset{f}{\to}\bullet\overset{g}{\to}\bullet$, if either 2 out of 3 among $f,g,f\circ g$ are in $\Wc$ then all of them are.
+		\item $(\Cc\cap\Wc,\Fc)$ and $(\Cc,\Fc\cap\Wc)$ are both weak factorization systems.
+		$(\Bc,\Dc)$ is a weak factorization system.
+		\begin{enumerate}
+			\item Any morphism in $\Ac$ can be factored as a morphism in $\Bc$ followed by a morphism in $\Dc$.
+			\item \begin{tikzcd}
+				\bullet\arrow["f",d]\arrow[r]&\arrow[d,"g"]\\
+				\bullet\arrow[ur,dashed,"\exists"]\arrow[r]&\bullet
+			\end{tikzcd}
+			{\color{orange} Lifts}
+		\end{enumerate}
+	\end{enumerate}
+\end{defn}
+Two interesting model category structures on $\CGWH$.
+\begin{enumerate}
+	\item Hurewicz model structure (Strom).
+	\begin{itemize}
+		\item Cofibrations:= Huerwicz cofibrations.
+		\item Fibrations:= maps $E\to B$ such that for all spaces $X$ [Photo1].
+		\item Weak equivalences:= homotopy equivalences.
+	\end{itemize}
+	\item Quillen model structure.
+	\begin{itemize}
+		\item Cofibrations = retracts of relative cell complexes.
+		\item (Serre) Fibrations = \begin{tikzcd}
+			D^n\arrow[r]\arrow[d]&E\arrow[d]\\
+			D^n\times I\arrow[ur,dashed]\arrow[r]&B
+		\end{tikzcd}
+		\item Weak equivalences: $f:X\to Y$
+	\end{itemize}
+\end{enumerate}
+Hurewicz cofibration $f:A\to X$ in $\CGWH$.
+\begin{itemize}
+	\item $f$ is injective …
+	\item $f:A\to X$ is a cofibration …
+\end{itemize}
+
+\begin{exercise}[3.1.8 from Riehl's "Homotopical categories: ..."]
+	Verify that the class of morphisms $\Lc$ characterized by the left lifting property against a fixed class of morphisms $\Rc$ is closed under coproducts, closed under retracts, and contains the isomorphisms.
+\end{exercise}
+\begin{proof}[Solution]
+	\textbf{\textit{(Coproducts.)}} Let $i$ be the coproduct of a a morphism $\ell\in\Lc$. Consider the following lifting problem of $i$ with respect to a morphism $r\in\Rc$:
+	\[\begin{tikzcd}[row sep=large]
+		&Y\arrow[d,"i",swap]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
+		X\arrow[r,"\ell\in\Lc",swap]&X\sqcup Y\arrow[r]&\bullet
+	\end{tikzcd}\]
+	It suffices to find a surjective map $s:X\to Y$ making the outer polygon in the following diagram commute:
+	\[\begin{tikzcd}[row sep=large]
+		X\arrow[dr,bend right,"\ell\in\Lc",swap]\arrow[r,"s"]&Y\arrow[d,"i",swap]\arrow[r,"p"]&\bullet\arrow[d,"r\in\Rc"]\\
+		&X\sqcup Y\arrow[r,swap,"q"]\arrow[ur,dashed,"\phi"]&\bullet
+	\end{tikzcd}\]
+	In this case we have a lift $\phi$ such that $\phi\ell=ps$ and $r\phi=q$. Since $\ell=is$, we have that $\phi is=ps$ and since $s$ is surjective $\phi i=p$, so $\phi$ is the desired lift.
+	
+	{\color{magenta}How can we find such a map $s$?
+		
+		Also pending: retracts, isomorphisms.}
+\end{proof}
+
+Blakers-Massey excision theorem (relies on technical lema, proof from Tom Dieck's book) $\implies$ Cellular approximation. Also $\implies$ Freudental theorem.
+
+\begin{defn}[Mapping cylinder]
+	
+\end{defn}
+\begin{exercise}
+	$X\to M_f\to Y$. Prove $X\to M_f$ is a cofibration.
+\end{exercise}
+
+\section{14 mar}
+
+\[(X^Y)^Z\cong Z^{Y\times X}\]
+
+\begin{align*}
+	g:X'\to X\\\\
+	\Hom(X,Y)\mapsto\Hom(X',Y)
+\end{align*}
+
+\begin{align*}
+	\Hom(A,B)&\cong\Hom(A,B')\text{ natual in }A\implies\\ \Hom(B,B)\cong\Hom(B,B')&\& \Hom(B',B)\cong\Hom(B',B')\\\implies B&\cong B'.
+\end{align*}
+
+
+\begin{itemize}
+	\item for $(\impliedby)$ commutativity of the hypotesis gives us commutativiuty of the rightmost square in the diagram below. In fact, the double square diagram below is a rephrasing of the hypothesis.
+	
+	\item Lemma 2. To build CW complexes
+	
+	\item {\color{cyan} Some good concepts are pushouts, coproducts, direct limits.}
+	\item What we did? Prove the bijection between the homotopic sets given an $n$-equivalence.
+	\item Defined smash.
+	\item $\pi_n$ of loop space is the same as $\pi_{n+1}$ of original space.
+	\item Then we moved on to homotopic pushouts and pullback. We saw, for instance, that if in a double square diagram each of the squares is a homotopic pushout, then so is the outer square.
+	\item We also looked at those exact sequences on cofibers, spaces of homotopy classes, cohomology and (barely) loop spaces. There was a lemma about this.
+	\item Next time: cofiber of cofiber is homotopy equivalence, then fibers, fibrations and probably *some name* theorem.
+\end{itemize}
+
+\section{18 mar}
+%Recall some basic definitions:
+
+%\begin{defn}
+%	A map $p:E\to B$ has the \textbf{\textit{homotopy lifting property (HLP)}} for the space $X$ if the following holds: for each homotopy $h:W\times I\to B$ and each map $a:X\to E$
+%\end{defn}
+\begin{lemma}[Yoneda]	
+	\[\left\{\text{Natural transformations }\Hom(-,X)\to F\right\}\cong F(X)\]
+\end{lemma}
+\begin{coro}
+	$(\Hom(-,X)\to\Hom(-,Y))\cong\Hom(X,Y)$.
+\end{coro}
+\begin{coro}
+	The correspondence $X\mapsto\Hom(-,X)$ is fully faithful, that is, the correspondence $\Hom(X,X')\to\Hom(\Hom(-,X),\Hom(-,X'))$ is injective and bijective. (The right hand side are natural transformations of functors.)
+\end{coro}
+\begin{proof}[Solution of exercise 1] The latter correspondence sends isomorphisms to isomorphisms. Since we are given a natural isomorphism in the problem, we conclude $X\cong X'$.
+\end{proof}
+
+\begin{lemma}
+	Let $E\times_BX$ be the pullback of
+	\[\begin{tikzcd}
+		&E\arrow[d,two heads]\\
+		X\arrow[r,"\simeq"]&B
+	\end{tikzcd}\]
+	be such that $E\to B$ is an homotopy fibration and $f:X\to B$ is a homotopy equivalence. Let
+		\[\begin{tikzcd}
+		E\times_BX\to E\arrow[r,dash,"\simeq"]\arrow[d,two heads]&E\arrow[d,two heads]\\
+		X\arrow[r,"\simeq"]&B
+	\end{tikzcd}\]
+	be the pullback. Then $E\times_BX\to E$ is a homotopy equivalence.
+\end{lemma}
+\begin{proof}
+	Let $g:B\to X$ be the homotopy inverse of $f$.
+	
+	\textbf{(Step 1)} Construct another pullback
+	\[\begin{tikzcd}
+		E\times_BB\arrow[r]\arrow[d,two heads]&X\times_BE\arrow[r]\arrow[d,two heads]&E\arrow[d,two heads]\\
+		B\arrow[r,"g",swap]&X\arrow[r,"f",swap]&B
+	\end{tikzcd}\]
+	
+	\textbf{(Step 2)} Constuct $E\to E\times_BB$.
+	
+	Consider
+	\[\begin{tikzcd}
+		E\arrow[rr,"\id"]\arrow[d]&&E\arrow[d,two heads]\\
+		E\times I\arrow[r,"f\times \id",swap]\arrow[rru,dashed]&B\times I\arrow[r]&B?
+	\end{tikzcd}\]
+	And then $E\to E\times_BB\to E\times_BX\to E$ is homotopic to the identity.
+	
+	Constructing the other homotopic inverse is the hard part.
+	
+	\[\begin{tikzcd}
+		Z\sqcup Z\arrow[d,swap,"f_1\sqcup f_2"]\arrow[r]\arrow[rdd,bend left]&I\times Z\arrow[ld,dashed]\arrow[d]\arrow[dd,bend left]\\
+		E\times_BX\arrow[r]\arrow[d]&E\arrow[d]\\
+		X\arrow[r,"\simeq"]&B
+	\end{tikzcd}\]
+\end{proof}
+\begin{coro}
+	$B\overset{f}{\to}B$ is homotopy equivalence and $E\to B$ is a fibration, in
+	\[\begin{tikzcd}
+		E\times_BB\arrow[d]\arrow[r]&E\arrow[d]\\
+		B\arrow[r,"f",swap]&B
+	\end{tikzcd}\]
+	$E\times_BB\to E$ is a homotopy equivalence.
+\end{coro}
+
+\begin{exercise}
+	If $fg$ is an isomorphism and $f$ and $g$ have right inverses, then $f$ and $g$ are isomorphisms.
+\end{exercise}
+
+\begin{lemma}
+	Let
+	\[\begin{tikzcd}
+		A\arrow[d,"g",tail]\arrow[r,"f"]&B\arrow[d]\\
+		X\arrow[r]&X\cup_AB
+	\end{tikzcd}\]
+	be a pushout with $A\to X$ a cofibration. Then the canonical map from the double mapping cylinder $M(f,g)\to X\cup_AB$ is a homotopy equivalence.
+\end{lemma}
+\begin{remark}
+	\[\begin{tikzcd}
+		A\arrow[d,"g"]\arrow[r,"f"]&B\\
+		X
+	\end{tikzcd}\qquad \begin{tikzcd}
+	A\arrow[d]\arrow[r,hook]&M_f\arrow[d]\\
+	X\arrow[r]&X\cup_AM_f\cong M(f,g)
+	\end{tikzcd}\]
+\end{remark}
+
+\begin{defn}\leavevmode
+	\begin{itemize}
+		\item The \textbf{\textit{homotopy pullback}} of a diagram
+	\[\begin{tikzcd}
+		&Y\arrow[d]\\
+		X\arrow[r]&Z
+	\end{tikzcd}\]
+	is
+	\[\begin{tikzcd}
+		X\times_{\ev_0}Z^I\times_{\ev_1}Y\arrow[d]\arrow[r]&Y\arrow[d]\\
+		X\arrow[r]&Z
+	\end{tikzcd}\]
+	Intuitively, for any $x\in X$ and $y\in Y$ this object has the space of paths connecting $x$ and $y$.
+	
+	\item The \textbf{\textit{homotopy fiber}} if $f:Y\to Z$ is the pullback of
+	\[\begin{tikzcd}
+		&Y\arrow[d,"f"]\\
+		pt\arrow[r]&Z
+	\end{tikzcd}\]
+	$F\subset Z^I\times_ZY\to Z$, where $F$ is the space of paths starting at $x$ and ending at the same point $f(y)$.
+	\end{itemize}
+\end{defn}
+\begin{remark}
+	The pullback of
+	\[\begin{tikzcd}
+		&Z^I\times_ZY\arrow[d]\\
+		X\arrow[r]&Z
+	\end{tikzcd}\]
+	is the motopy pullback of
+	\[\begin{tikzcd}
+		&Y\arrow[d]\\
+		X\arrow[r]&Z
+	\end{tikzcd}\]
+\end{remark}
+\begin{lemma}
+	If $X\to Z$ is a fibration then for
+	\[\begin{tikzcd}
+		&Y\arrow[d]\\
+		X\arrow[r,two heads]&Z
+	\end{tikzcd}\]
+	the map from the pullback to the homotopy pullback is a homotopy equivalence.
+\end{lemma}
+\begin{proof}
+	\[\begin{tikzcd}
+		X\times_Z\arrow[r]\arrow[d,"\simeq",dash]&Y\arrow[d,"\simeq"]\\
+		X\times_{\ev_0}Z^I\times_{\ev_1}Y\arrow[r,two heads]\arrow[d]&Z^I\times_ZY\arrow[d,two heads]\\
+		X\arrow[r]&Z
+	\end{tikzcd}\]
+\end{proof}
+
+Finally,
+\[\begin{tikzcd}
+	\hofib f_1\arrow[r]\arrow[d]&\hofib f\arrow[d,two heads]\arrow[r]&*\arrow[d]\\
+	*\arrow[r]&X\arrow[r,"f"]&Y
+\end{tikzcd}\]
+and
+\[\begin{tikzcd}
+	Z\arrow[dd]\arrow[r]&F(f)\arrow[d]\arrow[dd,bend left,two heads]\\
+	&X\times_YY^I\quad\arrow[d]\\
+	X\times I\arrow[r]\arrow[uur,dash]&X
+\end{tikzcd}\]
+and an exact sequence
+\[\begin{tikzcd}[column sep=tiny]
+	\Omega^2\hofib\arrow[r]&\Omega^2X\arrow[r]&\Omega^2Y\arrow[r]&\Omega\hofib f\arrow[r]&\Omega X\arrow[r]&\Omega Y\arrow[r]&\hofib f\arrow[r]&X\arrow[r,"f"]&Y
+\end{tikzcd}\]
+\begin{lemma}[Exactness]
+	$\forall z$, $[z\hofib f]\to[Z,X]\to[Z,Y]$.
+\end{lemma}
+and we get the exact sequence
+\[\begin{tikzcd}[column sep=tiny]
+	\pi_0(\Omega^2X)\arrow[r]&\pi_0(\Omega^2Y)\arrow[r]&\pi_0(\Omega\hofib f)\arrow[r]&\pi_0(\Omega X)\arrow[r]&\pi_0(\Omega Y)\arrow[r]&\pi_0(\hofib f)\arrow[r]&\pi_0(X)\arrow[r]&\pi_0(Y)
+\end{tikzcd}\]
+and then
+\[[S^0,\Omega^2X]=[\Sigma S^0,\Omega X]=[\Sigma^2 S^0,X]=[S^2,X]=\pi_2(X)\]
+
+
+\section{21 march}
+	
+We've been talking a lot about Hurewickz fibrations. Let's talk about Serre fibrations. Notice that H. fibration $\implies$ S. fibration. What is the most natural example of a Serre fibration?
+	
+\begin{prop}
+	Let $E$ be a fiber bundle with fiber $F$. Then $f$ is a Serre fibration.
+\end{prop}
+\begin{proof}
+	What sdoes it mean to be a Serre fibration? It means that
+	\[\begin{tikzcd}
+		I^n\arrow[r]\arrow[d]&E\arrow[d]\\
+		I^{n+1}=I^n\times I\arrow[r]\arrow[ur,dashed]&B
+	\end{tikzcd}\]
+	So if $\Uc$ is a covering of $B$ such that $f^{-1}U\cong U\times F$. By Lebesgue lemma, there is a $\delta>0$ such that for all $x\in I^{n+1}$, the ball $B(x,\delta)$ lies in some $f^{-1}U$ for some $U$.
+	
+	Then we subdivide $I^{n+1}$ in smaller cubes of the same size with diameter $<\delta$. So, each the image of each cube lies in some $U\in\Uc$.
+	
+	Then
+	\[\begin{tikzcd}
+		I^n\arrow[d]\arrow[r]&F\times U\arrow[d,two heads]\\
+		I^{n+1}\arrow[r]\arrow[ur,dashed]&U
+	\end{tikzcd}\]
+	has a lift for every little square because
+	\[\begin{tikzcd}
+		X\arrow[r]\arrow[d]&U\arrow[d]\\
+		X\times I\arrow[r]\arrow[ur,dashed]&pt
+	\end{tikzcd}\]
+	is always a fibration {\color{orange}(think about this)} and because pullbacks of fibrations are fibrations:
+	\[\begin{tikzcd}
+		U\times F\arrow[r,two heads]\arrow[d,two heads]&U\arrow[d,two heads]&\\
+		F\arrow[r,two heads]&pt
+	\end{tikzcd}\].
+	Then we may just add up the squares because
+	\[\begin{tikzcd}
+		D^n\arrow[d]\\
+		D^n\times I
+	\end{tikzcd}\]
+	and we're done.
+\end{proof}
+\begin{prop}[Construction of homotopy long exact sequence from relative homotopy long exact sequence]
+	Let $g:E\to B$ is a Serre fibration. $e\in E$, $g(e)= b$ and $g^{-1}=F$. Then consider the exact sequence in homotopy of the Serre fibration and the relative homotopy exact sequence. Then there is a long exact sequence (top row):
+	\[\begin{tikzcd}
+		\cdots\arrow[r]&\pi_n(F)\arrow[r]&\pi_n(E)\arrow[r]&\pi_n(B)\arrow[r]&\pi_{n-1}(F)\arrow[r]&\pi_{n-1}(E)\arrow[r]&\cdots\\
+		\cdots\arrow[r]&\pi_n(F)\arrow[r]\arrow[u,"="]&\pi_n(E)\arrow[r]\arrow[u,"="]&\pi_n(E,F)\arrow[r]\arrow[u,"\cong",dashed]&\pi_{n-1}(F)\arrow[r]\arrow[u,"="]&\pi_{n-1}(E)\arrow[r]\arrow[u,"="]&\cdots
+	\end{tikzcd}\]
+\end{prop}
+\begin{example}
+	We have shown that $\pi_2(\C P^n)\cong\Z$ using the Hopf fibration $S^1\hookrightarrow S^{2n+1}\to\C P^n$ and the fact that $\pi_k(S^n)=0$ for $k<n$.
+\end{example}
+\begin{thm}
+	Let $X$ be a CW-comples, $A,B\subset X$ subcomplexes, $C=A\cap B\neq\varnothing$, so
+	\[\begin{tikzcd}
+		C\arrow[r]\arrow[d]&A\arrow[d]\\
+		B\arrow[r]&X \arrow[ul, phantom, "\ulcorner", very near start]
+	\end{tikzcd}\]
+	is a pushout (this happens for inclusions, {\color{orange} check it?}).
+	
+	If $(A,C)$ is $n$-connected and $(B,C)$ is $m$-connected, then
+	\[\pi_i(A,C)\to\pi_i(X,B)\]
+	is an isomorphism for $i<m+n$ and sujerctive for $i=m+n$.
+\end{thm}
+
+\section{26 march}
+First I show some basic constructions from Tom Dieck (sec. 5.7). Let $f:X\to Y$ be a map. Consider the pullback
+\[\begin{tikzcd}
+	W(f)\arrow[r]\arrow[d,"(q\text{,}p)",swap]&Y^I\arrow[d,"(\ev_0\text{,}\ev_1)"]\\
+	X\times Y\arrow[r,"f\times\id",swap]&Y\times Y
+\end{tikzcd}\]
+where
+\begin{gather*}
+	W(f)=\{(x,w)\in X\times Y^I|f(x)=w(0)\},\\
+	q(x,w)=x,\quad p(x,w)=w(1).
+\end{gather*}
+Since $(\ev_0,\ev_1)$ is a fibration, the maps $(q,p)$, $q$ and $p$ are fibrations.
+
+Now suppose $f$ is a pointed map with base points $*$. Then $W(f)\to W'$ is given the base point $(*,k_*)$.
+
+Let $f:A\hookrightarrow X$ be an inclusion.
+
+\begin{defn}
+	By $(I^n,\partial I^n)\to (*\times_{\ev_0}X^I\times_{\ev_1}A,\pt)$ is the same as a map $I^n\times I\to X$ that satisfies:
+	\begin{itemize}
+		\item $I^n\{0\}\cup\partial I^n\times I\to*$.
+		\item $I^n\times\{1\}\to A$.
+	\end{itemize}
+\end{defn}
+It is fairly straightforward to show that
+\[\begin{tikzcd}
+	\cdots\arrow[r]&\Omega A\arrow[r]&\Omega X\arrow[r]&\hofib\arrow[r]&A\arrow[r]&X
+\end{tikzcd}\]
+\[\begin{tikzcd}
+	\pi_0(\nearrow)=&\pi_n(A)\arrow[r]&\pi_n(X)\arrow[r]\arrow[dr]&\pi_{n-1}(\hofib)\arrow[d,"\cong"]\arrow[r]&\pi_{n-1}(A)\arrow[r]&\pi_{n-1}(X)\\
+	&&&\pi_n(X,A)\arrow[ur]
+\end{tikzcd}\]
+\begin{thm}[Blakers-Massey 1]
+	Let 
+	\[\begin{tikzcd}
+		Q\arrow[r,"g"]\arrow[d,swap,"f"]&Y\arrow[d]\\
+		X\arrow[r]&P
+	\end{tikzcd}\]
+	be a homotopy pushout, $g$ is $m$ equivalence, $f$ is $n$-equivalence and $m,n\geq0$. Then $Q\to X\times_P^h$ is $(m+n-1)$-equivalence.
+\end{thm}
+\begin{thm}[Blakers-Massey 2]
+	$P$ is a CW-complex, $X$, $Y$ subcomplexes, $X\cap Y=Q\neq\varnothing$ (\textbf{\textit{strict pushout}})
+	\[\begin{tikzcd}
+		Q\arrow[r,tail]\arrow[d,tail]&Y\arrow[d,tail]\\
+		X\arrow[r,tail]&X\arrow[ul, phantom, "\lrcorner", very near start]
+	\end{tikzcd}\]
+	Then $\pi_i(Y,\Q)\to\pi_i(P,X)$ is epi for $i=m+n$ and iso for $0\leq i<m+n$.
+\end{thm}
+\begin{thm}[Blakers-Massey 3]
+	$P=X\cup Y$, $X$ and $Y$ are open in $P$, $X\cap Y=Q\neq\varnothing$.
+\end{thm}
+We proved the third version based on Tom Dieck's proof.
+\begin{defn}\leavevmode
+\begin{itemize}
+	\item 	A map is a \textbf{\textit{$k$-equivalence}} if the induced map on the $i$th homotopy group is an isomorphism for $i<k$ and an epimorphism for $i=k$.
+	\item $K_p(W):=\{x\in W:\text{ at least $p$ coordinates of $x$ are < the same coordinates of the center of }W\}$
+\end{itemize}
+\end{defn}
+\begin{lemma}
+	Let $W$ be a cube in $\R^d$ with $\dim W\leq d$. If for all faces $W'$ of $\partial W$, $f(W')\in A\implies w'\in K_p(W')$, then there is a homotopy $f\simeq g\;\rel\partial W$ such that $g(w)\in A\implies w\in K_p(W)$.
+\end{lemma}
+%		B\arrow[r]&X \arrow[ul, phantom, "\lrcorner", very near start]
+%		B\arrow[r]&X \arrow[ul, phantom, "\ulcorner", very near start]
+%	\printbibliography
+\end{document}
