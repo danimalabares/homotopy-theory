@@ -1,10 +1,9 @@
 \documentclass{article}
 \usepackage{titlesec}
-%Referencias
-\usepackage[style=authortitle,backend=bibtex]{biblatex}
-\addbibresource{analysis.bib}
 
-%Paquetes
+\usepackage[style=authortitle,backend=bibtex]{biblatex}
+\addbibresource{homotopy-theory.bib}
+
 \usepackage[left=4cm, right=4cm]{geometry}
 \usepackage{palatino}%Fuente
 \usepackage{eulervm}%Fuente
@@ -41,6 +40,9 @@
 	citebordercolor=white,
 	filebordercolor=white
 }
+\usepackage{cleveref}
+
+\numberwithin{equation}{section}
 
 \makeatletter %Hide section number
 \def\@seccntformat#1{%
@@ -48,13 +50,14 @@
 	\csname the#1\endcsname\quad
 	\fi}
 \makeatother
+\makeatletter %Hide subsection number
+\def\@seccntformat#1{%
+	\expandafter\ifx\csname c@#1\endcsname\c@subsection\else
+	\csname the#1\endcsname\quad
+	\fi}
+\makeatother
 \usepackage{sectsty}
 \sectionfont{\fontsize{13}{20}\selectfont}
-\usepackage{cleveref}
-
-%Referencias
-%\usepackage[style=authortitle,backend=bibtex]{biblatex}
-%\addbibresource{analysis.bib}
 
 \definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
 \definecolor{azure}{rgb}{0.0, 0.5, 1.0}
@@ -74,9 +77,6 @@
 \definecolor{persianblue}{rgb}{0.11, 0.22, 0.73}
 \definecolor{persiangreen}{rgb}{0.0, 0.65, 0.58}
 \definecolor{persianyellow}{rgb}{0.9, 0.89, 0.0}
-
-\theoremstyle{definition}
-\newtheorem{theorem}{Theorem}[section]
 
 \declaretheoremstyle[headfont=\color{trueblue}\normalfont\bfseries,]{colored1}
 \declaretheoremstyle[headfont=\color{forestgreen}\normalfont\bfseries,]{colored2}
@@ -100,8 +100,6 @@
 \declaretheorem[style=colored8,numbered=no,name=claim]{claim}
 \declaretheorem[style=colored9,numbered=no,name=definition]{defn}
 \declaretheorem[style=colored10,numbered=no,name=question]{question}
-
-\numberwithin{equation}{section}
 
 \newcommand{\A}{\mathbb{A}}
 \newcommand{\R}{\mathbb{R}}
@@ -163,8 +161,8 @@
 \DeclareMathOperator{\coker}{coker}
 
 \begin{document}
-{\LARGE algebraic topology}
-	
+{\Huge homotopy theory}
+\tableofcontents
 \section{abstract nonsense}
 \begin{defn}\leavevmode
 	\begin{itemize}
@@ -242,70 +240,77 @@
 		Being a monomorphism in a category $\Cc$ means equivalently that it is an monomorphism in the opposite category $\Cc^{\op}$.
 	\end{itemize}
 \end{defn}
-
-\section{elementary concepts}
-
-For the proof of long exact homotopy sequence see theorem 4.3 in Hatcher. I couldn't properly explain the last paragraph
-
-\begin{defn}\leavevmode
-\begin{itemize}
-	\item Topological spaces and homotopy classes of maps form a quotient category of $\Top$, the \textbf{\textit{homotopy category $\hTop$}}, where comoposition of homotopy classes is induced by composition of representing maps. If $f:X\to Y$ represents an isomorphism in $\hTop$, then $f$ is called a \textbf{\textit{homotopy equivalence}} or \textbf{\textit{$\operatorname{h}$-equivalence}}. In explicit termins this means $f:X\to Y$ is a homotopy equivalence if there exists $g:Y\to X$, a \textbf{\textit{homotopy inverse of $f$}}, such that $gf$ and $fg$ are both homotopic to the identity. Spaces $X$ and $Y$ are called \textbf{\textit{homotopy equivalent}} or of the same \textbf{\textit{homotopy type}} if there exists a homotopy equivalence $X\to Y$. A space is \textbf{\textit{contractible}} if it is homotopy equivalent to a point. A map $f:X\to Y$ is \textbf{\textit{null homotopic}} if it is homotopic to a constant map.
-
-	\item Let $(X,x_0)$ be a pointed topological space and $s_0\in S^n$. The elements of the \textbf{\textit{$n$-th homotopy group}} are homotopy classes of maps $(S^n,s_0)\to (X,x_0)$. Equivalently, they are homotopy classes of maps $(I^n,\partial I^n)\to (X,x_0)$. (Homotopies are required to preserve the base points, $s_0\mapsto x_0$ or $\partial I^n\mapsto x_0$.)
-
-	\begin{thm}
-		$\pi_n(X,x_0)$ is an abelian group for all $n\in\N$.
-	\end{thm}
-	\item Let $A$ be a subspace of $X$ and $x_0\in A$. The elements of the \textbf{\textit{relative homotopy group $\pi_n(X,A,x_0)$}} are homotopy classes of maps $(I^n,\partial I^n,J^{n-1})\to (X,A,x_0)$ where $J^{n-1}$ is the union of all but one face of $I^n$.
-	
-	The elements of such a group are homotopy classes of based maps $D^n\to X$ which carry the boundary $S^{n-1}$ into $A$. Two maps $f,g$ are called \textbf{\textit{homotopic relative to $A$}} if they are homotopic by a basepoint-preserving homotopy $F:D_n\times[0,1]\to X$ such that, for each $p$ in $S^{n-1}$ and $t$ in $[0,1]$, the element $F(p,t)$ is in $A$. Ordinary homotopy groups are recovered for the case in which $A=\{x_0\}$.
-	
-	Recall that, in general, a homotopy of maps $H_t:X\to Y$ is called \textbf{\textit{relative to $A\subset X$}} if $H_t|_A$ is constant.
-	\begin{remark}
-		This construction is motivated by looking for the kernel of the induced map $i_*:\pi_n(A,x_0)\to\pi_n(X,x_0)$ by the inclusion. This map is in general not injective, and the kernel consists of 
-	\end{remark}
-	\item For any pair $(X,A,x)$ we have a long exact sequence
-	\[\begin{tikzcd}[column sep=small]
-		\pi_n(A,x)\arrow[r]&\pi_{n}(X,x)\arrow[r]&\pi_{n-1}(A,x)\arrow[r]&\pi_{n-1}(X,x)\arrow[r]&\cdots\arrow[r]&\pi_0(X,x)
-	\end{tikzcd}\]
-	\item $n$-connected spaces, $n$-connected pair, $n$-equivalence.
-\end{itemize}
-\section{the right category to work at}
-\begin{itemize}
-	\item We don't care so much about $\Top$. We care much more about $\CGWH$, the full subcategory of $\Top$ on \textbf{\textit{compactly generated wakly Hausdorff}} spaces.
-	\item $X$ is \textbf{\textit{compactly generated}} if, for any subset $C\subset X$, and for all continuous maps $f:K\to X$ from compact Housdorff spaces, \[\text{if } f^{-1}(C) \text{is closed in }K\text{, then } C\text{ is closed}.\]
-	\begin{claim}
-		If $X$ is compactly generated, then $X$ is weakly Hausdorff if the diagonal subset $\Delta_X\subset X\times X$ is {\color{orange}$k$-closed}.
-	\end{claim}
-	In $\CGWH$, $\Hom(X,Y)$ is a space with the compact-open topology. {\color{orange} This is a compactly generated space, $\mathbf{k}(\Hom(X,Y))$}. 
-	\begin{align*}
-		\Map(X,Y):=\text{ the space of maps }X\to Y.\\
-		\Map(X\times Y,Z)\cong\Map(X,\Map(Y,Z))\\
-		\Hom(X\times Y,Z)\cong \Hom(X,\Map(Y,Z))
-	\end{align*}
-	In the last line, product is product in $\CGWH$, not in $\Top$.
-	
-	The functor $-\times Y$ is left adjoint to $\Map(Y,-)$.
-	
-	\item A \textbf{\textit{homotopy}} $X\times I\to Y$ is the same as a map $X\to \Map(I,Y)$.
-	\item A map $A\to X$ is a \textbf{\textit{Hurewicz cofibration}} for any $g:X\to Y$ and any homotopy $H:A\times I\to Y$ such that \[\begin{tikzcd}
-		A\times\{0\}\arrow[r]\arrow[d]&A\times I\arrow[d]\\
-		X\arrow[r,"g",swap]&Y
-	\end{tikzcd}\]
-	there is $H:X\times I\to Y$,
-	\[\begin{tikzcd}
-		X\times\{0\}\arrow[r]\arrow[d,"g"]&A\times I\arrow[d]\\
-		X\times I\arrow[r,"H'",swap]&Y
-	\end{tikzcd}\]
-	
-	\[\begin{tikzcd}
-		A\times I\arrow[dr,"H"]\arrow[d]\\
-		X\times I\arrow[r,"H'",swap]&Y
-	\end{tikzcd}\]
-	{\color{cyan}(This is a standard notion, you can look it up.)}
-\end{itemize}
+\subsection{derived categories}
+We want to construct a category where weak homotopy equivalences are isomorphisms.
+\begin{defn}
+	Let $\Cc$ be a category and $\Wc\subset\Mor(\Cc)$. The \textbf{\textit{localization of $\Cc$ at $\Wc$}} is another category $\Cc[\Wc^{-1}]$ and a functor $L:…$ so that…
 \end{defn}
-	
+\begin{thm}[Uniqueness]
+	Up to equivalence
+\end{thm}
+\begin{thm}[Localization by parts]
+	$\Tc\subset\Sc\subset\Mor(\Cc)$, $\tilde{S}=L_\Tc(\Sc)$.
+\end{thm}
+\section{elementary concepts}
+\begin{defn}\leavevmode
+	\begin{itemize}
+		\item Topological spaces and homotopy classes of maps form a quotient category of $\Top$, the \textbf{\textit{homotopy category $\hTop$}}, where comoposition of homotopy classes is induced by composition of representing maps. If $f:X\to Y$ represents an isomorphism in $\hTop$, then $f$ is called a \textbf{\textit{homotopy equivalence}} or \textbf{\textit{$\operatorname{h}$-equivalence}}. In explicit termins this means $f:X\to Y$ is a homotopy equivalence if there exists $g:Y\to X$, a \textbf{\textit{homotopy inverse of $f$}}, such that $gf$ and $fg$ are both homotopic to the identity. Spaces $X$ and $Y$ are called \textbf{\textit{homotopy equivalent}} or of the same \textbf{\textit{homotopy type}} if there exists a homotopy equivalence $X\to Y$. A space is \textbf{\textit{contractible}} if it is homotopy equivalent to a point. A map $f:X\to Y$ is \textbf{\textit{null homotopic}} if it is homotopic to a constant map.
+		
+		\item Let $(X,x_0)$ be a pointed topological space and $s_0\in S^n$. The elements of the \textbf{\textit{$n$-th homotopy group}} are homotopy classes of maps $(S^n,s_0)\to (X,x_0)$. Equivalently, they are homotopy classes of maps $(I^n,\partial I^n)\to (X,x_0)$. (Homotopies are required to preserve the base points, $s_0\mapsto x_0$ or $\partial I^n\mapsto x_0$.)		
+		\begin{thm}
+			$\pi_n(X,x_0)$ is an abelian group for all $n\in\N$.
+		\end{thm}
+		\item Let $A$ be a subspace of $X$ and $x_0\in A$. The elements of the \textbf{\textit{relative homotopy group $\pi_n(X,A,x_0)$}} are homotopy classes of maps $(I^n,\partial I^n,J^{n-1})\to (X,A,x_0)$ where $J^{n-1}$ is the union of all but one face of $I^n$.
+		
+		The elements of such a group are homotopy classes of based maps $D^n\to X$ which carry the boundary $S^{n-1}$ into $A$. Two maps $f,g$ are called \textbf{\textit{homotopic relative to $A$}} if they are homotopic by a basepoint-preserving homotopy $F:D_n\times[0,1]\to X$ such that, for each $p$ in $S^{n-1}$ and $t$ in $[0,1]$, the element $F(p,t)$ is in $A$. Ordinary homotopy groups are recovered for the case in which $A=\{x_0\}$.
+		
+		Recall that, in general, a homotopy of maps $H_t:X\to Y$ is called \textbf{\textit{relative to $A\subset X$}} if $H_t|_A$ is constant.
+		\begin{remark}
+			This construction is motivated by looking for the kernel of the induced map $i_*:\pi_n(A,x_0)\to\pi_n(X,x_0)$ by the inclusion. This map is in general not injective, and the kernel consists of 
+		\end{remark}
+		\item For any pair $(X,A,x)$ we have a long exact sequence
+		\[\begin{tikzcd}[column sep=small]
+			\pi_n(A,x)\arrow[r]&\pi_{n}(X,x)\arrow[r]&\pi_{n-1}(A,x)\arrow[r]&\pi_{n-1}(X,x)\arrow[r]&\cdots\arrow[r]&\pi_0(X,x)
+		\end{tikzcd}\]
+		\item $n$-connected spaces, $n$-connected pair, $n$-equivalence.
+	\end{itemize}
+\end{defn}
+\section{the right category}
+	\begin{itemize}
+		\item We don't care so much about $\Top$. We care much more about $\CGWH$, the full subcategory of $\Top$ on \textbf{\textit{compactly generated wakly Hausdorff}} spaces.
+		\item $X$ is \textbf{\textit{compactly generated}} if, for any subset $C\subset X$, and for all continuous maps $f:K\to X$ from compact Housdorff spaces, \[\text{if } f^{-1}(C) \text{is closed in }K\text{, then } C\text{ is closed}.\]
+		\begin{claim}
+			If $X$ is compactly generated, then $X$ is weakly Hausdorff if the diagonal subset $\Delta_X\subset X\times X$ is {\color{orange}$k$-closed}.
+		\end{claim}
+		In $\CGWH$, $\Hom(X,Y)$ is a space with the compact-open topology. {\color{orange} This is a compactly generated space, $\mathbf{k}(\Hom(X,Y))$}. 
+		\begin{align*}
+			\Map(X,Y):=\text{ the space of maps }X\to Y.\\
+			\Map(X\times Y,Z)\cong\Map(X,\Map(Y,Z))\\
+			\Hom(X\times Y,Z)\cong \Hom(X,\Map(Y,Z))
+		\end{align*}
+		In the last line, product is product in $\CGWH$, not in $\Top$.
+		
+		The functor $-\times Y$ is left adjoint to $\Map(Y,-)$.
+		
+		\item A \textbf{\textit{homotopy}} $X\times I\to Y$ is the same as a map $X\to \Map(I,Y)$.
+		\item A map $A\to X$ is a \textbf{\textit{Hurewicz cofibration}} for any $g:X\to Y$ and any homotopy $H:A\times I\to Y$ such that \[\begin{tikzcd}
+			A\times\{0\}\arrow[r]\arrow[d]&A\times I\arrow[d]\\
+			X\arrow[r,"g",swap]&Y
+		\end{tikzcd}\]
+		there is $H:X\times I\to Y$,
+		\[\begin{tikzcd}
+			X\times\{0\}\arrow[r]\arrow[d,"g"]&A\times I\arrow[d]\\
+			X\times I\arrow[r,"H'",swap]&Y
+		\end{tikzcd}\]
+		
+		\[\begin{tikzcd}
+			A\times I\arrow[dr,"H"]\arrow[d]\\
+			X\times I\arrow[r,"H'",swap]&Y
+		\end{tikzcd}\]
+		{\color{cyan}(This is a standard notion, you can look it up.)}
+	\end{itemize}
+
+
 \begin{example}
 	$\partial D^n\to D$ is a Huerwich cofibration. {\color{orange} Why?}
 \end{example}
@@ -378,8 +383,8 @@ Blakers-Massey excision theorem (relies on technical lema, proof from Tom Dieck'
 \begin{exercise}
 	$X\to M_f\to Y$. Prove $X\to M_f$ is a cofibration.
 \end{exercise}
-
-\section{14 mar}
+\section{lecture notes}
+\subsection{14 mar}
 
 \[(X^Y)^Z\cong Z^{Y\times X}\]
 
@@ -407,7 +412,7 @@ Blakers-Massey excision theorem (relies on technical lema, proof from Tom Dieck'
 	\item Next time: cofiber of cofiber is homotopy equivalence, then fibers, fibrations and probably *some name* theorem.
 \end{itemize}
 
-\section{18 mar}
+\subsection{18 mar}
 %Recall some basic definitions:
 
 %\begin{defn}
@@ -432,7 +437,7 @@ Blakers-Massey excision theorem (relies on technical lema, proof from Tom Dieck'
 		X\arrow[r,"\simeq"]&B
 	\end{tikzcd}\]
 	be such that $E\to B$ is an homotopy fibration and $f:X\to B$ is a homotopy equivalence. Let
-		\[\begin{tikzcd}
+	\[\begin{tikzcd}
 		E\times_BX\to E\arrow[r,dash,"\simeq"]\arrow[d,two heads]&E\arrow[d,two heads]\\
 		X\arrow[r,"\simeq"]&B
 	\end{tikzcd}\]
@@ -490,31 +495,31 @@ Blakers-Massey excision theorem (relies on technical lema, proof from Tom Dieck'
 		A\arrow[d,"g"]\arrow[r,"f"]&B\\
 		X
 	\end{tikzcd}\qquad \begin{tikzcd}
-	A\arrow[d]\arrow[r,hook]&M_f\arrow[d]\\
-	X\arrow[r]&X\cup_AM_f\cong M(f,g)
+		A\arrow[d]\arrow[r,hook]&M_f\arrow[d]\\
+		X\arrow[r]&X\cup_AM_f\cong M(f,g)
 	\end{tikzcd}\]
 \end{remark}
 
 \begin{defn}\leavevmode
 	\begin{itemize}
 		\item The \textbf{\textit{homotopy pullback}} of a diagram
-	\[\begin{tikzcd}
-		&Y\arrow[d]\\
-		X\arrow[r]&Z
-	\end{tikzcd}\]
-	is
-	\[\begin{tikzcd}
-		X\times_{\ev_0}Z^I\times_{\ev_1}Y\arrow[d]\arrow[r]&Y\arrow[d]\\
-		X\arrow[r]&Z
-	\end{tikzcd}\]
-	Intuitively, for any $x\in X$ and $y\in Y$ this object has the space of paths connecting $x$ and $y$.
-	
-	\item The \textbf{\textit{homotopy fiber}} if $f:Y\to Z$ is the pullback of
-	\[\begin{tikzcd}
-		&Y\arrow[d,"f"]\\
-		pt\arrow[r]&Z
-	\end{tikzcd}\]
-	$F\subset Z^I\times_ZY\to Z$, where $F$ is the space of paths starting at $x$ and ending at the same point $f(y)$.
+		\[\begin{tikzcd}
+			&Y\arrow[d]\\
+			X\arrow[r]&Z
+		\end{tikzcd}\]
+		is
+		\[\begin{tikzcd}
+			X\times_{\ev_0}Z^I\times_{\ev_1}Y\arrow[d]\arrow[r]&Y\arrow[d]\\
+			X\arrow[r]&Z
+		\end{tikzcd}\]
+		Intuitively, for any $x\in X$ and $y\in Y$ this object has the space of paths connecting $x$ and $y$.
+		
+		\item The \textbf{\textit{homotopy fiber}} if $f:Y\to Z$ is the pullback of
+		\[\begin{tikzcd}
+			&Y\arrow[d,"f"]\\
+			pt\arrow[r]&Z
+		\end{tikzcd}\]
+		$F\subset Z^I\times_ZY\to Z$, where $F$ is the space of paths starting at $x$ and ending at the same point $f(y)$.
 	\end{itemize}
 \end{defn}
 \begin{remark}
@@ -571,10 +576,10 @@ and then
 \[[S^0,\Omega^2X]=[\Sigma S^0,\Omega X]=[\Sigma^2 S^0,X]=[S^2,X]=\pi_2(X)\]
 
 
-\section{21 march}
-	
+\subsection{21 march}
+
 We've been talking a lot about Hurewickz fibrations. Let's talk about Serre fibrations. Notice that H. fibration $\implies$ S. fibration. What is the most natural example of a Serre fibration?
-	
+
 \begin{prop}
 	Let $E$ be a fiber bundle with fiber $F$. Then $f$ is a Serre fibration.
 \end{prop}
@@ -633,7 +638,7 @@ We've been talking a lot about Hurewickz fibrations. Let's talk about Serre fibr
 	is an isomorphism for $i<m+n$ and sujerctive for $i=m+n$.
 \end{thm}
 
-\section{26 march}
+\subsection{26 march}
 First I show some basic constructions from Tom Dieck (sec. 5.7). Let $f:X\to Y$ be a map. Consider the pullback
 \[\begin{tikzcd}
 	W(f)\arrow[r]\arrow[d,"(q\text{,}p)",swap]&Y^I\arrow[d,"(\ev_0\text{,}\ev_1)"]\\
@@ -686,15 +691,17 @@ It is fairly straightforward to show that
 \end{thm}
 We proved the third version based on Tom Dieck's proof.
 \begin{defn}\leavevmode
-\begin{itemize}
-	\item 	A map is a \textbf{\textit{$k$-equivalence}} if the induced map on the $i$th homotopy group is an isomorphism for $i<k$ and an epimorphism for $i=k$.
-	\item $K_p(W):=\{x\in W:\text{ at least $p$ coordinates of $x$ are < the same coordinates of the center of }W\}$
-\end{itemize}
+	\begin{itemize}
+		\item 	A map is a \textbf{\textit{$k$-equivalence}} if the induced map on the $i$th homotopy group is an isomorphism for $i<k$ and an epimorphism for $i=k$.
+		\item $K_p(W):=\{x\in W:\text{ at least $p$ coordinates of $x$ are < the same coordinates of the center of }W\}$
+	\end{itemize}
 \end{defn}
 \begin{lemma}
 	Let $W$ be a cube in $\R^d$ with $\dim W\leq d$. If for all faces $W'$ of $\partial W$, $f(W')\in A\implies w'\in K_p(W')$, then there is a homotopy $f\simeq g\;\rel\partial W$ such that $g(w)\in A\implies w\in K_p(W)$.
 \end{lemma}
 %		B\arrow[r]&X \arrow[ul, phantom, "\lrcorner", very near start]
 %		B\arrow[r]&X \arrow[ul, phantom, "\ulcorner", very near start]
-%	\printbibliography
+
+\addcontentsline{toc}{section}{References}
+\printbibliography
 \end{document}
