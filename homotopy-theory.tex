@@ -17,9 +17,10 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{dutchcal}
-\usepackage{tikz,tikz-cd}
 \usepackage{xcolor}
-\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
+\usepackage{tikz,tikz-cd}
+\tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+		cells={nodes={scale=#1}}}}
 \usetikzlibrary{%
 	matrix,%
 	calc,%
@@ -41,18 +42,7 @@
 \usepackage{cleveref}
 \numberwithin{equation}{section}
 
-\makeatletter %Hide section number
-\def\@seccntformat#1{%
-	\expandafter\ifx\csname c@#1\endcsname\c@section\else
-	\csname the#1\endcsname\quad
-	\fi}
-\makeatother
-\makeatletter %Hide subsection number
-\def\@seccntformat#1{%
-	\expandafter\ifx\csname c@#1\endcsname\c@subsection\else
-	\csname the#1\endcsname\quad
-	\fi}
-\makeatother
+\setcounter{secnumdepth}{0}
 \usepackage{sectsty}
 \sectionfont{\fontsize{13}{20}\selectfont}
 
@@ -86,14 +76,14 @@
 \declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored9}
 \declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored10}
 
-\declaretheorem[style=colored1,numberwithin=section,name=Theorem]{thm}
-\declaretheorem[style=colored2,numberwithin=section,numberlike=thm,name=proposition]{prop}
-\declaretheorem[style=colored3,numberwithin=section,numberlike=thm,name=lemma]{lemma}
-\declaretheorem[style=colored4,numberwithin=section,numberlike=thm,name=corollary]{coro}
+\declaretheorem[style=colored1,name=Theorem]{thm}
+\declaretheorem[style=colored2,numberlike=thm,name=proposition]{prop}
+\declaretheorem[style=colored3,numberlike=thm,name=lemma]{lemma}
+\declaretheorem[style=colored4,numberlike=thm,name=corollary]{coro}
 \declaretheorem[style=colored5,numbered=no,name=example]{example}
 \declaretheorem[style=colored5,numbered=no,name=examples]{exemplos}
 \declaretheorem[style=colored6,numbered=no,name=exercise]{exercise}
-\declaretheorem[style=colored7,numberwithin=section,name=remark]{remark}
+\declaretheorem[style=colored7,numbered=no,name=remark]{remark}
 \declaretheorem[style=colored8,numbered=no,name=claim]{claim}
 \declaretheorem[style=colored9,numbered=no,name=definition]{defn}
 \declaretheorem[style=colored10,numbered=no,name=question]{question}
@@ -156,6 +146,8 @@
 \DeclareMathOperator{\hofib}{hofib}
 \DeclareMathOperator{\rel}{rel}
 \DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Arr}{Arr}
+\DeclareMathOperator{\Funct}{Funct}
 
 \begin{document}
 {\Huge homotopy theory}
@@ -163,6 +155,24 @@
 \section{abstract nonsense}
 \begin{defn}\leavevmode
 	\begin{itemize}
+		\item An \textbf{\textit{initial object}} in a category $\Cc$ is an object $\varnothing$ such that for any object $x\in\Cc$ there is a unique morphism $\varnothing\to x$ with source $\varnothing$ and target $x$.
+		
+		\item \label{defn:arrow-cat}
+		 For $\Cc$ any category, its \textbf{\textit{arrow category}} $\Arr(\Cc)$ is the category such that
+		\begin{itemize}
+			\item an object $a$ of $\Arr(C)$ is a morphism $a:a_0\to a_1$ of $\Cc$,
+			\item a morphism $f:a\to b$ of $\Arr(\Cc)$ is a commutative square
+			\[\begin{tikzcd}
+				a_0\arrow[r,"f_0"]\arrow[d,swap,"a"]&b_0\arrow[d,"b"]\\
+				a_1\arrow[r,swap,"f_1"]&b_1
+			\end{tikzcd}\]
+			in $\Cc$,
+			\item composition in $\Arr(\Cc)$ is given simply by placing commutative squares side by side to get a commutative oblong.
+		\end{itemize}
+		This is osomorphic to the functor category
+		\[\Arr(\Cc):=\Funct(I,C)=[I,C]=C^I\]
+		for $I$ the intervale category $\{0\to 1\}$.
+		
 		\item A \textbf{\textit{pullback}} of the morphisms $f$ and $g$ consists of an object $P$ and two morphisms $p_1:P\to X$ and $p_2:P\to Y$ satisfying the following universal property:
 		\[\begin{tikzcd}
 			Q\arrow[rrd,bend left,"q_2"]\arrow[ddr,"q_1",swap,bend right]\arrow[dr,dashed,"\phi"]\\
@@ -187,6 +197,13 @@
 			X\arrow[r,"i_1",swap]\arrow[drr,bend right,swap,"j_1"]&X\sqcup Y\arrow[dr,dashed,"\phi"]\\
 			&&Q
 		\end{tikzcd}\]
+		\begin{remark}
+			More generally, for $S$ any set and $F:S\to\Cc$ a collection of objects in $\Cc$ indexed by $S$, their \textbf{\textit{coproduct}} is an object
+			\[\coprod_{s\in S}F(s)\]
+			equipped with maps
+			\[F(s)\to\coprod_{s\in S}F(s)\]
+			such that this is universal among objects with maps from $F(s)$.
+		\end{remark}
 		\item A morphism $i$ has the \textbf{\textit{left lifting property with respect to a morphism $p$}} and $p$ has the \textbf{\textit{right lifting property with respect to $i$}} if for each morphisms $f$ and $g$, if the outer square in the following diagram commutes, there exists $\phi$ (I think not necessarily unique) completing the diagram:
 		\[\begin{tikzcd}[row sep=large]
 			A\arrow[r,"f"]\arrow[d,"i",swap]&X\arrow[d,"p"]\\
@@ -237,17 +254,6 @@
 		Being a monomorphism in a category $\Cc$ means equivalently that it is an monomorphism in the opposite category $\Cc^{\op}$.
 	\end{itemize}
 \end{defn}
-\subsection{derived categories}
-We want to construct a category where weak homotopy equivalences are isomorphisms.
-\begin{defn}
-	Let $\Cc$ be a category and $\Wc\subset\Mor(\Cc)$. The \textbf{\textit{localization of $\Cc$ at $\Wc$}} is another category $\Cc[\Wc^{-1}]$ and a functor $L:…$ so that…
-\end{defn}
-\begin{thm}[Uniqueness]
-	Up to equivalence
-\end{thm}
-\begin{thm}[Localization by parts]
-	$\Tc\subset\Sc\subset\Mor(\Cc)$, $\tilde{S}=L_\Tc(\Sc)$.
-\end{thm}
 \section{elementary concepts}
 \begin{defn}\leavevmode
 	\begin{itemize}
@@ -267,7 +273,7 @@ We want to construct a category where weak homotopy equivalences are isomorphism
 		\end{prop}
 				
 		\item Let $A$ be a subspace of $X$ and $x_0\in A$. The elements of the \textbf{\textit{relative homotopy group $\pi_n(X,A,x_0)$}} are homotopy classes of maps $(I^n,\partial I^n,J^{n-1})\to (X,A,x_0)$ where $J^{n-1}$ is the union of all but one face of $I^n$. That is,
-		\[\pi_{n+1}(X,A,*)=[(I^{n+1},\partial I^{n+1},J^n),(X,A,*)].\]
+		\[\pi_{n+1}(X,A,*)=[(I^{n+1},\partial I^{n+1},J^n),(X,A,x_0)].\]
 		
 		The elements of such a group are homotopy classes of based maps $D^n\to X$ which carry the boundary $S^{n-1}$ into $A$. Two maps $f,g$ are called \textbf{\textit{homotopic relative to $A$}} if they are homotopic by a basepoint-preserving homotopy $F:D_n\times[0,1]\to X$ such that, for each $p$ in $S^{n-1}$ and $t$ in $[0,1]$, the element $F(p,t)$ is in $A$. Ordinary homotopy groups are recovered for the case in which $A=\{x_0\}$.
 		\begin{remark}
@@ -286,118 +292,222 @@ We want to construct a category where weak homotopy equivalences are isomorphism
 		\item Two pointed spaces $(X,x_0)$ and $(Y,y_0)$ are \textbf{\textit{$n$-equivalent}} if $\pi_i(X,x_0)\cong\pi_i(Y,y_0)$ for all $i\leq n$.
 	\end{itemize}
 \end{defn}
-\section{Whitehead theorem}
-\begin{thm}[4.5, \cite{hatcher-at}]
-	If a map $f:X\to Y$ between connected CW complexes induces isomorphisms $f_*:\pi_n(X)\to\pi_n(Y)$ for all $n$, then $f$ is a homotopy equivalence. In case $f$ is the inclusion of a cubcomplex $X\hookrightarrow Y$, the conlusion is stronger: $X$ is a deformation retract of $Y$.
-\end{thm}
+
 \section{the right category}
-	\begin{itemize}
-		\item We don't care so much about $\Top$. We care much more about $\CGWH$, the full subcategory of $\Top$ on \textbf{\textit{compactly generated wakly Hausdorff}} spaces.
-		\item $X$ is \textbf{\textit{compactly generated}} if, for any subset $C\subset X$, and for all continuous maps $f:K\to X$ from compact Housdorff spaces, \[\text{if } f^{-1}(C) \text{is closed in }K\text{, then } C\text{ is closed}.\]
-		\begin{claim}
-			If $X$ is compactly generated, then $X$ is weakly Hausdorff if the diagonal subset $\Delta_X\subset X\times X$ is {\color{orange}$k$-closed}.
-		\end{claim}
-		In $\CGWH$, $\Hom(X,Y)$ is a space with the compact-open topology. {\color{orange} This is a compactly generated space, $\mathbf{k}(\Hom(X,Y))$}. 
-		\begin{align*}
-			\Map(X,Y):=\text{ the space of maps }X\to Y.\\
-			\Map(X\times Y,Z)\cong\Map(X,\Map(Y,Z))\\
-			\Hom(X\times Y,Z)\cong \Hom(X,\Map(Y,Z))
-		\end{align*}
-		In the last line, product is product in $\CGWH$, not in $\Top$.
-		
-		The functor $-\times Y$ is left adjoint to $\Map(Y,-)$.
-		
-		\item A \textbf{\textit{homotopy}} $X\times I\to Y$ is the same as a map $X\to \Map(I,Y)$.
-		\item A map $A\to X$ is a \textbf{\textit{Hurewicz cofibration}} for any $g:X\to Y$ and any homotopy $H:A\times I\to Y$ such that \[\begin{tikzcd}
-			A\times\{0\}\arrow[r]\arrow[d]&A\times I\arrow[d]\\
-			X\arrow[r,"g",swap]&Y
-		\end{tikzcd}\]
-		there is $H:X\times I\to Y$,
-		\[\begin{tikzcd}
-			X\times\{0\}\arrow[r]\arrow[d,"g"]&A\times I\arrow[d]\\
-			X\times I\arrow[r,"H'",swap]&Y
-		\end{tikzcd}\]
-		
-		\[\begin{tikzcd}
-			A\times I\arrow[dr,"H"]\arrow[d]\\
-			X\times I\arrow[r,"H'",swap]&Y
-		\end{tikzcd}\]
-		{\color{cyan}(This is a standard notion, you can look it up.)}
-	\end{itemize}
-
-
+\begin{itemize}
+	\item We don't care so much about $\Top$. We care much more about $\CGWH$, the full subcategory of $\Top$ on \textbf{\textit{compactly generated wakly Hausdorff}} spaces.
+	\item $X$ is \textbf{\textit{compactly generated}} if, for any subset $C\subset X$, and for all continuous maps $f:K\to X$ from compact Housdorff spaces, \[\text{if } f^{-1}(C) \text{is closed in }K\text{, then } C\text{ is closed}.\]
+	\begin{claim}[What I picked up from the lecture]
+		If $X$ is compactly generated, then $X$ is weakly Hausdorff if the diagonal subset $\Delta_X\subset X\times X$ is {\color{orange}$k$-closed}.
+	\end{claim}
+	From \cite{may}: The ordinary category of spaces allows pathology that obstructs a clean development of the foundations. The homotopy and homology groups of spaces are supported on compact subspaces, and it turns out that if one assumes a separation property that is a little weaker than the Hausdorff property, then one can refine the point-set topology of spaces to eliminate such pathology without changing these invariants.
+	
+	One major source of point-set level pathology can be passage to quotient spaces. Use of compactly generated topologies alleviates this.
+	\begin{prop}
+		If $X$ is compactly generated and $\pi:X\to Y$ is a quotient map, then $Y$ is compactly generated if and only if $(\pi\times \pi)^{-1}(\Delta Y)$ is closed in $X\times X$
+	\end{prop}
+	The interpretation is that a quotient space of a compactly generated space by a “closed equivalence relation” is compactly generated.
+	
+	{\color{cyan}Several other propositions follow in \cite{may}. Now some other notes from the lectures:}
+	
+	In $\CGWH$, $\Hom(X,Y)$ is a space with the compact-open topology. {\color{orange} This is a compactly generated space, $\mathbf{k}(\Hom(X,Y))$}. 
+	\begin{align*}
+		\Map(X,Y):=\text{ the space of maps }X\to Y.\\
+		\Map(X\times Y,Z)\cong\Map(X,\Map(Y,Z))\\
+		\Hom(X\times Y,Z)\cong \Hom(X,\Map(Y,Z))
+	\end{align*}
+	In the last line, product is product in $\CGWH$, not in $\Top$.
+	
+	The functor $-\times Y$ is left adjoint to $\Map(Y,-)$.
+\end{itemize}
+\section{cofibrations}
+\begin{itemize}
+	\item A \textbf{\textit{homotopy}} $X\times I\to Y$ is the same as a map $X\to \Map(I,Y)$.
+	\item A map $A\to X$ is a \textbf{\textit{Hurewicz cofibration}} for any $g:X\to Y$ and any homotopy $H:A\times I\to Y$ such that \[\begin{tikzcd}
+		A\times\{0\}\arrow[r]\arrow[d]&A\times I\arrow[d]\\
+		X\arrow[r,"g",swap]&Y
+	\end{tikzcd}\]
+	there is $H:X\times I\to Y$,
+	\[\begin{tikzcd}
+		X\times\{0\}\arrow[r]\arrow[d,"g"]&A\times I\arrow[d]\\
+		X\times I\arrow[r,"H'",swap]&Y
+	\end{tikzcd}\]
+	
+	\[\begin{tikzcd}
+		A\times I\arrow[dr,"H"]\arrow[d]\\
+		X\times I\arrow[r,"H'",swap]&Y
+	\end{tikzcd}\]
+\end{itemize}
 \begin{example}
-	$\partial D^n\to D$ is a Huerwich cofibration. {\color{orange} Why?}
+$\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 \end{example}
-\begin{defn}
-	A \textbf{\textit{model structure}} on a category $\Ac$ is a choice of subcategories $\Wc,\Cc,\Fc$ called \textbf{\textit{weak-equivalences}}, \textbf{\textit{cofibrations}} and \textbf{\textit{fibrations}} with the following properties:
+\section{model structures}
+\begin{defn}[\cite{riehl}]
+	A \textbf{\textit{weak factorization system $(\Lc,\Rc)$}} on a category $\Mc$ is comprised o two clases of morphisms $\Lc$ and $\Rc$ so that
 	\begin{enumerate}
-		\item Given $\bullet\overset{f}{\to}\bullet\overset{g}{\to}\bullet$, if either 2 out of 3 among $f,g,f\circ g$ are in $\Wc$ then all of them are.
-		\item $(\Cc\cap\Wc,\Fc)$ and $(\Cc,\Fc\cap\Wc)$ are both weak factorization systems.
-		$(\Bc,\Dc)$ is a weak factorization system.
-		\begin{enumerate}
-			\item Any morphism in $\Ac$ can be factored as a morphism in $\Bc$ followed by a morphism in $\Dc$.
-			\item \begin{tikzcd}
-				\bullet\arrow["f",d]\arrow[r]&\arrow[d,"g"]\\
-				\bullet\arrow[ur,dashed,"\exists"]\arrow[r]&\bullet
-			\end{tikzcd}
-			{\color{orange} Lifts}
-		\end{enumerate}
+		\item Every morphism in $\Mc$ may be factored as a morphism in $\Lc$ followed by a morphism in $\Rc$:
+		\[\begin{tikzcd}
+			\bullet\arrow[rr,"f"]\arrow[rd,"\Lc\ni\ell",swap]&&\bullet\\
+			&\bullet\arrow[ru,"r\in\Rc"]
+		\end{tikzcd}\]
+		\item The maps in $\Lc$ have the \textbf{\textit{left lifting property}} with respect to each map in $\Rc$ and equivalently the maps in $\Rc$ have the \textbf{\textit{right lifting property}} with respect to each map in $\Lc$, that is, any commutative square
+		\[\begin{tikzcd}
+			\bullet\arrow[d,"\Lc\ni\ell",swap]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
+			\bullet\arrow[ur,dashed]\arrow[r]&\bullet
+		\end{tikzcd}\]
+		admits a diagonal filler as indicated making both triangles commute.
+		\item The classes $\Lc$ and $\Rc$ are each closed under retracts in the arrow category: given a commutative diagram
+		\[\begin{tikzcd}
+			\bullet\arrow[r]\arrow[d,"t",swap]\arrow[rr,bend left,no head,shift left=.3]\arrow[rr,bend left,no head,shift right=.3]&\bullet\arrow[r]\arrow[d,"s"]&\bullet\arrow[d,"t"]\\
+			\bullet\arrow[r]\arrow[rr,bend right,no head, shift right=.3]\arrow[rr,bend right,no head, shift left=.3]&\bullet\arrow[r]&\bullet
+		\end{tikzcd}\]
+		if $s$ is in that class then so is its retract $t$.
 	\end{enumerate}
+\end{defn}
+\begin{defn}[Lecture]
+A \textbf{\textit{model structure}} on a category $\Ac$ is a choice of subcategories $\Wc,\Cc,\Fc$ called \textbf{\textit{weak-equivalences}}, \textbf{\textit{cofibrations}} and \textbf{\textit{fibrations}} with the following properties:
+\begin{enumerate}
+	\item Given $\bullet\overset{f}{\to}\bullet\overset{g}{\to}\bullet$, if either 2 out of 3 among $f,g,f\circ g$ are in $\Wc$ then all of them are.
+	\item $(\Cc\cap\Wc,\Fc)$ and $(\Cc,\Fc\cap\Wc)$ are both weak factorization systems.
+	$(\Bc,\Dc)$ is a weak factorization system.
+	\begin{enumerate}
+		\item Any morphism in $\Ac$ can be factored as a morphism in $\Bc$ followed by a morphism in $\Dc$.
+		\item \begin{tikzcd}
+			\bullet\arrow["f",d]\arrow[r]&\arrow[d,"g"]\\
+			\bullet\arrow[ur,dashed,"\exists"]\arrow[r]&\bullet
+		\end{tikzcd}
+		{\color{orange} Lifts}
+	\end{enumerate}
+\end{enumerate}
 \end{defn}
 Two interesting model category structures on $\CGWH$.
 \begin{enumerate}
-	\item Hurewicz model structure (Strom).
-	\begin{itemize}
-		\item Cofibrations:= Huerwicz cofibrations.
-		\item Fibrations:= maps $E\to B$ such that for all spaces $X$ [Photo1].
-		\item Weak equivalences:= homotopy equivalences.
-	\end{itemize}
-	\item Quillen model structure.
-	\begin{itemize}
-		\item Cofibrations = retracts of relative cell complexes.
-		\item (Serre) Fibrations = \begin{tikzcd}
-			D^n\arrow[r]\arrow[d]&E\arrow[d]\\
-			D^n\times I\arrow[ur,dashed]\arrow[r]&B
-		\end{tikzcd}
-		\item Weak equivalences: $f:X\to Y$
-	\end{itemize}
-\end{enumerate}
-Hurewicz cofibration $f:A\to X$ in $\CGWH$.
+\item Hurewicz model structure (Strom).
 \begin{itemize}
-	\item $f$ is injective …
-	\item $f:A\to X$ is a cofibration …
+	\item Cofibrations:= Huerwicz cofibrations.
+	\item Fibrations:= maps $E\to B$ such that for all spaces $X$ [Photo1].
+	\item Weak equivalences:= homotopy equivalences.
 \end{itemize}
+\item Quillen model structure.
+\begin{itemize}
+	\item Cofibrations = retracts of relative cell complexes.
+	\item (Serre) Fibrations = \begin{tikzcd}
+		D^n\arrow[r]\arrow[d]&E\arrow[d]\\
+		D^n\times I\arrow[ur,dashed]\arrow[r]&B
+	\end{tikzcd}
+	\item Weak equivalences: $f:X\to Y$
+\end{itemize}
+\end{enumerate}
 
 \begin{exercise}[3.1.8 from Riehl's "Homotopical categories: ..."]
-	Verify that the class of morphisms $\Lc$ characterized by the left lifting property against a fixed class of morphisms $\Rc$ is closed under coproducts, closed under retracts, and contains the isomorphisms.
+Verify that the class of morphisms $\Lc$ characterized by the left lifting property against a fixed class of morphisms $\Rc$ is closed under coproducts, closed under retracts, and contains the isomorphisms.
 \end{exercise}
 \begin{proof}[Solution]
-	\textbf{\textit{(Coproducts.)}} Let $i$ be the coproduct of a a morphism $\ell\in\Lc$. Consider the following lifting problem of $i$ with respect to a morphism $r\in\Rc$:
-	\[\begin{tikzcd}[row sep=large]
-		&Y\arrow[d,"i",swap]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
-		X\arrow[r,"\ell\in\Lc",swap]&X\sqcup Y\arrow[r]&\bullet
-	\end{tikzcd}\]
-	It suffices to find a surjective map $s:X\to Y$ making the outer polygon in the following diagram commute:
-	\[\begin{tikzcd}[row sep=large]
-		X\arrow[dr,bend right,"\ell\in\Lc",swap]\arrow[r,"s"]&Y\arrow[d,"i",swap]\arrow[r,"p"]&\bullet\arrow[d,"r\in\Rc"]\\
-		&X\sqcup Y\arrow[r,swap,"q"]\arrow[ur,dashed,"\phi"]&\bullet
-	\end{tikzcd}\]
-	In this case we have a lift $\phi$ such that $\phi\ell=ps$ and $r\phi=q$. Since $\ell=is$, we have that $\phi is=ps$ and since $s$ is surjective $\phi i=p$, so $\phi$ is the desired lift.
-	
-	{\color{magenta}How can we find such a map $s$?
-		
-		Also pending: retracts, isomorphisms.}
+\textbf{\textit{(Coproducts.)}} {\color{magenta} Sergey: Coproduct of morphisms $A_i\to B_i$ in a category $\Cc$ is the obvious morphism $\sqcup A_i \to \sqcup B_i$. (Because in this construction morphisms $A_i\to B_i$ are seen as objects of what's called the arrow category of the category $\Cc$)}
+
+Suppose the maps $\ell_i:A_i\to B_i$ are in $\Lc$. Then their coproduct in the arrow category is the obvious map $\coprod A_i\to\coprod B_i$.
+
+Explicitly, their coproduct is an arrow $\coprod\ell_i$ and a collection of maps $f_i:\ell_i\to\coprod\ell_i$ such that for any other object $m:A\to B$ in the arrow category and a map $g:\ell\to m$, the following diagram is completed uniquely:
+\[\begin{tikzcd}[scale cd=1.2]
+	\ell_i\arrow[r,"f_i"]\arrow[rr,bend right,"g",swap]&\coprod\ell_i\arrow[r,dashed,"\exists!"]&m
+\end{tikzcd}\qquad\forall i\]
+So we conclude that the source of $\coprod\ell_i$ is $\coprod A_i$ and its target $\coprod B_i$. Indeed, we really looking at
+\[\begin{tikzcd}[scale cd=1.2]
+	A_i\arrow[r,"\ell_i"]\arrow[d,"f_i^1",swap]&B_i\arrow[d,"f_i^2"]\\
+	\coprod A_i\arrow[r,"\coprod\ell_i"]\arrow[d,"\exists!",dashed,swap]&\coprod B_i\arrow[d,dashed,"\exists!"]\\
+	A\arrow[r,swap,"m"]&B
+\end{tikzcd}\]
+
+Now consider the following lifting problem with respect to a morphism $r\in\Rc$:
+\[\begin{tikzcd}[row sep=large]
+	\coprod A_i\arrow[d,swap,"\coprod\ell_i"]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
+	\coprod B_i\arrow[r]&\bullet
+\end{tikzcd}\]
+Since $\ell_i\in\Lc$, we have maps
+\[\begin{tikzcd}[row sep=large]
+	A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
+	B_i\arrow[r]\arrow[rru,dashed]&\coprod B_i\arrow[r]&\bullet
+\end{tikzcd}\]
+which in turn means we have unique maps
+\[\begin{tikzcd}[row sep=large]
+	A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
+	B_i\arrow[r]\arrow[rru]&\coprod B_i\arrow[r]\arrow[ur,dashed]&\bullet
+\end{tikzcd}\]
+by the universal property of the coproduct $\coprod B_i$.
+
+So, to check that the lower-right triangle commutes, it would be sufficient to show that the map $B_i\to\coprod B_i$ "can be cancelled" since
+\[\begin{tikzcd}[row sep=large]
+	A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&{\color{red}\bullet}\arrow[d,"r\in\Rc",red]\\
+	{\color{red}B_i}\arrow[r,red]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r]\arrow[ur,dashed,red]&{\color{red}\bullet}
+\end{tikzcd}\quad
+\begin{array}{c}
+	\text{is already}\\
+	\text{the same as}
+\end{array}\quad
+\begin{tikzcd}[row sep=large]
+A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
+{\color{red}B_i}\arrow[r,red]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r,red]\arrow[ur,dashed]&{\color{red}\bullet}
+\end{tikzcd}\]
+Likeways, to make sure that the remaining triangle commutes we observe that
+\[\begin{tikzcd}[row sep=large]
+	{\color{red}A_i}\arrow[r,red]\arrow[d,"\Lc\ni\ell_i",swap]&{\color{red}\coprod A_i}\arrow[d,red]\arrow[r]&{\color{red}\bullet}\arrow[d,"r\in\Rc"]\\
+	B_i\arrow[r]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r]\arrow[ur,dashed,red]&\bullet
+\end{tikzcd}\quad
+\begin{array}{c}
+	\text{is already}\\
+	\text{the same as}
+\end{array}
+\quad
+\begin{tikzcd}[row sep=large]
+	{\color{red}A_i}\arrow[r,red]\arrow[d,"\Lc\ni\ell_i",swap]&{\color{red}\coprod A_i}\arrow[d]\arrow[r,red]&{\color{red}\bullet}\arrow[d,"r\in\Rc"]\\
+	B_i\arrow[r]\arrow[rru]&\coprod B_i\arrow[r]\arrow[ur,dashed]&\bullet
+\end{tikzcd}\]
+%\begin{tikzcd}[row sep=large]
+%	{\color{red}A_i}\arrow[r]\arrow[d,red,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&{\color{red}\bullet}\arrow[d,"r\in\Rc"]\\
+%	{\color{red}B_i}\arrow[r,red]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r]\arrow[ur,dashed,red]&\bullet
+%\end{tikzcd}\]
 \end{proof}
 
-Blakers-Massey excision theorem (relies on technical lema, proof from Tom Dieck's book) $\implies$ Cellular approximation. Also $\implies$ Freudental theorem.
-
-\begin{defn}[Mapping cylinder]
-	
-\end{defn}
+\begin{remark}[Plan]
+	Blakers-Massey excision theorem (relies on technical lema, proof from Tom Dieck's book) $\implies$ Cellular approximation. Also $\implies$ Freudental theorem.
+\end{remark}
 \begin{exercise}
 	$X\to M_f\to Y$. Prove $X\to M_f$ is a cofibration.
 \end{exercise}
+\section{Whitehead theorem}
+\iffalse\begin{defn}
+	The appropriate analogue of the Cartesian product in the category of based spaces is the \textbf{\textit{smash product}} $X\wedge Y$ defined by
+	\[X\wedge Y=X\times Y/X\vee Y.\]
+	Here $X\vee Y$ is viewed as the subspace of $X\times Y$ consisting of those pairs $(x,y)$ such that either $x$ is the basepoint of $X$ or $y$ is the basepoint of $Y$.
+\end{defn}\fi
+We introduce a large class of spaces, called CW complexes, between which a weak equivalence is necessarily a homotopy equivalence. Thus, for such spaces, the homotopy groups are, in a sense, a complete set of invariants. Moreover, we shall see that every space is weakly equivalent to a CW complex.
+\begin{defn}[\textit{May}]\leavevmode
+	\begin{enumerate}
+		\item A CW complex $X$ is a space $X$ which is the union of an expanding sequence of subspaces $X^n$ such that, inductively, $X^0$ is a discrete set of points (called vertices) and $X^{n+1}$ is the pushout obtained from $X^n$ by attaching disks $D^{n+1}$ along \textbf{\textit{attaching maps}} $j:S^n\to X^n$. {\color{cyan}Thus $X^{n+1}$ is the quotient space obtained from $X^n\cup(J_{n+1}\times D^{n+1})$ by identifying $(j,x)$ with $j(x)$ for $x\in S^n$, where $J_{n+1}$ is the discrete set of such attaching maps $j$}. Each resulting map $D^{n+1}\to X$ is called a \textbf{\textit{cell}}. The subspace $X^n$ is called the \textbf{\textit{$n$-skeleton}} of $X$.
+			\[\begin{tikzcd}
+			S^n\arrow[r,"i",hook]\arrow[d,swap,"j"]&D^{n+1}\arrow[d,]\\
+			X^n\arrow[r]&X^{n+1}\arrow[ul, phantom, "\ulcorner", very near start]
+		\end{tikzcd}\]
+	\end{enumerate}
+\end{defn}
+\begin{lemma}[HELP]
+	content...
+\end{lemma}
+\begin{thm}[Whitehead, \textit{May}]
+	If $X$ is a CW complex and $e:Y\to Z$ is an $n$-equivalence, then $e_*:[X,Y]\to[X,Z]$ is a bijection if $\dim X<n$ and surjection if $\dim X=n$.
+\end{thm}
+\begin{thm}[Whitehead, \textit{May}]\label{thm:W2}
+	An $n$-equivalence between CW complexes of dimension less than $n$ is a homotopy equivalence. A weak equivalence between CW complexes is a homotopy equivalence.
+\end{thm}
+\begin{thm}[4.5, \textit{Hatcher}]
+	If a map $f:X\to Y$ between connected CW complexes induces isomorphisms $f_*:\pi_n(X)\to\pi_n(Y)$ for all $n$, then $f$ is a homotopy equivalence. In case $f$ is the inclusion of a subcomplex $X\hookrightarrow Y$, the conlusion is stronger: $X$ is a deformation retract of $Y$.
+\end{thm}
+\begin{exercise}[Hatcher 4.1.12]
+	Show that an $n$-connected, $n$-dimensional CW complex is contractible.
+\end{exercise}
+\begin{proof}[Solution]
+	Just recall that $n$-connectedness means that $\pi_i(X)=0$ for all $i\leq n$, which means that $X$ is contractible by \cref{W2}.
+\end{proof}
 \section{lecture notes}
 \subsection{14 mar}
 
