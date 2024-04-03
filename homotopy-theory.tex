@@ -21,8 +21,8 @@
 \usepackage{dutchcal}
 \usepackage{xcolor}
 \usepackage{tikz,tikz-cd}
-\tikzcdset{scale cd/.style={every label/.append style={scale=#1},
-		cells={nodes={scale=#1}}}}
+\tikzcdset{row sep/normal=1cm}
+\tikzcdset{scale cd/.style={every label/.append style={scale=#1},cells={nodes={scale=#1}}}}
 \usetikzlibrary{%
 	matrix,%
 	calc,%
@@ -152,6 +152,8 @@
 \DeclareMathOperator{\Funct}{Funct}
 \DeclareMathOperator{\eq}{eq}
 \DeclareMathOperator{\coeq}{coeq}
+\DeclareMathOperator{\Cyl}{Cyl}
+\DeclareMathOperator{\colim}{colim}
 
 \begin{document}
 {\Huge homotopy theory}
@@ -253,7 +255,7 @@
 				\item If $X$, $Y$ and $Z$ are sets and $f,g$ are functions, the pushout of $f$ and $g$ is the disjoint union of $X$ and $Y$ where elements sharing a common preimage in $Z$ are identified, i.e. $P=\left(X\coprod Y\right)/\sim$ where $\sim$ is the finest equivalence relation such that $f(z)\sim g(z)$ for all $z\in Z$.
 			
 			In particular, if $X$ and $Y$ are subsets of some larger set $W$ and $Z$ is their intersection, with $f$ and $g$ the inclusion maps of $Z$ into $X$ and $Y$, then the pusout can be canonically identified with the union $X\cup Y\subseteq W$.
-			\item \label{adjuntion-space}The construcion of \textbf{\textit{adjuntion spaces}} is an example of pushouts in $\Top$. More precisely, if $Z$ is a subspace of $Y$ and $g:Z\to Y$ is the inclusion map, we can glue $Y$ to another space $X$ along $Z$ using an \textbf{\textit{attaching map}} $f:Z\to X$. The result is the \textbf{\textit{adjuntion space}} $X\cup_f Y$ which is just the pushout of $f$ and $g$. More generally, all identification spaces may be regarded as pushouts in this way. See \cref{defn:CW-complex}.
+			\item \label{adjunction-space}The construcion of \textbf{\textit{adjunction spaces}} is an example of pushouts in $\Top$. More precisely, if $Z$ is a subspace of $Y$ and $g:Z\to Y$ is the inclusion map, we can glue $Y$ to another space $X$ along $Z$ using an \textbf{\textit{attaching map}} $f:Z\to X$. The result is the \textbf{\textit{adjunction space}} $X\cup_f Y$ which is just the pushout of $f$ and $g$. More generally, all identification spaces may be regarded as pushouts in this way. See \cref{defn:CW-complex}.
 			\end{itemize}
 		\end{example}
 		\item A \textbf{\textit{product}} of $X$ and $Y$ is an object $X\sqcup Y$ and a pair of morphisms $p_1:X\sqcap Y\to X$, $p_2:X\sqcap Y\to Y$ satisfying the following universal property:
@@ -275,11 +277,6 @@
 			\[F(s)\to\coprod_{s\in S}F(s)\]
 			such that this is universal among objects with maps from $F(s)$.
 		\end{remark}
-		\item A morphism $i$ has the \textbf{\textit{left lifting property with respect to a morphism $p$}} and $p$ has the \textbf{\textit{right lifting property with respect to $i$}} if for each morphisms $f$ and $g$, if the outer square in the following diagram commutes, there exists $\phi$ (I think not necessarily unique) completing the diagram:
-		\[\begin{tikzcd}[row sep=large]
-			A\arrow[r,"f"]\arrow[d,"i",swap]&X\arrow[d,"p"]\\
-			B\arrow[r,"g",swap]\arrow[ur,dashed,"\phi"]&Y
-		\end{tikzcd}\]
 		\item The \textbf{\textit{kernel}} of a morphism is that part of its domain which is sent to zero. Formally, in a category with an initial object 0 and pullbacks, the \textbf{\textit{kernel $\ker f$}} of a morphism $f:A\to B$ is the pullback $\ker(f)\to A$ along $f$ of the unique morphism $0\to B$
 		
 		More explicitly, this characterizes the object $\ker(f)$ as \textit{the} object (unique up to isomorphism) that satisfies the following universal property:
@@ -352,7 +349,7 @@
 		\end{remark}
 		\item For any pair $(X,A,x)$ we have a long exact sequence
 		\[\begin{tikzcd}[column sep=small]
-			\pi_n(A,x_0)\arrow[r,"i_*"]&\pi_{n}(X,x_0)\arrow[r,"j_*"]&\pi_{n-1}(A,x_0)\arrow[r,"\partial"]&\pi_{n-1}(X,x_0)\arrow[r]&\cdots\arrow[r]&\pi_0(X,x_0)
+			\pi_n(A,x_0)\arrow[r,"i_*"]&\pi_{n}(X,x_0)\arrow[r,"j_*"]&\pi_{n-1}(X,A,x_0)\arrow[r,"\partial"]&\pi_{n-1}(A,x_0)\arrow[r]&\cdots\arrow[r]&\pi_0(X,x_0)
 		\end{tikzcd}\]
 		where $i$ and $j$ are the inclusions $(A,x_0)\hookrightarrow(X,x_0)$ and $(X,x_0,x_0)\hookrightarrow(X,A,x_0)$. The map $\partial$ comes from restricting maps $(I^n,\partial I^n,J^{n-1})\to (X,A,x_0)$ to $I^{n-1}$, or by restricting maps $(D^n,S^{n-1},s_0)\to (X,A,x_0)$. The map, called the \textbf{\textit{boundary map}}, is a homomorphism when $n>1$.
 		
@@ -382,36 +379,143 @@
 	{\color{cyan}Several other propositions follow in \cite{may}. Now some other notes from the lectures:}
 	
 	In $\CGWH$, $\Hom(X,Y)$ is a space with the compact-open topology. {\color{orange} This is a compactly generated space, $\mathbf{k}(\Hom(X,Y))$}. 
+\begin{remark}
+	(Also see \href{https://en.wikipedia.org/wiki/Currying#Function_spaces}{wiki on currying})
 	\begin{align*}
 		\Map(X,Y):=\text{ the space of maps }X\to Y.\\
 		\Map(X\times Y,Z)\cong\Map(X,\Map(Y,Z))\\
 		\Hom(X\times Y,Z)\cong \Hom(X,\Map(Y,Z))
 	\end{align*}
 	In the last line, product is product in $\CGWH$, not in $\Top$.
-	
-	The functor $-\times Y$ is left adjoint to $\Map(Y,-)$.
+
+The functor $-\times Y$ is left adjoint to $\Map(Y,-)$.
+\end{remark}
 \end{itemize}
 \section{cofibrations}
-\begin{itemize}
-	\item A \textbf{\textit{homotopy}} $X\times I\to Y$ is the same as a map $X\to \Map(I,Y)$.
-	\item A map $A\to X$ is a \textbf{\textit{Hurewicz cofibration}} for any $g:X\to Y$ and any homotopy $H:A\times I\to Y$ such that \[\begin{tikzcd}
+\begin{defn}\leavevmode
+	\begin{itemize}
+		\item A morphism $i$ has the \textbf{\textit{left lifting property with respect to a morphism $p$}} and $p$ has the \textbf{\textit{right lifting property with respect to $i$}} if for each morphisms $f$ and $g$, if the outer square in the following diagram commutes, there exists $\phi$ (I think not necessarily unique) completing the diagram:
+\[\begin{tikzcd}[row sep=large]
+	A\arrow[r,"f"]\arrow[d,"i",swap]&X\arrow[d,"p"]\\
+	B\arrow[r,"g",swap]\arrow[ur,dashed,"\phi"]&Y
+\end{tikzcd}\]
+		\item (\href{https://en.wikipedia.org/wiki/Cofibration}{wiki}) In mathematics, in particular in homotopy theory, a continuous map between topological spaces $i:A\to X$ is a \textbf{\textit{cofibration}} if it has the \textbf{\textit{homotopy extension property}} with respect to all topological spaces $S$.
+		
+		That is, $i$ is a cofibration if
+		\begin{itemize}
+			\item for each topological space $S$,
+			\item and for any continuous maps $f,f':A\to S$
+			\item and $g:X\to S$ with $g\circ i=f$,
+			\item for any homotopy $h:A\times I\to S$ from $f$ to $f'$,
+		\end{itemize}
+		there is a continuous map $g':X\to S$ and a homotopy $h':X\times I\to S$ from $g$ to $g'$ such that
+		\[h'(i(a),t)=h(a,t)\qquad\text{for all }a\in A\text{ and }t\in I.\]
+		
+		\item (\href{https://en.wikipedia.org/wiki/Homotopy_extension_property}{wiki}) Let $X$ be a topological space and let $A\subset X$. We say that the pair $(X,A)$ has the \textbf{\textit{homotopy extension property}} if, given a homotopy $f_\bullet:A\to Y^I$ and a map $\tilde{f}_0:X\to Y$ such that
+		\[\tilde{f}_0\circ\iota=f_0\]
+		{\color{cyan}(so $\tilde{f}$ is the lift of $f_0:A\to Y$)} then there exists an \textbf{\textit{extension}} of $f_\bullet$ to a homotopy $\tilde{f}_\bullet:X\to Y^I$ such that $\tilde{ƒ}_\bullet\circ\iota=f_\bullet$.
+		
+		That is,
+		\[\begin{tikzcd}
+			A\arrow[r,"f_\bullet"]\arrow[d,swap,"\iota"]&Y^I\arrow[d,"\pi_0"]\\
+			X\arrow[ur,dashed,"\tilde{f}_\bullet"]\arrow[r,swap,"\tilde{f}_0"]&Y
+		\end{tikzcd}\]
+		{\color{persiangreen}So there's some \href{https://en.wikipedia.org/wiki/Currying#Function_spaces}{currying} to make usual homotopies $f_\bullet:A\times I\to Y$ look like $f_\bullet:A\to Y^I$. Or, as said in our lectures, !a homotopy $X\times I\to Y$ is the same as a map $X\to \Map(I,Y)$".}
+		
+		\item (\cite{may}) A map $i:A\to X$ is a \textbf{\textit{cofibration}} if it satisfies the \textbf{\textit{homotopy extension property (HEP)}}. This means that if $h\circ i_0=f\circ i$ in the diagram
+		\[\begin{tikzcd}
+			A\arrow[rr,"i_0"]\arrow[dd,"i",swap]&&A\times I\arrow[dd,"i\times\id"]\arrow[dl,"h",swap]\\
+			&Y\\
+			X\arrow[ur,"f"]\arrow[rr,"i_0",swap]&&X\times I\arrow[ul,dashed,"\tilde{h}"]
+		\end{tikzcd}\]
+		then there exists $\tilde{h}$ that makes the diagram commute.
+		
+	\item In traditional topology, one usually means a Hurewicz cofibration. A map  $i:A\to X$ between topological spaces is a \textbf{\textit{Hurewicz cofibration}} if it satisfies the homotopy extension property.
+	
+	Let's say it one more time: for any $g:X\to Y$ and any homotopy $H:A\times I\to Y$ such that \[\begin{tikzcd}
 		A\times\{0\}\arrow[r]\arrow[d]&A\times I\arrow[d]\\
 		X\arrow[r,"g",swap]&Y
 	\end{tikzcd}\]
-	there is $H:X\times I\to Y$,
+	there is $H':X\times I\to Y$,
 	\[\begin{tikzcd}
 		X\times\{0\}\arrow[r]\arrow[d,"g"]&A\times I\arrow[d]\\
 		X\times I\arrow[r,"H'",swap]&Y
 	\end{tikzcd}\]
-	
+	such that
 	\[\begin{tikzcd}
 		A\times I\arrow[dr,"H"]\arrow[d]\\
 		X\times I\arrow[r,"H'",swap]&Y
 	\end{tikzcd}\]
 \end{itemize}
+\end{defn}
 \begin{example}
 $\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 \end{example}
+\begin{exercise}
+	Prove that an inclusion $f : A \to X$ is a Hurewicz cofibration if and only if $A \times I \cup X \times \{0\}$ is a retract of $X \times I$.
+\end{exercise}
+\begin{defn}[Mapping cylinder]\leavevmode
+	\begin{itemize}
+		\item (\cite{may}) Although HEP is expressed in terms of general test diagrams, there is a certain universal test diagram {\color{cyan}(i.e. make the dashed map unique---up to something maybe)}. Namely, we can let $Y$ in our original test diagram be the \textbf{\textit{mapping cylinder}}
+	\[Mi\equiv X\cup_i(A\times I)\]
+	which is the pushout of $i$ and $i_0$. Indeed, suppose that we can construct a map $r$ that makes the following diagram commute
+	\[\begin{tikzcd}
+		A\arrow[rr,"i_0"]\arrow[dd,"i",swap]&&A\times I\arrow[dd,"i\times\id"]\arrow[dl]\\
+		&Mi\\
+		X\arrow[ur]\arrow[rr,"i_0",swap]&&X\times I\arrow[ul,dashed,"r"]
+	\end{tikzcd}\]
+	By the universal property of the pushouts, given maps $f$ and $h$ in our original test diagram induce a map $Mi\to Y$, and its comoposite with $r$ gives a homotopy $\tilde{h}$ that makes the diagram commute. {\color{cyan}So just saying that $Mi$ is universal.}
+	\item (\href{https://ncatlab.org/nlab/show/mapping+cylinder}{nLab}) Given a continuous map $f:X\to Y$ of topological spaces, one can define its \textbf{\textit{mapping cylinder}} as a pushout
+	\[\begin{tikzcd}
+		X\arrow[r,"f"]\arrow[d]&Y\arrow[d]\\
+		X\times I\arrow[r,swap,"(\sigma_0)_*(f)"]&\Cyl(f)
+	\end{tikzcd}\]
+	in $\Top$, where $I=[0,1]$ and $\sigma:X\to X\times I$ is given by $x\mapsto(x,0)$.
+	
+	Set theoretically, the mapping cyllinder is usually represented as que quotient space
+	\[\left(X\times I\coprod Y\right)\Big/\sim\]
+	where $\sim$ is the smallest equivalence relation identifying $(x,0)\sim f(x)$ for all $x\in X$.
+	
+	\item (\href{https://en.wikipedia.org/wiki/Mapping_cylinder}{wiki}) The \textbf{\textit{mapping cylinder}} of a function $f$ between topological spaces $X$ and $Y$ is the quotient
+	\[M_f=(([0,1]\times X)\amalg Y)\big/\sim\]
+	where $\amalg$ denotes disjoint union, and $\sim$ is the equivalence relation generated by
+	\[(0,x)\sim f(x)\text{ for each }x\in X.\]
+	{\color{red}That is, the mapping cylinder $M_f$ is obtained by gluing one end of $X\times[0,1]$ to $Y$ via the map $f$.} Notice that the ``top" of the cylinder $\{1\}\times X$ is homeomorphic to $X$, while the ``bottom" is the space $f(X)\subset Y$.
+	
+	\begin{quote}
+		{\color{red}(Dani) So the mapping cylinder is just a deformation of $X$ to $f(X)$.}
+	\end{quote}
+	
+	\item (Homework) Let $f:X\to Y$ be a map. Let $M_f=X\times[0,1]\cup_fY$ be the \textbf{\textit{mapping cylinder of $f$}}, i.e. the pushout of $X\overset{\cong}{\to}X\times\{0\}\hookrightarrow X\times[0,1]$ and of $f:X\times Y$.
+	
+	
+	\end{itemize}
+\end{defn}
+\begin{exercise}
+	Let $g:X\to M_f$ be the map $X\overset{\cong}{\to}X\times\{1\}\to M_f$. Let $h:M_f\to Y$ be the map that is induced by $X\times[0,1]\to Y:(x,t)\mapsto f(x)$ and $\id_Y:Y\to Y$. Observe that $f$ is the composition of $g$ and $h$.
+	\[\begin{tikzcd}
+		X\arrow[r,"f"]\arrow[d,swap,"\id\times 1"]\arrow[rd,bend right,"g"]&Y\arrow[d]\arrow[ddr,bend left,"\id_Y"]\\
+		X\times[0,1]\arrow[r,swap]\arrow[drr,bend right,swap,"(x\text{,}t)\mapsto f(x)"]&M_f\arrow[ul, phantom, "\ulcorner", very near start]\arrow[dr,dashed,"h"]\\
+		&&Y
+	\end{tikzcd}\]
+	
+	In both exercises below you might have to use the fact that pushouts are colimits and that colimits commute with products in $\CGWH$, i.e. $(\colim A_i)\times B$ is canonically homeomorphic with $\colim(A_i \times B)$.
+	\begin{enumerate}
+		\item Show that $h$ is a deformation retract, and in particular is a homotopy equivalence.
+		\item Show that $g : X \to M_f$ is a cofibration. You may use exercise (a), but the direct proof might be simpler.
+	\end{enumerate}
+\end{exercise}
+\begin{proof}[Solution]\leavevmode
+	\begin{enumerate}
+		\item That $h$ is a deformation retract is consequence of the last diagram. {\color{orange}Why is it a homotopy equivalence?}
+		\item Consider the following lifting problem:
+		\[\begin{tikzcd}
+			X\arrow[d,"g",swap]\arrow[r,"H"]&Y^I\arrow[d,"\pi_0"]\\
+			M_f\arrow[ur,dashed]\arrow[r,"h",swap]&Y
+		\end{tikzcd}\]
+		{\color{orange}Looks nice but why should the dashed arrow exist…?}
+	\end{enumerate}
+\end{proof}
 \section{model structures}
 \begin{defn}[\cite{riehl}]
 	A \textbf{\textit{weak factorization system $(\Lc,\Rc)$}} on a category $\Mc$ is comprised o two clases of morphisms $\Lc$ and $\Rc$ so that
@@ -419,7 +523,7 @@ $\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 		\item Every morphism in $\Mc$ may be factored as a morphism in $\Lc$ followed by a morphism in $\Rc$:
 		\[\begin{tikzcd}
 			\bullet\arrow[rr,"f"]\arrow[rd,"\Lc\ni\ell",swap]&&\bullet\\
-			&\bullet\arrow[ru,"r\in\Rc"]
+			&\bullet\arrow[ru,"r\in\Rc",swap]
 		\end{tikzcd}\]
 		\item The maps in $\Lc$ have the \textbf{\textit{left lifting property}} with respect to each map in $\Rc$ and equivalently the maps in $\Rc$ have the \textbf{\textit{right lifting property}} with respect to each map in $\Lc$, that is, any commutative square
 		\[\begin{tikzcd}
@@ -543,11 +647,7 @@ Likeways, to make sure that the remaining triangle commutes we observe that
 	$X\to M_f\to Y$. Prove $X\to M_f$ is a cofibration.
 \end{exercise}
 \section{whitehead theorem}
-\iffalse\begin{defn}
-	The appropriate analogue of the Cartesian product in the category of based spaces is the \textbf{\textit{smash product}} $X\wedge Y$ defined by
-	\[X\wedge Y=X\times Y/X\vee Y.\]
-	Here $X\vee Y$ is viewed as the subspace of $X\times Y$ consisting of those pairs $(x,y)$ such that either $x$ is the basepoint of $X$ or $y$ is the basepoint of $Y$.
-\end{defn}\fi
+
 We introduce a large class of spaces, called CW complexes, between which a weak equivalence is necessarily a homotopy equivalence. Thus, for such spaces, the homotopy groups are, in a sense, a complete set of invariants. Moreover, we shall see that every space is weakly equivalent to a CW complex.
 \begin{defn}[\cite{may}]\label{defn:CW-complex}\leavevmode
 	\begin{enumerate}
@@ -595,10 +695,7 @@ We introduce a large class of spaces, called CW complexes, between which a weak 
 	\item for $(\impliedby)$ commutativity of the hypotesis gives us commutativiuty of the rightmost square in the diagram below. In fact, the double square diagram below is a rephrasing of the hypothesis.
 	
 	\item Lemma 2. To build CW complexes
-	
-	\item {\color{cyan} Some good concepts are pushouts, coproducts, direct limits.}
 	\item What we did? Prove the bijection between the homotopic sets given an $n$-equivalence.
-	\item Defined smash.
 	\item $\pi_n$ of loop space is the same as $\pi_{n+1}$ of original space.
 	\item Then we moved on to homotopic pushouts and pullback. We saw, for instance, that if in a double square diagram each of the squares is a homotopic pushout, then so is the outer square.
 	\item We also looked at those exact sequences on cofibers, spaces of homotopy classes, cohomology and (barely) loop spaces. There was a lemma about this.
@@ -769,7 +866,7 @@ and then
 \[[S^0,\Omega^2X]=[\Sigma S^0,\Omega X]=[\Sigma^2 S^0,X]=[S^2,X]=\pi_2(X)\]
 
 
-\subsection{21 march (Serre fibration long exact sequence)}
+\subsection{Serre fibration long exact sequence (21 march)}
 
 We've been talking a lot about Hurewickz fibrations. Let's talk about Serre fibrations. Notice that H. fibration $\implies$ S. fibration. What is the most natural example of a Serre fibration?
 
@@ -831,7 +928,7 @@ We've been talking a lot about Hurewickz fibrations. Let's talk about Serre fibr
 	is an isomorphism for $i<m+n$ and sujerctive for $i=m+n$.
 \end{thm}
 
-\subsection{26 march (Blakers-Massey)}
+\subsection{blakers-massey (26 march)}
 First I show some basic constructions from Tom Dieck (sec. 5.7). Let $f:X\to Y$ be a map. Consider the pullback
 \[\begin{tikzcd}
 	W(f)\arrow[r]\arrow[d,"(q\text{,}p)",swap]&Y^I\arrow[d,"(\ev_0\text{,}\ev_1)"]\\
@@ -892,6 +989,110 @@ We proved the third version based on Tom Dieck's proof.
 \begin{lemma}
 	Let $W$ be a cube in $\R^d$ with $\dim W\leq d$. If for all faces $W'$ of $\partial W$, $f(W')\in A\implies w'\in K_p(W')$, then there is a homotopy $f\simeq g\;\rel\partial W$ such that $g(w)\in A\implies w\in K_p(W)$.
 \end{lemma}
+
+\subsection{freudenthal theorem (2 april)}
+\begin{defn}
+	The appropriate analogue of the Cartesian product in the category of based spaces is the \textbf{\textit{smash product}} $X\wedge Y$ defined by
+	\[X\wedge Y=X\times Y/X\vee Y.\]
+	Here $X\vee Y$ is viewed as the subspace of $X\times Y$ consisting of those pairs $(x,y)$ such that either $x$ is the basepoint of $X$ or $y$ is the basepoint of $Y$.
+\end{defn}
+We also have the \textbf{\textit{suspension of pointed spaces}}, which is like usual suspension but also collapsing the distinguished point, which has become an interval:
+\[\Sigma X=(I\times X)/(t,x)\sim (0,y)\sim (1,y)\;\forall y\in X.\]
+
+
+Then we have
+\[\Hom_{\CGWH_*}(\Sigma X,\Sigma X)\cong\Hom_{\CGWH_*}(X,\Omega\Sigma X)\]
+where $\Sigma X=S^\wedge X$ and $\Omega\Sigma X=\Map(S^1,\Sigma X)$. That is, $S^1\wedge-$ is adjoint to $\Map(S^1,-)$.
+
+So let $X$ be a space. The identity map $\id_{\Sigma X}:\Sigma X\to \Sigma X$ then induces a map $X\to\Omega\Sigma X$.
+\begin{thm}[Freudenthal]\label{thm:freudenthal}
+	Let $X$ be $\ell$-connected space. Then $X\to\Omega\Sigma X$ is a $(2\ell+1)$-equivalence, that is,
+	\[\pi_i(X)\to \pi_{i+1}(\Sigma X),\]
+	$(\ell+1)+(\ell+1)-1=2\ell+1$.
+\end{thm}
+\begin{proof}[Proof 1]
+	Using pushouts…
+%	\[\begin{tikzcd}
+%		X\arrow[r,"(\ell+1)\text{-equivalence}"]&*\arrow[rdd,bend left]\\
+%		
+%	\end{tikzcd}\]
+\end{proof}
+\begin{proof}[Proof 2]
+	Consider
+	\[\begin{tikzcd}
+		X\arrow[r]\arrow[d]&CX\arrow[d]\\
+		CX\arrow[r]&\Sigma X
+	\end{tikzcd}\]
+	Then we use relative homotopy long exact sequence with $(X,CX)$ to get $\pi_i(CX,X)\cong\pi_{i-i}(X)$, which is zero for $0\leq i\leq \ell+1$. Then use relative homotopy exact sequence for the pair $(\Sigma X,CX)$. then we get that $\pi_i(\Sigma X,CX)=\pi_i(\Sigma X)$. And then if you use it for $(\Sigma X, X)$ and 
+	
+	But it also turns out that $\pi_i(\Sigma X)=\pi_{i-1}(\Omega\Sigma X)$ because
+	\begin{align*}
+		\pi_n(Z)&=\Hom_{\hTop,*}(S^n,Z)=\Hom(S^1\wedge S^{n-1},Z)=\Hom(S^{n-1},\Omega Z)=\pi_{n-1}(\Omega,Z)
+	\end{align*}.
+	And then since $CX\hookrightarrow \Sigma X$ we get an arrow $\pi_i(CX,X)\to\pi_i(\Sigma X,CX)$ which is isomorphism for $0\leq i \leq 2\ell +1$ and surjective for $i=2\ell+2$.
+	
+	So apply Blakers-Massey an ell equalities to get maps fro $\pi_{i-1}(X)\to\pi_{i-1}(\Omega\Sigma X)$ for $i$ as desired.
+\end{proof}
+\begin{coro}
+	If $X$ is $\ell$-connected, then $\Sigma X$ is $(\ell+1)$-connected for $\ell\geq0$.
+\end{coro}
+\[\begin{matrix}
+	S^0&\Sigma S^0=S^1&\Sigma^2S^0=S^2&\Sigma^3S^0=S^3&\cdots&\Sigma^nS^0=S^n\\
+	-1&0&1&2&\cdots&(n-1)
+\end{matrix}\]
+\begin{coro}
+	$S^n$ is $(n-1)$-connected.
+\end{coro}
+Back to Hopf fibration:
+\[S^1\hookrightarrow S^3\to S^2\]
+we get
+\[0=\pi_2(S^3)\to\pi_2(S^2)\overset{\cong}{\to}\pi_1(S^1)\to\pi_1(S^3)=0,\]
+so
+\[\Z=\pi_2(S^2).\]
+Now consider a map $S^n\to S^n$. We get a map $CS^n\to CS^n$ (in general, for $f:X\to Y$ we have $(t,x)\mapsto(t,f(x))$ in the cones). We also have $CS^n\to CS^n/S^n=S^{n+1}$.
+
+Now if we take $\id:S^n\to S^n$ we shall get $\id:S^{n+1}\to S^{n+1}$. Think about this like $\pi_1(S^1)\to\pi_2(S^2)$. Now from Freudenthal we get $\pi_{i-1}(X)\to\pi_i(\Sigma X)$ is surjective because $i=0$. From Hopf fibration we have $\pi_2(S^2)=\Z$. So we have a surjective map $\Z\to\Z$. So it's an isomorphism and we conclude that $\id_{S^2}$ is a generator of $\pi_2(S^2)$.
+
+\begin{coro}
+	Since $S^n$ is $(n-1)$-connected, we have
+	\[\pi_i(S^n)\to\pi_{i+1}(S^{n+1})\]
+	is isomorphism for $i\leq 2(n-1)=2n-1$ and epimorphism form $i=2n-1$. (We just shift the indices of \cref{thm:freudenthal} by one.)
+\end{coro}
+\begin{coro}
+	$\pi_n(S^n)=\Z$ with $\id_{S^n}$ as generator.
+\end{coro}
+\begin{coro}
+	$\pi_{n+k}(S^n)\to\pi_{n+k+1}(S^{n+1})$ is isomorphism for $k\leq n-1$ and epimorphism for $k=n-1$.
+\end{coro}
+So for example
+\[\pi_4(S^3)=\pi_5(S^4)=\pi_6(S^5).\]
+And in fact they are $\Z/2$. This is what are called the \textbf{\textit{$k$th stable homotopy groups of a sphere}}. And more in general, we take any space and apply $\Omega\Sigma$ enough times, and the homotopy will start to stabilize.
+
+Or for example from
+\[S^1\hookrightarrow S^3\to S^2\]
+we get
+\[0=\pi_i(S^1)\to \pi_i(S^3)\overset{\cong}{\to}\pi_i(S^2)\to\pi_{i-1}(S^2)=0\]
+So $\pi_3(S^2)\cong\Z$ in case you were wondering.
+\begin{claim}[Serre]
+	$\pi_{4n-1}(S^{2n})\cong\Z\oplus$finite abelian. And $\pi_i(S^k)$ is finite abelian in all other cases.
+\end{claim}
+
+\subsection{another application of Blakers-Massey (2 april)}
+Glue a disk to a space and what happens to homotopy groups?
+\[\begin{tikzcd}
+	S^{n-1}\arrow[r,"(n-1)\text{-equiv}"]\arrow[d,"0\text{-equiv}",swap]&D^n\arrow[d]\\
+	X\arrow[r]&X\cup D^n
+\end{tikzcd}\]
+Assume $X$ is connected. We get a map from the vertical arrows
+\[\begin{tikzcd}
+	\pi_i(D^n,S^{n-1})\arrow[r]&\pi_i(X\cup D^n,X)
+\end{tikzcd}\]
+which is $(n-1)$-equivalence since $S^{n-1}\to D^n$ is an $(n-1)$-equivalence, which is the case since
+\[\begin{tikzcd}
+	0=\pi_i(D^n)\arrow[r]&\pi_i(D^n,S^{n-1})\arrow[r,"\cong"]&\pi_{i-1}(S^{n-1})\arrow[r]&\pi_{i-1}(D^n)=0
+\end{tikzcd}\]
+so $\pi_i(D^n,S^{n-1})=0$ for $i\leq n-1$.
+
 %		B\arrow[r]&X \arrow[ul, phantom, "\lrcorner", very near start]
 %		B\arrow[r]&X \arrow[ul, phantom, "\ulcorner", very near start]
 
