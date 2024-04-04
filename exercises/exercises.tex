@@ -1,0 +1,318 @@
+\documentclass{article}
+
+\usepackage[citestyle=authortitle-terse,backref,backend=bibtex]{biblatex}
+\addbibresource{homotopy-theory.bib}
+
+\setcounter{secnumdepth}{0}
+\usepackage{sectsty}
+\sectionfont{\fontsize{13}{20}\selectfont}
+
+\usepackage[left=4cm, right=4cm]{geometry}
+\usepackage{palatino,eulervm,dutchcal,xcolor}%fonts
+\usepackage{graphicx,subcaption,float}
+\usepackage{enumitem,parskip,multicol}
+\usepackage{amsthm,thmtools,xcolor,amssymb,amsmath}
+\usepackage{tikz,tikz-cd}
+\usetikzlibrary{%
+	matrix,%
+	calc,%
+	arrows,%
+	shapes,
+	decorations.markings,backgrounds,calc,intersections}
+\tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+			cells={nodes={scale=#1}}}}
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
+\hypersetup{%colores
+	colorlinks=true,
+	urlcolor=blue,
+	linkcolor=magenta,
+	citecolor=blue,
+	filecolor=blue,
+	urlbordercolor=white,
+	linkbordercolor=white,
+	citebordercolor=white,
+	filebordercolor=white}
+\usepackage{cleveref}
+
+\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
+\definecolor{azure}{rgb}{0.0, 0.5, 1.0}
+\definecolor{green(ncs)}{rgb}{0.0, 0.62, 0.42}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
+\definecolor{palatinateblue}{rgb}{0.15, 0.23, 0.89}
+\definecolor{trueblue}{rgb}{0.0, 0.45, 0.81}
+\definecolor{goldenyellow}{rgb}{1.0, 0.87, 0.0}
+\definecolor{fashionfuchsia}{rgb}{0.96, 0.0, 0.63}
+\definecolor{brightcerulean}{rgb}{0.11, 0.67, 0.84}
+\definecolor{jonquil}{rgb}{0.98, 0.85, 0.37}
+\definecolor{lavendermagenta}{rgb}{0.93, 0.51, 0.93}
+\definecolor{peru}{rgb}{0.8, 0.52, 0.25}
+\definecolor{persimmon}{rgb}{0.93, 0.35, 0.0}
+\definecolor{persianred}{rgb}{0.8, 0.2, 0.2}
+\definecolor{persianblue}{rgb}{0.11, 0.22, 0.73}
+\definecolor{persiangreen}{rgb}{0.0, 0.65, 0.58}
+\definecolor{persianyellow}{rgb}{0.9, 0.89, 0.0}
+
+
+
+\declaretheoremstyle[headfont=\color{trueblue}\normalfont\bfseries,]{colored1}
+\declaretheoremstyle[headfont=\color{forestgreen}\normalfont\bfseries,]{colored2}
+\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored3}
+\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored4}
+\declaretheoremstyle[headfont=\color{brightcerulean}\normalfont\bfseries,]{colored5}
+\declaretheoremstyle[headfont=\color{lavendermagenta}\normalfont\bfseries,]{colored6}
+\declaretheoremstyle[headfont=\color{blue-violet}\normalfont\bfseries,]{colored7}
+\declaretheoremstyle[headfont=\color{green(ncs)}\normalfont\bfseries,]{colored8}
+\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored9}
+\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored10}
+
+\declaretheorem[style=colored1,name=Theorem]{thm}
+\declaretheorem[style=colored2,numberlike=thm,name=proposition]{prop}
+\declaretheorem[style=colored3,numberlike=thm,name=lemma]{lemma}
+\declaretheorem[style=colored4,numberlike=thm,name=corollary]{coro}
+\declaretheorem[style=colored5,numbered=no,name=example]{example}
+\declaretheorem[style=colored5,numbered=no,name=examples]{exemplos}
+\declaretheorem[style=colored6,numbered=no,name=exercise]{exercise}
+\declaretheorem[style=colored7,numbered=no,name=remark]{remark}
+\declaretheorem[style=colored8,numbered=no,name=claim]{claim}
+\declaretheorem[style=colored9,numbered=no,name=definition]{defn}
+\declaretheorem[style=colored10,numbered=no,name=question]{question}
+
+\numberwithin{equation}{section}
+
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\D}{\mathbb{D}}
+\renewcommand{\P}{\mathbb{P}}
+
+\newcommand{\Ac}{\mathcal{A}}
+\newcommand{\Bc}{\mathcal{B}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Ec}{\mathcal{E}}
+\newcommand{\Fc}{\mathcal{F}}
+\newcommand{\Gc}{\mathcal{G}}
+\newcommand{\Hc}{\mathcal{H}}
+\newcommand{\Ic}{\mathcal{I}}
+\newcommand{\Jc}{\mathcal{J}}
+\newcommand{\Kc}{\mathcal{K}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Mc}{\mathcal{M}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Oc}{\mathcal{O}}
+\newcommand{\Pc}{\mathcal{P}}
+\newcommand{\Qc}{\mathcal{Q}}
+\newcommand{\Rc}{\mathcal{R}}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Tc}{\mathcal{T}}
+\newcommand{\Uc}{\mathcal{U}}
+\newcommand{\Vc}{\mathcal{V}}
+\newcommand{\Wc}{\mathcal{W}}
+\newcommand{\Xc}{\mathcal{X}}
+\newcommand{\Yc}{\mathcal{Y}}
+\newcommand{\Zc}{\mathcal{Z}}
+
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\pt}{pt}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\hTop}{h-Top}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Top}{Top}
+\DeclareMathOperator{\Set}{Set}
+\DeclareMathOperator{\CGWH}{CGWH}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Tot}{Tot}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\hofib}{hofib}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\Arr}{Arr}
+\DeclareMathOperator{\Funct}{Funct}
+\DeclareMathOperator{\colim}{colim}
+
+\begin{document}
+{\LARGE algebraic topology}
+\tableofcontents
+\section{some definitions}
+\begin{defn}\leavevmode
+	\begin{itemize}
+		\item An \textbf{\textit{initial object}} in a category $\Cc$ is an object $\varnothing$ such that for any object $x\in\Cc$ there is a unique morphism $\varnothing\to x$ with source $\varnothing$ and target $x$.
+		
+		\item A \textbf{\textit{pullback}} of the morphisms $f$ and $g$ consists of an object $P$ and two morphisms $p_1:P\to X$ and $p_2:P\to Y$ satisfying the following universal property:
+	\[\begin{tikzcd}
+		Q\arrow[rrd,bend left,"q_2"]\arrow[ddr,"q_1",swap,bend right]\arrow[dr,dashed,"\phi"]\\
+		&P\arrow[r,"p_2"] \arrow[rd, phantom, "\lrcorner", very near start]\arrow[d,"p_1",swap]&Y\arrow[d,"g"]\\
+		&X\arrow[r,"f",swap]&Z
+	\end{tikzcd}\]
+	\item A \textbf{\textit{pushout}} of the morphisms $f$ and $g$ consists of an object $P$ and two morphisms $i_1:P\to X$ and $i_2:P\to Y$ satisfying the following universal property:
+	\[\begin{tikzcd}
+		Z\arrow[r,"g"]\arrow[d,swap,"f"]&Y\arrow[d,"i_2"]\arrow[ddr,bend left,"j_2"]\\
+		X\arrow[r,"i_1",swap]\arrow[drr,bend right,swap,"j_1"]&P\arrow[ul, phantom, "\ulcorner", very near start]\arrow[dr,dashed,"\phi"]\\
+		&&Q
+	\end{tikzcd}\]
+	\item A \textbf{\textit{product}} of $X$ and $Y$ is an object $X\sqcup Y$ and a pair of morphisms $p_1:X\sqcap Y\to X$, $p_2:X\sqcap Y\to Y$ satisfying the following universal property:
+	\[\begin{tikzcd}
+		Q\arrow[rrd,bend left,"q_2"]\arrow[ddr,"q_1",swap,bend right]\arrow[dr,dashed,"\phi"]\\
+		&X\sqcap Y\arrow[r,"p_2"]\arrow[d,"p_1",swap]&Y\\
+		&X
+	\end{tikzcd}\]
+	\item A \textbf{\textit{coproduct}} of $X$ and $Y$ is an object $X\sqcup Y$ and a pair of morphisms $i_1:X\to X\sqcup Y$, $i_2:Y\to X\sqcup Y$ satisfying the following universal property:
+	\[\begin{tikzcd}
+	&Y\arrow[d,"i_2"]\arrow[ddr,bend left,"j_2"]\\
+	X\arrow[r,"i_1",swap]\arrow[drr,bend right,swap,"j_1"]&X\sqcup Y\arrow[dr,dashed,"\phi"]\\
+	&&Q
+\end{tikzcd}\]
+\begin{remark}
+	More generally, for $S$ any set and $F:S\to C$ a collection of objects in the category $C$ indexed by $S$, their \textbf{\textit{coproduct}} is an object $\coprod_{s\in S}F(s)$ equipped with maps
+	\[F(s)\to\coprod_{s\in S}F(s)\]
+	such that this is universal among objects with maps from $F(s)$.
+\end{remark}
+\item A morphism $i$ has the \textbf{\textit{left lifting property with respect to a morphism $p$}} and $p$ has the \textbf{\textit{right lifting property with respect to $i$}} if for each morphisms $f$ and $g$, if the outer square in the following diagram commutes, there exists $\phi$ (I think not necessarily unique) completing the diagram:
+\[\begin{tikzcd}[row sep=large]
+	A\arrow[r,"f"]\arrow[d,"i",swap]&X\arrow[d,"p"]\\
+	B\arrow[r,"g",swap]\arrow[ur,dashed,"\phi"]&Y
+\end{tikzcd}\]
+
+\item For $\Cc$ any category, its \textbf{\textit{arrow category}} $\Arr(\Cc)$ is the category such that
+\begin{itemize}
+	\item an object $a$ of $\Arr(C)$ is a morphism $a:a_0\to a_1$ of $\Cc$,
+	\item a morphism $f:a\to b$ of $\Arr(\Cc)$ is a commutative square
+	\[\begin{tikzcd}
+		a_0\arrow[r,"f_0"]\arrow[d,swap,"a"]&b_0\arrow[d,"b"]\\
+		a_1\arrow[r,swap,"f_1"]&b_1
+	\end{tikzcd}\]
+	in $\Cc$,
+	\item composition in $\Arr(\Cc)$ is given simply by placing commutative squares side by side to get a commutative oblong.
+\end{itemize}
+This is osomorphic to the functor category
+\[\Arr(\Cc):=\Funct(I,C)=[I,C]=C^I\]
+for $I$ the interval category $\{0\to 1\}$.
+	\end{itemize}
+\end{defn}
+
+\section{exercise on mapping cylinder and Hurewicz cofibrations}
+\begin{exercise}
+	Let $f:X\to Y$ be a map. Let $M_f=X\times[0,1]\cup_fY$ be the \textbf{\textit{mapping cylinder of $f$}}, i.e. the pushout of $X\overset{\cong}{\to}X\times\{0\}\hookrightarrow X\times[0,1]$ and of $f:X\times Y$.
+	Let $g:X\to M_f$ be the map $X\overset{\cong}{\to}X\times\{1\}\to M_f$. Let $h:M_f\to Y$ be the map that is induced by $X\times[0,1]\to Y:(x,t)\mapsto f(x)$ and $\id_Y:Y\to Y$. Observe that $f$ is the composition of $g$ and $h$.
+	
+	In both exercises below you might have to use the fact that pushouts are colimits and that colimits commute with products in $\CGWH$, i.e. $(\colim A_i)\times B$ is canonically homeomorphic with $\colim(A_i \times B)$.
+	\begin{enumerate}
+		\item Show that $h$ is a deformation retract, and in particular is a homotopy equivalence.
+		\item Show that $g : X \to M_f$ is a cofibration. You may use exercise (a), but the direct proof might be simpler.
+	\end{enumerate}
+\end{exercise}
+\begin{proof}[Solution]\leavevmode
+	\begin{enumerate}
+		\item We have that
+		\[\begin{tikzcd}
+			X\arrow[r,"f"]\arrow[d,swap,"\id\times 1"]\arrow[rd,bend right,"g"]&Y\arrow[d]\arrow[ddr,bend left,"\id_Y"]\\
+			X\times[0,1]\arrow[r,swap]\arrow[drr,bend right,swap,"(x\text{,}t)\mapsto f(x)"]&M_f\arrow[ul, phantom, "\ulcorner", very near start]\arrow[dr,dashed,"h"]\\
+			&&Y
+		\end{tikzcd}\]
+		The fact that $h$ is a deformation retract is consequence of this diagram. {\color{red}But I still can't see why it must be a homotopy equivalence…}
+		\item Consider the following lifting problem:
+		\[\begin{tikzcd}
+			X\arrow[d,"g",swap]\arrow[r,"H"]&Y^I\arrow[d,"\pi_0"]\\
+			M_f\arrow[ur,dashed]\arrow[r,"h",swap]&Y
+		\end{tikzcd}\]
+		{\color{red}Looks OK but why should the dashed arrow exist…?}
+	\end{enumerate}
+\end{proof}
+\section{exercise on model categories}
+\begin{exercise}[3.1.8 from \cite{riehl}]
+	Verify that the class of morphisms $\Lc$ characterized by the left lifting property against a fixed class of morphisms $\Rc$ is closed under coproducts, closed under retracts, and contains the isomorphisms.
+\end{exercise}
+\begin{proof}[Solution]
+	\textbf{\textit{(Coproducts.)}} {\color{magenta} Comment from Sergey: Coproduct of morphisms $A_i\to B_i$ in a category $\Cc$ is the obvious morphism $\sqcup A_i \to \sqcup B_i$. (Because in this construction morphisms $A_i\to B_i$ are seen as objects of what's called the arrow category of the category $\Cc$)}
+	
+	Suppose the maps $\ell_i:A_i\to B_i$ are in $\Lc$. Then their coproduct in the arrow category is the obvious map $\coprod A_i\to\coprod B_i$.
+	
+	Explicitly, their coproduct is an arrow $\coprod\ell_i$ and a collection of maps $f_i:\ell_i\to\coprod\ell_i$ such that for any other object $m:A\to B$ in the arrow category and a map $g:\ell\to m$, the following diagram is completed uniquely:
+	\[\begin{tikzcd}[scale cd=1.2]
+		\ell_i\arrow[r,"f_i"]\arrow[rr,bend right,"g",swap]&\coprod\ell_i\arrow[r,dashed,"\exists!"]&m
+	\end{tikzcd}\qquad\forall i\]
+	So we conclude that the source of $\coprod\ell_i$ is $\coprod A_i$ and its target $\coprod B_i$. Indeed, we really looking at
+	\[\begin{tikzcd}[scale cd=1.2]
+		A_i\arrow[r,"\ell_i"]\arrow[d,"f_i^1",swap]&B_i\arrow[d,"f_i^2"]\\
+		\coprod A_i\arrow[r,"\coprod\ell_i"]\arrow[d,"\exists!",dashed,swap]&\coprod B_i\arrow[d,dashed,"\exists!"]\\
+		A\arrow[r,swap,"m"]&B
+	\end{tikzcd}\]
+	
+	Now consider the following lifting problem with respect to a morphism $r\in\Rc$:
+	\[\begin{tikzcd}[row sep=large]
+		\coprod A_i\arrow[d,swap,"\coprod\ell_i"]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
+		\coprod B_i\arrow[r]&\bullet
+	\end{tikzcd}\]
+	Since $\ell_i\in\Lc$, we have maps
+	\[\begin{tikzcd}[row sep=large]
+		A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
+		B_i\arrow[r]\arrow[rru,dashed]&\coprod B_i\arrow[r]&\bullet
+	\end{tikzcd}\]
+	which in turn means we have a unique map
+	\[\begin{tikzcd}[row sep=large]
+		A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
+		B_i\arrow[r]\arrow[rru]&\coprod B_i\arrow[r]\arrow[ur,dashed]&\bullet
+	\end{tikzcd}\]
+	by the universal property of the coproduct $\coprod B_i$.
+	
+	So, to check that the lower-right triangle commutes, it would be sufficient to show that the map $B_i\to\coprod B_i$ "can be cancelled" since
+	\[\begin{tikzcd}[row sep=large]
+		A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&{\color{red}\bullet}\arrow[d,"r\in\Rc",red]\\
+		{\color{red}B_i}\arrow[r,red]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r]\arrow[ur,dashed,red]&{\color{red}\bullet}
+	\end{tikzcd}\quad
+	\begin{array}{c}
+		\text{is already}\\
+		\text{the same as}
+	\end{array}\quad
+	\begin{tikzcd}[row sep=large]
+		A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
+		{\color{red}B_i}\arrow[r,red]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r,red]\arrow[ur,dashed]&{\color{red}\bullet}
+	\end{tikzcd}\]
+	Likeways, to make sure that the remaining triangle commutes we observe that
+	\[\begin{tikzcd}[row sep=large]
+		{\color{red}A_i}\arrow[r,red]\arrow[d,"\Lc\ni\ell_i",swap]&{\color{red}\coprod A_i}\arrow[d,red]\arrow[r]&{\color{red}\bullet}\arrow[d,"r\in\Rc"]\\
+		B_i\arrow[r]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r]\arrow[ur,dashed,red]&\bullet
+	\end{tikzcd}\quad
+	\begin{array}{c}
+		\text{is already}\\
+		\text{the same as}
+	\end{array}
+	\quad
+	\begin{tikzcd}[row sep=large]
+		{\color{red}A_i}\arrow[r,red]\arrow[d,"\Lc\ni\ell_i",swap]&{\color{red}\coprod A_i}\arrow[d]\arrow[r,red]&{\color{red}\bullet}\arrow[d,"r\in\Rc"]\\
+		B_i\arrow[r]\arrow[rru]&\coprod B_i\arrow[r]\arrow[ur,dashed]&\bullet
+	\end{tikzcd}\]
+	{\color{magenta}Why can we "cancel" the maps $A_i\to\coprod A_i$ and $B_i\to\coprod B_i$?}
+\end{proof}
+
+\section{Hatcher's exercise on Whitehead's theorem}
+\begin{thm}[Whitehead, \cite{may}]
+	If $X$ is a CW complex and $e:Y\to Z$ is an $n$-equivalence, then $e_*:[X,Y]\to[X,Z]$ is a bijection if $\dim X<n$ and surjection if $\dim X=n$.
+\end{thm}
+\begin{thm}[Whitehead, \cite{may}]\label{thm:W2}
+	An $n$-equivalence between CW complexes of dimension less than $n$ is a homotopy equivalence. A weak equivalence between CW complexes is a homotopy equivalence.
+\end{thm}
+\begin{thm}[Whitehead (4.5), \cite{hatcher-at}]
+	If a map $f:X\to Y$ between connected CW complexes induces isomorphisms $f_*:\pi_n(X)\to\pi_n(Y)$ for all $n$, then $f$ is a homotopy equivalence. In case $f$ is the inclusion of a subcomplex $X\hookrightarrow Y$, the conlusion is stronger: $X$ is a deformation retract of $Y$.
+\end{thm}
+\begin{exercise}[Hatcher 4.1.12]
+	Show that an $n$-connected, $n$-dimensional CW complex is contractible.
+\end{exercise}
+\begin{proof}[Solution]
+	Just recall that $n$-connectedness means that $\pi_i(X)=0$ for all $i\leq n$, which means that $X$ is contractible by \cref{thm:W2}.
+\end{proof}
+\addcontentsline{toc}{section}{References}
+\printbibliography
+\clearpage
+\end{document}
