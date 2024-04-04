@@ -11,7 +11,7 @@
 \usepackage{palatino,eulervm,dutchcal,xcolor}%fonts
 \usepackage{graphicx,subcaption,float}
 \usepackage{enumitem,parskip,multicol}
-\usepackage{amsthm,thmtools,xcolor,amssymb,amsmath}
+\usepackage{amsthm,amssymb,amsmath,mathtools,thmtools}
 \usepackage{tikz,tikz-cd}
 \usetikzlibrary{%
 	matrix,%
@@ -142,7 +142,7 @@
 \DeclareMathOperator{\colim}{colim}
 
 \begin{document}
-{\LARGE algebraic topology}
+{\LARGE algebraic topology exercises}
 \tableofcontents
 \section{some definitions}
 \begin{defn}\leavevmode
@@ -220,6 +220,9 @@ for $I$ the interval category $\{0\to 1\}$.
 			X\times[0,1]\arrow[r,swap]\arrow[drr,bend right,swap,"(x\text{,}t)\mapsto f(x)"]&M_f\arrow[ul, phantom, "\ulcorner", very near start]\arrow[dr,dashed,"h"]\\
 			&&Y
 		\end{tikzcd}\]
+		We must show that there is a homotopy between the identity map on $M_f$ and a retraction from $M_f$ to $Y$. So we want $h:M_f\times[0,1]\to M_f$ such that
+		\[h(-,0)=\id_X,\quad \img h(-,1)\subset Y\quad\text{and}\quad h(-,1)|_Y=\id_Y\]
+		
 		The fact that $h$ is a deformation retract is consequence of this diagram. {\color{red}But I still can't see why it must be a homotopy equivalence…}
 		\item Consider the following lifting problem:
 		\[\begin{tikzcd}
@@ -266,34 +269,29 @@ for $I$ the interval category $\{0\to 1\}$.
 	\end{tikzcd}\]
 	by the universal property of the coproduct $\coprod B_i$.
 	
-	So, to check that the lower-right triangle commutes, it would be sufficient to show that the map $B_i\to\coprod B_i$ "can be cancelled" since
+	To conclude we need to check that the triangles below and above the dashed arrow in the former diagram commute. This follows from the universal property of the coproducts $\coprod A_i$ and $\coprod B_i$ since, \href{https://en.wikipedia.org/wiki/Coproduct#Discussion}{in general},
+	\[\Hom\left(\coprod X_i,Y\right)\cong\prod\Hom(X_i,Y).\]
+	More explicitly, we now that the paths in red in the following diagrams are the same:
 	\[\begin{tikzcd}[row sep=large]
 		A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&{\color{red}\bullet}\arrow[d,"r\in\Rc",red]\\
 		{\color{red}B_i}\arrow[r,red]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r]\arrow[ur,dashed,red]&{\color{red}\bullet}
-	\end{tikzcd}\quad
-	\begin{array}{c}
-		\text{is already}\\
-		\text{the same as}
-	\end{array}\quad
+	\end{tikzcd}\qquad
+		\text{and}\qquad
 	\begin{tikzcd}[row sep=large]
 		A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
 		{\color{red}B_i}\arrow[r,red]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r,red]\arrow[ur,dashed]&{\color{red}\bullet}
 	\end{tikzcd}\]
-	Likeways, to make sure that the remaining triangle commutes we observe that
+	and also
 	\[\begin{tikzcd}[row sep=large]
 		{\color{red}A_i}\arrow[r,red]\arrow[d,"\Lc\ni\ell_i",swap]&{\color{red}\coprod A_i}\arrow[d,red]\arrow[r]&{\color{red}\bullet}\arrow[d,"r\in\Rc"]\\
 		B_i\arrow[r]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r]\arrow[ur,dashed,red]&\bullet
-	\end{tikzcd}\quad
-	\begin{array}{c}
-		\text{is already}\\
-		\text{the same as}
-	\end{array}
-	\quad
+	\end{tikzcd}\qquad
+	\text{and}\qquad
 	\begin{tikzcd}[row sep=large]
 		{\color{red}A_i}\arrow[r,red]\arrow[d,"\Lc\ni\ell_i",swap]&{\color{red}\coprod A_i}\arrow[d]\arrow[r,red]&{\color{red}\bullet}\arrow[d,"r\in\Rc"]\\
 		B_i\arrow[r]\arrow[rru]&\coprod B_i\arrow[r]\arrow[ur,dashed]&\bullet
 	\end{tikzcd}\]
-	{\color{magenta}Why can we "cancel" the maps $A_i\to\coprod A_i$ and $B_i\to\coprod B_i$?}
+	so the conclusion follows from the former comment.
 \end{proof}
 
 \section{Hatcher's exercise on Whitehead's theorem}

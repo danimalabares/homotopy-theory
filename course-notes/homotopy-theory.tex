@@ -1,35 +1,27 @@
 \documentclass{article}
 \usepackage{titlesec}
 
-%\usepackage[style=nature,backend=bibtex]{biblatex}
 \usepackage[citestyle=authortitle-terse,backref,backend=bibtex]{biblatex}
 \addbibresource{homotopy-theory.bib}
 
+\setcounter{secnumdepth}{0}
+\usepackage{sectsty}
+\sectionfont{\fontsize{13}{20}\selectfont}
 
 \usepackage[left=4cm, right=4cm]{geometry}
-\usepackage{palatino}
-\usepackage{eulervm}
-\usepackage{graphicx}
-\usepackage{float}
-\usepackage{subcaption}
-\usepackage{enumitem}
-\usepackage{parskip}
-\usepackage{multicol}
-\usepackage{amsthm,thmtools,xcolor}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{dutchcal}
-\usepackage{xcolor}
+\usepackage{palatino,eulervm,dutchcal,xcolor}%fonts
+\usepackage{graphicx,subcaption,float}
+\usepackage{enumitem,parskip,multicol}
+\usepackage{amsthm,amssymb,amsmath,mathtools,thmtools}
 \usepackage{tikz,tikz-cd}
-\tikzcdset{row sep/normal=1cm}
-\tikzcdset{scale cd/.style={every label/.append style={scale=#1},cells={nodes={scale=#1}}}}
 \usetikzlibrary{%
 	matrix,%
 	calc,%
 	arrows,%
 	shapes,
-	decorations.markings,backgrounds,calc,intersections
-}
+	decorations.markings,backgrounds,calc,intersections}
+\tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+		cells={nodes={scale=#1}}}}
 \usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
 \hypersetup{%colores
 	colorlinks=true,
@@ -42,7 +34,6 @@
 	citebordercolor=white,
 	filebordercolor=white}
 \usepackage{cleveref}
-\numberwithin{equation}{section}
 
 \setcounter{secnumdepth}{0}
 \usepackage{sectsty}
@@ -91,13 +82,14 @@
 \declaretheorem[style=colored10,numbered=no,name=question]{question}
 
 \newcommand{\A}{\mathbb{A}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\D}{\mathbb{D}}
-\renewcommand{\P}{\mathbb{P}}
 
 \newcommand{\Ac}{\mathcal{A}}
 \newcommand{\Bc}{\mathcal{B}}
@@ -236,7 +228,7 @@
 			&&Q
 		\end{tikzcd}\]
 		\begin{remark}
-			Other names for the pushout are \textbf{\textit{cofibered product of $X$ and $Y$}} (especially in algebraic categories when $i_1$ and $i_2$ are monomorphisms), or \textbf{\textit{free product of $X$ and $Y$}} with $Z$ \textbf{\textit{amalgamated sum}}, or more simply an \textbf{\textit{amalgamation}} or \textbf{\textit{amalgarm of $X$ and $Y$.}}
+			Other names for the pushout are \textbf{\textit{cofibered product of $X$ and $Y$}} (especially in algebraic categories when $i_1$ and $i_2$ are monomorphisms), or \textbf{\textit{free product of $X$ and $Y$}} with $Z$ \textbf{\textit{amalgamated sum}}, or more simply an \textbf{\textit{amalgamation}} or \textbf{\textit{amalgam of $X$ and $Y$.}}
 		\end{remark}
 		\begin{remark}
 			If coproducts exist in some category, then the pushout 
@@ -320,6 +312,38 @@
 			\Hom(Y,Z)\arrow[r,hook,"f^*"]&\Hom(X,Z).
 		\end{tikzcd}\]
 		Being a monomorphism in a category $\Cc$ means equivalently that it is an monomorphism in the opposite category $\Cc^{\op}$.
+		
+		\item (Retraction.)
+		\begin{itemize}
+			\item (\href{https://en.wikipedia.org/wiki/Retraction_(topology)}{wiki}) Let $X$ be a topological space and $A$ a subspace of $X$. Then a continuous map $r:X\to A$ is a \textbf{\textit{retraction}} if the restriction of $r$ to $A$ is the identity map on $A$.
+			\item (\href{https://ncatlab.org/nlab/show/section}{nLab}) An object $A$ in a category is called a \textbf{\textit{retract}} of an object $B$ if there are morphisms $i:A\to B$ and $r:B\to A$ such that $r\circ i=\id_A$. In this case $r$ is called a \textbf{\textit{retraction of $B$ onto $A$}} and $i$ is called a \textbf{\textit{section of $r$}}.
+			\[\begin{tikzcd}
+				\id:A\arrow[r,"i","\text{section}"']&B\arrow[r,"r","\text{retraction}"']&A
+			\end{tikzcd}\]
+			Hence a \textbf{\textit{retraction}} of a morphism $i:A\to B$ is a left-inverse and a \textbf{\textit{section}} of a morphism $r:B\to A$ is a right-inverse.
+		\end{itemize}
+		\item (Deformation retract.)
+		\begin{itemize}
+			\item (\href{https://ncatlab.org/nlab/show/deformation+retract}{nLab}) Let $\Cc$ be a category equipped with a notion of homotopy between its morphisms. Then a \textbf{\textit{deformation retraction}} of a morphism $i:A\to X$ is another morphism $r:X\to A$ such that
+			\[?\]
+			\item (\href{https://en.wikipedia.org/wiki/Retraction_(topology)#Deformation_retract_and_strong_deformation_retract}{wiki}) A continuous map $F:X\times[0,1]\to X$ is a \textbf{\textit{deformation retraction}} of a space $X$ into a subspace $A$ if, for every $x$ in $X$ and $a$ in $A$,
+			\[F(x,0)=x,\qquad F(x,1)\in A\quad\text{and}\quad F(a,1)=a.\]
+			In words, a deformation retraction is a homotopy between a retraction and the identity map on $X$. The subspace $A$ is called a \textbf{\textit{deformation retract}} of $X$. A deformation retraction is a special case of a homotopy equivalence.
+			
+			An equivalent definition of deformation retraction is the following. A continuous map $r:X\to A$ is a \textbf{\textit{deformation retraction}} if it is a retraction and its compositition with the inclusion is homotopic to the identity map on $X$.In this formulation, a deformation retraction carries with it a homotopy between the identity map on $X$ and itself.
+			
+			\item (\href{https://en.wikipedia.org/wiki/Retraction_(topology)#Deformation_retract_and_strong_deformation_retract}{wiki}) If, in the definition of a deformation retraction we add the requirement that
+			\[F(a,t)=a\qquad\forall t\in[0,1],\;\forall a\in A,\]
+			then $F$ is called a \textbf{\textit{strong deformation retraction}}. In words, a strong deformation retraction leaves points in $A$ fixed throughout the homotopy.
+			
+			\begin{example}
+				$S^n$ is a strong deformation retract of $\R^{n+1}\backslash0$ through $F(x,t)=(1-t)x+t\frac{x}{\|x\|}$.
+			\end{example}
+			
+			\item (\href{https://en.wikipedia.org/wiki/Retraction_(topology)#Cofibration_and_neighborhood_deformation_retract}{wiki}) The inclusion of a closed subspace $A$ in the space $X$ is a \cref{sec:cofibrations} if and only if $A$ is a \textbf{\textit{neighbourhood deformation retract}} of $X$, meaning that there is a continuous map $u:X\to[0,1]$ with $A=u^{-1}(0)$ and a homotopy $H:X\times[0,1]\to X$ such that $H(x,0)=x$ for all $x\in X$, $H(a,t)=a$ for all $a\in A$ and $t\in[0,1]$, and $H(x,1)\in A$ if $u(x)<1$.
+			
+			For example, the inclusion of a subcomplex in a CW complex is a cofibration.
+		\end{itemize}
 	\end{itemize}
 \end{defn}
 \section{elementary concepts}
@@ -391,14 +415,9 @@
 The functor $-\times Y$ is left adjoint to $\Map(Y,-)$.
 \end{remark}
 \end{itemize}
-\section{cofibrations}
+\section{cofibrations}\label{sec:cofibrations}
 \begin{defn}\leavevmode
 	\begin{itemize}
-		\item A morphism $i$ has the \textbf{\textit{left lifting property with respect to a morphism $p$}} and $p$ has the \textbf{\textit{right lifting property with respect to $i$}} if for each morphisms $f$ and $g$, if the outer square in the following diagram commutes, there exists $\phi$ (I think not necessarily unique) completing the diagram:
-\[\begin{tikzcd}[row sep=large]
-	A\arrow[r,"f"]\arrow[d,"i",swap]&X\arrow[d,"p"]\\
-	B\arrow[r,"g",swap]\arrow[ur,dashed,"\phi"]&Y
-\end{tikzcd}\]
 		\item (\href{https://en.wikipedia.org/wiki/Cofibration}{wiki}) In mathematics, in particular in homotopy theory, a continuous map between topological spaces $i:A\to X$ is a \textbf{\textit{cofibration}} if it has the \textbf{\textit{homotopy extension property}} with respect to all topological spaces $S$.
 		
 		That is, $i$ is a cofibration if
@@ -411,16 +430,28 @@ The functor $-\times Y$ is left adjoint to $\Map(Y,-)$.
 		there is a continuous map $g':X\to S$ and a homotopy $h':X\times I\to S$ from $g$ to $g'$ such that
 		\[h'(i(a),t)=h(a,t)\qquad\text{for all }a\in A\text{ and }t\in I.\]
 		
+		\item (\href{https://en.wikipedia.org/wiki/Cofibration#Homotopy_theory}{wiki}) In what follows, let $I=[0,1]$ denote the unit interval.
+		
+		A map $i:A\to X$ is a \textbf{\textit{cofibration}} if for any map $f:A\to S$ such that there is an extension to $X$, meaning there is a map $\tilde{f}:X\to S$ such that $\tilde{f}\circ i=f$, we can extend a homotopy of maps $H:A\times I\to S$ to a homotopy of maps $\tilde{H}:X\times I\to S$ where
+		\begin{align*}
+			H(a,0)&=f(a)\\
+			\tilde{H}(x,0)&=\tilde{f}(x)
+		\end{align*}
+		
+			\[\begin{tikzcd}[row sep=2cm,column sep=2cm,scale cd=1.2]
+			A\arrow[r,"H"]\arrow[dr,bend right=90,looseness=2,swap,"f"]\arrow[d,swap,"i"]&S^I\arrow[d,"\pi_0"]\\
+			X\arrow[ur,dashed,"\tilde{H}"]\arrow[r,swap,"\tilde{f}"]&S
+		\end{tikzcd}\]
 		\item (\href{https://en.wikipedia.org/wiki/Homotopy_extension_property}{wiki}) Let $X$ be a topological space and let $A\subset X$. We say that the pair $(X,A)$ has the \textbf{\textit{homotopy extension property}} if, given a homotopy $f_\bullet:A\to Y^I$ and a map $\tilde{f}_0:X\to Y$ such that
-		\[\tilde{f}_0\circ\iota=f_0\]
+		\[\tilde{f}_0\circ\iota=f_0\]\
 		{\color{cyan}(so $\tilde{f}$ is the lift of $f_0:A\to Y$)} then there exists an \textbf{\textit{extension}} of $f_\bullet$ to a homotopy $\tilde{f}_\bullet:X\to Y^I$ such that $\tilde{ƒ}_\bullet\circ\iota=f_\bullet$.
 		
 		That is,
 		\[\begin{tikzcd}
 			A\arrow[r,"f_\bullet"]\arrow[d,swap,"\iota"]&Y^I\arrow[d,"\pi_0"]\\
 			X\arrow[ur,dashed,"\tilde{f}_\bullet"]\arrow[r,swap,"\tilde{f}_0"]&Y
-		\end{tikzcd}\]
-		{\color{persiangreen}So there's some \href{https://en.wikipedia.org/wiki/Currying#Function_spaces}{currying} to make usual homotopies $f_\bullet:A\times I\to Y$ look like $f_\bullet:A\to Y^I$. Or, as said in our lectures, !a homotopy $X\times I\to Y$ is the same as a map $X\to \Map(I,Y)$".}
+		\end{tikzcd}\]\
+		{\color{persiangreen}So there's some \href{https://en.wikipedia.org/wiki/Currying#Function_spaces}{currying} to make usual homotopies $f_\bullet:A\times I\to Y$ look like $f_\bullet:A\to Y^I$. Or, as said in our lectures, ``a homotopy $X\times I\to Y$ is the same as a map $X\to \Map(I,Y)$".}
 		
 		\item (\cite{may}) A map $i:A\to X$ is a \textbf{\textit{cofibration}} if it satisfies the \textbf{\textit{homotopy extension property (HEP)}}. This means that if $h\circ i_0=f\circ i$ in the diagram
 		\[\begin{tikzcd}
@@ -480,10 +511,10 @@ $\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 	\[M_f=(([0,1]\times X)\amalg Y)\big/\sim\]
 	where $\amalg$ denotes disjoint union, and $\sim$ is the equivalence relation generated by
 	\[(0,x)\sim f(x)\text{ for each }x\in X.\]
-	{\color{red}That is, the mapping cylinder $M_f$ is obtained by gluing one end of $X\times[0,1]$ to $Y$ via the map $f$.} Notice that the ``top" of the cylinder $\{1\}\times X$ is homeomorphic to $X$, while the ``bottom" is the space $f(X)\subset Y$.
+	{\color{persiangreen}That is, the mapping cylinder $M_f$ is obtained by gluing one end of $X\times[0,1]$ to $Y$ via the map $f$.} Notice that the ``top" of the cylinder $\{1\}\times X$ is homeomorphic to $X$, while the ``bottom" is the space $f(X)\subset Y$.
 	
 	\begin{quote}
-		{\color{red}(Dani) So the mapping cylinder is just a deformation of $X$ to $f(X)$.}
+		{\color{persiangreen}(Dani) So the mapping cylinder is just deforming $X$ to $Y$ putting $X$ inside $Y$ via $f$.}
 	\end{quote}
 	
 	\item (Homework) Let $f:X\to Y$ be a map. Let $M_f=X\times[0,1]\cup_fY$ be the \textbf{\textit{mapping cylinder of $f$}}, i.e. the pushout of $X\overset{\cong}{\to}X\times\{0\}\hookrightarrow X\times[0,1]$ and of $f:X\times Y$.
@@ -505,17 +536,73 @@ $\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 		\item Show that $g : X \to M_f$ is a cofibration. You may use exercise (a), but the direct proof might be simpler.
 	\end{enumerate}
 \end{exercise}
-\begin{proof}[Solution]\leavevmode
-	\begin{enumerate}
-		\item That $h$ is a deformation retract is consequence of the last diagram. {\color{orange}Why is it a homotopy equivalence?}
-		\item Consider the following lifting problem:
-		\[\begin{tikzcd}
-			X\arrow[d,"g",swap]\arrow[r,"H"]&Y^I\arrow[d,"\pi_0"]\\
-			M_f\arrow[ur,dashed]\arrow[r,"h",swap]&Y
+\section{fibrations}
+\begin{itemize}
+	\item (\href{https://ncatlab.org/nlab/show/lift}{nLab}) A morphism $i$ has the \textbf{\textit{left lifting property with respect to a morphism $p$}} and $p$ has the \textbf{\textit{right lifting property with respect to $i$}} if for each morphisms $f$ and $g$, if the outer square in the following diagram commutes, there exists $\phi$ (I think not necessarily unique) completing the diagram:
+	\[\begin{tikzcd}[row sep=large]
+		A\arrow[r,"f"]\arrow[d,"i",swap]&X\arrow[d,"p"]\\
+		B\arrow[r,"g",swap]\arrow[ur,dashed,"\phi"]&Y
+	\end{tikzcd}\]
+	\item (\href{https://ncatlab.org/nlab/show/homotopy+lifting+property}{nLab}) Let $C$ be a category with products and with interval object $I$. A morphism $E\to B$ has the homotopy lifting property if it has the right lifting property with respect to all morphisms of the form $(\id,0):Y\to Y\times I$.
+	
+	This means that for all commuting squares
+	\[\begin{tikzcd}
+		Y\arrow[r,"f"]\arrow[d]&E\arrow[d,"p"]\\
+		Y\times I\arrow[r,swap,"F"]\arrow[ur,dashed,"\sigma"]&B
+	\end{tikzcd}\]
+	there exists a morphism $\sigma:Y\times I\to E$ such that both triangles in the former diagram commute.
+	
+	\item (\cite{hatcher-at}) A map $p:E\to B$ is said to have the \textbf{\textit{homotopy lifting property}} with respect to a space $X$ if, given a homotopy $g_t:X\to B$ and a map $\tilde{g}_0:X\to E$ lifting $g_0$, so $p\tilde{g}_0=g_0$, then there exists a homotopy $\tilde{g}_t:X\to E$ lifting $g_t$.
+	
+	The \textbf{\textit{lift extension property for a pair $(Z,A)$}} asserts that every map $X\to B$ has a lift $Z\to E$ extending a given lift defined on the subspace $A\subset Z$. The case $(Z,A)=(X\times I,X\times\{0\})$ is the homotopy lifting property.
+	
+	A \textbf{\textit{fibration}} is a map $p:E\to B$ having the homotopy property with respect to all spaces $X$.
+	
+	\begin{thm}[4.41 \cite{hatcher-at}, Long exact sequence of Serre fibrations, see \cref{thm:serre-fibrations-lectures}]\label{thm:serre-fibrations-hatcher,}
+		Suppose $p:E\to B$ has the homotopy lifting property with respect to disks $D^k$ for all $k\geq0$. Choose basepoints $b_0\ n B$ and $x_0\in F=p^{-1}(b_0)$. Then the map $p_*:\pi_n(E,F,x_0)\to\pi_0(B,b_0)$ is an isomorphism for all $n\geq1$. Hence $b$ is path-connected and there is a long exact sequence
+		\[\begin{tikzcd}[column sep=tiny]
+			\cdots\arrow[r]&\pi_n(F,x_0)\arrow[r]&\pi_n(E,x_0)\arrow[r,"p_*"]\arrow[r]&\pi_n(B,b_0)\arrow[r]&\pi_{n-1}(F,x_0)\arrow[r]&\cdots\arrow[r]&\pi_0(E,x_0)\arrow[r]&0
 		\end{tikzcd}\]
-		{\color{orange}Looks nice but why should the dashed arrow exist…?}
-	\end{enumerate}
-\end{proof}
+	\end{thm}
+	
+	The map $p:E\to B$ is said to have the \textbf{\textit{homotopy lifting property for a pair}} $(X,A)$ if each homotopy $f_t:X\to B$ lifts to a homotopy $\tilde{g}_t:X\to E$ starting with a given lift $\tilde{g}_0$ and extending a given lift $\tilde{g}_t:A\to E$. In other words, the homotopy lifting property for $(X,A)$ is the lift extension property for $(X\times I,X\times\{0\}\cup A\times I)$.
+	
+	{\color{cyan}The point is that }the homotopy lifting property for disjs is equivalent to the homotopy lifting property for all CW pairs $(X,A)$. A map $p:E\to B$ satisfying the homotopy lifting property for disks is sometimes called a \textbf{\textit{Serre fibration}}.
+	
+	A \textbf{\textit{fiber bundle}} structure on a space $E$, with fiber $F$, consists of a projection map $p:E\to B$ such that each point $B$ has a neighbourhood $U$ for which there is a homeomorphism $h:p^{-1}(U)\to U\times F$ making the following diagram commute
+	\[\begin{tikzcd}
+		p^{-1}(U)\arrow[rr,"h"]\arrow[dr,"p"]&&U\times F\arrow[dl]\\
+		&U
+	\end{tikzcd}\]
+\end{itemize}
+\begin{example}
+	Projective spaces yield interesting fiber bundles. In the real case we have the familiar covering spaces $S^n\to\R P^n$ with fiber $S^0$. Over the complex numbers the analog of this is a fiber bundle $S^1\to S^{2n+1}\to\C P^n$. Here $S^{2n+1}$ is the unit sphere in $\C^{n+1}$ and $\C P^n$ is viewed as the quotient space of $S^{2n+1}$ under the equivalence relation $(z_0,\ldots,z_n)\sim\lambda(z_0,\ldots,z_n)$ {\color{orange}for $\lambda\in S^1$}. The projection $p:S^{2n+1}\to\C P^n$ sends $(z_0,\ldots,z_n)$ to its equivalence class $[z_0,\ldots,z_n]$.
+	
+	To see that the local triviality condition for fibre bundles is satisfied, …
+	
+	The constructino of the bundle $S^1\to S^{2n+1}\to\C P^n$ also works when $n=\infty$, so there is a fiber bundle $S^1\to S^\infty\to \C P^\infty$.
+	
+	The case $n=1$ is particularly interesting since $\C P^1=S^2$ and bundle becomes $S^1\to S^3\to S^2$ with fiber, total space, and base all speres. This is known as the \textbf{\textit{Hopf bundle}}. The projection $S^3\to S^2$ can be taken to be $(z_0,z_1)\mapsto z_0/z_1\in\C\cup\{\infty\}=S^2$. {\color{persiangreen}(That is, seeing $S^2$ as the one-point compactification of $\C$.)}
+	
+	In polar coordinates we may see $S^3$ as the union of several tori. Stereorgraphic projection yields the following figure:
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{hopf-bundle}
+		\label{fig:hopf-bundle}
+	\end{figure}
+	The limiting cases $T_0$ and $T_\infty$ correspond to the unit circle in the $xy$-plane and the $z$-axis under the stereographic projection.	Each torus $T_\rho$ is aunion of circle fibers. These fiber circles have slope 1 on the torus, winding around once longitudinally and once meridionally. As $\rho$ goes to $0$ or $\infty$ the fiber circles approach the circles $T_0$ and $T_\infty$, which are also fibers. The figure below shows four tori decomposed into fibers:
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\linewidth]{hopf-bundle2}
+		\label{fig:hopf-bundle2}
+	\end{figure}
+	{\color{persiangreen}How could we visualize the projection onto $\S^2$? Could it work to think $S^2=\C\cup\infty$ and just do stereographic projection from 3-space to the plane disregarding one point? What would that even mean hehe}
+	
+	Replacing the field $\C$ by the quaternions $\H$, the same constructions yield fiber bundles $S^3\to S^{4n+3}\to\H P^{n}$ over quaternionic projective spaces $\H P^n$. Here the fiber $S^3$ is the unit quaternions, and $S^{4n+3}$ is the unit sphere in $\H^{n+1}$. Taking $n=1$ gives a second Hopf bundle $S^3\to S^7\to S^4=\H P^1$.
+	
+	Another Hopf bundle $S^7\to S^{15}\to S^8$…
+\end{example}
+
 \section{model structures}
 \begin{defn}[\cite{riehl}]
 	A \textbf{\textit{weak factorization system $(\Lc,\Rc)$}} on a category $\Mc$ is comprised o two clases of morphisms $\Lc$ and $\Rc$ so that
@@ -577,68 +664,6 @@ Two interesting model category structures on $\CGWH$.
 \begin{exercise}[3.1.8 from \cite{riehl}]
 Verify that the class of morphisms $\Lc$ characterized by the left lifting property against a fixed class of morphisms $\Rc$ is closed under coproducts, closed under retracts, and contains the isomorphisms.
 \end{exercise}
-\begin{proof}[Solution]
-\textbf{\textit{(Coproducts.)}} {\color{magenta} Sergey: Coproduct of morphisms $A_i\to B_i$ in a category $\Cc$ is the obvious morphism $\sqcup A_i \to \sqcup B_i$. (Because in this construction morphisms $A_i\to B_i$ are seen as objects of what's called the arrow category of the category $\Cc$)}
-
-Suppose the maps $\ell_i:A_i\to B_i$ are in $\Lc$. Then their coproduct in the arrow category is the obvious map $\coprod A_i\to\coprod B_i$.
-
-Explicitly, their coproduct is an arrow $\coprod\ell_i$ and a collection of maps $f_i:\ell_i\to\coprod\ell_i$ such that for any other object $m:A\to B$ in the arrow category and a map $g:\ell\to m$, the following diagram is completed uniquely:
-\[\begin{tikzcd}[scale cd=1.2]
-	\ell_i\arrow[r,"f_i"]\arrow[rr,bend right,"g",swap]&\coprod\ell_i\arrow[r,dashed,"\exists!"]&m
-\end{tikzcd}\qquad\forall i\]
-So we conclude that the source of $\coprod\ell_i$ is $\coprod A_i$ and its target $\coprod B_i$. Indeed, we really looking at
-\[\begin{tikzcd}[scale cd=1.2]
-	A_i\arrow[r,"\ell_i"]\arrow[d,"f_i^1",swap]&B_i\arrow[d,"f_i^2"]\\
-	\coprod A_i\arrow[r,"\coprod\ell_i"]\arrow[d,"\exists!",dashed,swap]&\coprod B_i\arrow[d,dashed,"\exists!"]\\
-	A\arrow[r,swap,"m"]&B
-\end{tikzcd}\]
-
-Now consider the following lifting problem with respect to a morphism $r\in\Rc$:
-\[\begin{tikzcd}[row sep=large]
-	\coprod A_i\arrow[d,swap,"\coprod\ell_i"]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
-	\coprod B_i\arrow[r]&\bullet
-\end{tikzcd}\]
-Since $\ell_i\in\Lc$, we have maps
-\[\begin{tikzcd}[row sep=large]
-	A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
-	B_i\arrow[r]\arrow[rru,dashed]&\coprod B_i\arrow[r]&\bullet
-\end{tikzcd}\]
-which in turn means we have unique maps
-\[\begin{tikzcd}[row sep=large]
-	A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
-	B_i\arrow[r]\arrow[rru]&\coprod B_i\arrow[r]\arrow[ur,dashed]&\bullet
-\end{tikzcd}\]
-by the universal property of the coproduct $\coprod B_i$.
-
-So, to check that the lower-right triangle commutes, it would be sufficient to show that the map $B_i\to\coprod B_i$ "can be cancelled" since
-\[\begin{tikzcd}[row sep=large]
-	A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&{\color{red}\bullet}\arrow[d,"r\in\Rc",red]\\
-	{\color{red}B_i}\arrow[r,red]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r]\arrow[ur,dashed,red]&{\color{red}\bullet}
-\end{tikzcd}\quad
-\begin{array}{c}
-	\text{is already}\\
-	\text{the same as}
-\end{array}\quad
-\begin{tikzcd}[row sep=large]
-A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
-{\color{red}B_i}\arrow[r,red]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r,red]\arrow[ur,dashed]&{\color{red}\bullet}
-\end{tikzcd}\]
-Likeways, to make sure that the remaining triangle commutes we observe that
-\[\begin{tikzcd}[row sep=large]
-	{\color{red}A_i}\arrow[r,red]\arrow[d,"\Lc\ni\ell_i",swap]&{\color{red}\coprod A_i}\arrow[d,red]\arrow[r]&{\color{red}\bullet}\arrow[d,"r\in\Rc"]\\
-	B_i\arrow[r]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r]\arrow[ur,dashed,red]&\bullet
-\end{tikzcd}\quad
-\begin{array}{c}
-	\text{is already}\\
-	\text{the same as}
-\end{array}
-\quad
-\begin{tikzcd}[row sep=large]
-	{\color{red}A_i}\arrow[r,red]\arrow[d,"\Lc\ni\ell_i",swap]&{\color{red}\coprod A_i}\arrow[d]\arrow[r,red]&{\color{red}\bullet}\arrow[d,"r\in\Rc"]\\
-	B_i\arrow[r]\arrow[rru]&\coprod B_i\arrow[r]\arrow[ur,dashed]&\bullet
-\end{tikzcd}\]
-{\color{magenta}Why can we "cancel" the maps $A_i\to\coprod A_i$ and $B_i\to\coprod B_i$?}
-\end{proof}
 
 \begin{remark}[Plan]
 	Blakers-Massey excision theorem (relies on technical lema, proof from Tom Dieck's book) $\implies$ Cellular approximation. Also $\implies$ Freudental theorem.
@@ -818,7 +843,7 @@ We introduce a large class of spaces, called CW complexes, between which a weak 
 		&Z^I\times_ZY\arrow[d]\\
 		X\arrow[r]&Z
 	\end{tikzcd}\]
-	is the motopy pullback of
+	is the homotopy pullback of
 	\[\begin{tikzcd}
 		&Y\arrow[d]\\
 		X\arrow[r]&Z
@@ -870,7 +895,7 @@ and then
 
 We've been talking a lot about Hurewickz fibrations. Let's talk about Serre fibrations. Notice that H. fibration $\implies$ S. fibration. What is the most natural example of a Serre fibration?
 
-\begin{prop}
+\begin{prop}[also \cite{hatcher-at} 4.48]
 	Let $E$ be a fiber bundle with fiber $F$. Then $f$ is a Serre fibration.
 \end{prop}
 \begin{proof}
@@ -905,7 +930,7 @@ We've been talking a lot about Hurewickz fibrations. Let's talk about Serre fibr
 	\end{tikzcd}\]
 	and we're done.
 \end{proof}
-\begin{prop}[Construction of homotopy long exact sequence from relative homotopy long exact sequence]
+\begin{prop}[Sere fibration long exact sequence, see \cref{thm:serre-fibrations-hatcher}]\label{thm:serre-fibrations-lectures}
 	Let $g:E\to B$ is a Serre fibration. $e\in E$, $g(e)= b$ and $g^{-1}=F$. Then consider the exact sequence in homotopy of the Serre fibration and the relative homotopy exact sequence. Then there is a long exact sequence (top row):
 	\[\begin{tikzcd}
 		\cdots\arrow[r]&\pi_n(F)\arrow[r]&\pi_n(E)\arrow[r]&\pi_n(B)\arrow[r]&\pi_{n-1}(F)\arrow[r]&\pi_{n-1}(E)\arrow[r]&\cdots\\
@@ -1008,14 +1033,14 @@ So let $X$ be a space. The identity map $\id_{\Sigma X}:\Sigma X\to \Sigma X$ th
 \begin{thm}[Freudenthal]\label{thm:freudenthal}
 	Let $X$ be $\ell$-connected space. Then $X\to\Omega\Sigma X$ is a $(2\ell+1)$-equivalence, that is,
 	\[\pi_i(X)\to \pi_{i+1}(\Sigma X),\]
-	$(\ell+1)+(\ell+1)-1=2\ell+1$.
+	is a bijection for $i<2\ell+1$ {\color{cyan}and a surjection for $i=2\ell+1$ (\cite{may})}.
 \end{thm}
 \begin{proof}[Proof 1]
-	Using pushouts…
-%	\[\begin{tikzcd}
-%		X\arrow[r,"(\ell+1)\text{-equivalence}"]&*\arrow[rdd,bend left]\\
-%		
-%	\end{tikzcd}\]
+	\[\begin{tikzcd}
+	X\arrow[rr,"(\ell+1)\text{-equiv}"]\arrow[rd]\arrow[dd,"(\ell+1)\text{-equiv}",swap]&&*\arrow[dd]\\
+	&\Omega \Sigma X \arrow[rd, phantom, "\lrcorner_h", very near start]\arrow[ur]\arrow[ld]\\
+	*\arrow[rr]&&\Sigma X\arrow[ul,phantom,"\prescript{h}{}\ulcorner ",very near start]
+	\end{tikzcd}\]
 \end{proof}
 \begin{proof}[Proof 2]
 	Consider
@@ -1037,8 +1062,8 @@ So let $X$ be a space. The identity map $\id_{\Sigma X}:\Sigma X\to \Sigma X$ th
 	If $X$ is $\ell$-connected, then $\Sigma X$ is $(\ell+1)$-connected for $\ell\geq0$.
 \end{coro}
 \[\begin{matrix}
-	S^0&\Sigma S^0=S^1&\Sigma^2S^0=S^2&\Sigma^3S^0=S^3&\cdots&\Sigma^nS^0=S^n\\
-	-1&0&1&2&\cdots&(n-1)
+	\text{space}&&S^0&\Sigma S^0=S^1&\Sigma^2S^0=S^2&\Sigma^3S^0=S^3&\cdots&\Sigma^nS^0=S^n\\
+	\text{conectedness}&&-1&0&1&2&\cdots&(n-1)
 \end{matrix}\]
 \begin{coro}
 	$S^n$ is $(n-1)$-connected.
@@ -1093,8 +1118,8 @@ which is $(n-1)$-equivalence since $S^{n-1}\to D^n$ is an $(n-1)$-equivalence, w
 \end{tikzcd}\]
 so $\pi_i(D^n,S^{n-1})=0$ for $i\leq n-1$.
 
-%		B\arrow[r]&X \arrow[ul, phantom, "\lrcorner", very near start]
-%		B\arrow[r]&X \arrow[ul, phantom, "\ulcorner", very near start]
+%		\arrow[r]&X \arrow[ul, phantom, "\lrcorner", very near start]
+%		\arrow[r]&X \arrow[ul, phantom, "\ulcorner", very near start]
 
 \addcontentsline{toc}{section}{References}
 \printbibliography
