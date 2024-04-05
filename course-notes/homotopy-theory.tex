@@ -153,6 +153,40 @@
 \section{abstract nonsense}
 \begin{defn}\leavevmode
 	\begin{itemize}
+		\item \textbf{(Limits, \href{https://en.wikipedia.org/wiki/Limit_(category_theory)}{wiki}.)}
+		\begin{itemize}
+			\item A \textbf{\textit{diagram}} of shape $J$ in $C$ is a functor from $J$ to $C$
+			\[F:J\to C.\]
+			The category $J$ is thought of as an index category, and the diagram $F$ is thought of as indexing a collection of obtects and morphisms in $C$ patterned on $J$.
+			
+			\item Let $F:J\to C$ be a diagram of chape $J$ in a category $C$. A \textbf{\textit{cone}} to $F$ is an object $N$ to $C$ together with a family $\psi_X:N\to F(X)$ of morphisms indexed by the objects $X$ of $J$ {\color{persiangreen}(so a cone is an object and a bunch of maps from this object to certain objectes that are governed by the diagram)}, so that for every morphism $X\to Y$ in $J$, we have $F(f)\circ\psi_X=\psi_Y$ {\color{persiangreen} I guess this is what \href{https://ncatlab.org/nlab/show/limit}{nLab} meant when he said that everything in sight commutes)}.
+			
+			\item A \textbf{\textit{limit}} of the diagram $F:J\to C$ is a cone $(L,\phi)$ to $F$ such that for every cone $(N,\psi)$ there exists a \textit{unique} morphism $u:N\to L$ such that $\phi_X\circ u=\psi_X$ for all $X$ in $J$.
+			\[\begin{tikzcd}
+				&N\arrow[d,"u",dashed]\arrow[rdd,bend left,"\psi_Y"]\arrow[ddl,swap,bend right,"\psi_X"]\\
+				&L\arrow[dl,swap,"\phi_X"]\arrow[dr,"\psi_Y"]\\
+				F(X)\arrow[rr,"F(f)",swap]&&F(Y)
+			\end{tikzcd}\]
+			One says that the cone $(N,\psi)$ factors through the cone $(L,\phi)$ with the unique factorization $u$. The morphism $u$ is sometimes called the \textbf{\textit{mediating morphism}}.
+			
+			Limits are also referred to as \textbf{\textit{universal cones}} since they are characterized by a universal property. Limits may also be caracterized as terminal objects in the category of cones to $F$.
+			
+			It is possible that a diagram does not have a limit at all. However, if a diagram does have a limit then this limit is essentially unique: it is unique up to a unique isomorphism. For this reason one often speaks of \textit{the} limit of $F$.
+		\end{itemize}
+		\item \textbf{(Colimits, \href{https://en.wikipedia.org/wiki/Limit_(category_theory)}{wiki})} The dual notions of limits and cones are colimits and co-cones. Although it is straightforward to obtain the definitions of these by inverting all morphisms in the above definitions, we will explicitly state them here:
+		\begin{itemize}
+			\item A \textbf{\textit{co-cone}} of a diagram $F:J\to C$ is an object $N$ of $C$ together with a family of morphisms $\psi_X:F(X)\to N$  {\color{persiangreen}(so in the cone we are going \textit{from} $N$ and now we're going \textit{to}$N$)} for every object $X$ of $J$, such that for every morphism $f:X\to Y$ in $J$ we have $\psi_Y\circ F(f)=\psi_X$ {\color{persiangreen}everything in sight commutes}.
+			
+			\item A \textbf{\textit{colimit}} of a diagram $F:J\to C$ is a co-cone $(L,\phi)$ of $F$ such that for any other co-cone $(N,\psi)$ of $F$ there exists a unique morphism $u:L\to N$ such that $u\circ \phi_X=\psi_X$ for all $X$ in $J$.
+			\[\begin{tikzcd}
+				F(X)\arrow[rr,"F(f)"]\arrow[dr,"\phi_X",swap]\arrow[ddr,bend right,"\psi_X",swap]&&F(Y)\arrow[ld,"\phi_Y"]\arrow[ddl,"\psi_Y",bend left]\\
+				&L\arrow[d,dashed,"u"]\\
+				&N
+			\end{tikzcd}\]
+			Colimits are also referred to as \textbf{\textit{unersal co-cones}}. They can be characterized as initial objects in the category of co-cones from $F$.
+			
+			As with limits, if a diagram $F$ has a colimit then this colimit is unique up to a unique isomorphism.
+		\end{itemize}
 		\item An \textbf{\textit{initial object}} in a category $\Cc$ is an object $\varnothing$ such that for any object $x\in\Cc$ there is a unique morphism $\varnothing\to x$ with source $\varnothing$ and target $x$.
 		
 		\item \label{defn:arrow-cat}
@@ -381,7 +415,7 @@
 		
 		\item A pair $(X,A)$ is \textbf{\textit{$n$-connected}} if $\pi(X,A,x_0)=0$ for $i\leq n$.
 		
-		\item Two pointed spaces $(X,x_0)$ and $(Y,y_0)$ are \textbf{\textit{$n$-equivalent}} if $\pi_i(X,x_0)\cong\pi_i(Y,y_0)$ for all $i\leq n$.
+		\item Two pointed spaces $(X,x_0)$ and $(Y,y_0)$ are \textbf{\textit{$n$-equivalent}} if $\pi_i(X,x_0)\cong\pi_i(Y,y_0)$ for all $i< n$ and surjective for $i=n$.
 	\end{itemize}
 \end{defn}
 
@@ -558,7 +592,7 @@ $\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 	
 	A \textbf{\textit{fibration}} is a map $p:E\to B$ having the homotopy property with respect to all spaces $X$.
 	
-	\begin{thm}[4.41 \cite{hatcher-at}, Long exact sequence of Serre fibrations, see \cref{thm:serre-fibrations-lectures}]\label{thm:serre-fibrations-hatcher,}
+	\begin{thm}[4.41 \cite{hatcher-at}, Long exact sequence of Serre fibrations, see \cref{thm:serre-fibrations-lectures}]\label{thm:serre-fibrations-hatcher}
 		Suppose $p:E\to B$ has the homotopy lifting property with respect to disks $D^k$ for all $k\geq0$. Choose basepoints $b_0\ n B$ and $x_0\in F=p^{-1}(b_0)$. Then the map $p_*:\pi_n(E,F,x_0)\to\pi_0(B,b_0)$ is an isomorphism for all $n\geq1$. Hence $b$ is path-connected and there is a long exact sequence
 		\[\begin{tikzcd}[column sep=tiny]
 			\cdots\arrow[r]&\pi_n(F,x_0)\arrow[r]&\pi_n(E,x_0)\arrow[r,"p_*"]\arrow[r]&\pi_n(B,b_0)\arrow[r]&\pi_{n-1}(F,x_0)\arrow[r]&\cdots\arrow[r]&\pi_0(E,x_0)\arrow[r]&0
@@ -1106,21 +1140,47 @@ So $\pi_3(S^2)\cong\Z$ in case you were wondering.
 Glue a disk to a space and what happens to homotopy groups?
 \[\begin{tikzcd}
 	S^{n-1}\arrow[r,"(n-1)\text{-equiv}"]\arrow[d,"0\text{-equiv}",swap]&D^n\arrow[d]\\
-	X\arrow[r]&X\cup D^n
+	X\arrow[r]&X\cup D^n\arrow[ul, phantom, "\ulcorner", very near start]
 \end{tikzcd}\]
 Assume $X$ is connected. We get a map from the vertical arrows
 \[\begin{tikzcd}
 	\pi_i(D^n,S^{n-1})\arrow[r]&\pi_i(X\cup D^n,X)
 \end{tikzcd}\]
-which is $(n-1)$-equivalence since $S^{n-1}\to D^n$ is an $(n-1)$-equivalence, which is the case since
+which is $(n-1)$-equivalence by Blakers-Massey. So, by attaching $\sqcup D^n$ we can kill $\pi_{n-1}(X)$, that is, $X\cup(\sqcup D^n)$ has trivial $\pi_{n-1}$.
+
+Now notice that
+
+%since $S^{n-1}\to D^n$ is an $(n-1)$-equivalence, which is the case since
 \[\begin{tikzcd}
 	0=\pi_i(D^n)\arrow[r]&\pi_i(D^n,S^{n-1})\arrow[r,"\cong"]&\pi_{i-1}(S^{n-1})\arrow[r]&\pi_{i-1}(D^n)=0
 \end{tikzcd}\]
-so $\pi_i(D^n,S^{n-1})=0$ for $i\leq n-1$.
+that is, $\pi_i(D^n,S^{n-1})=0$ for $i\leq n-1$. This implies that $\pi_i(X\cup D^n,X)=0$ for $i\leq n-1$.
 
-%		\arrow[r]&X \arrow[ul, phantom, "\lrcorner", very near start]
-%		\arrow[r]&X \arrow[ul, phantom, "\ulcorner", very near start]
+Also by homotopy long exact sequence,
+\[\pi_{n-1}(X)\to \pi_i(X\cup D^n)\text{ is sujrective}\]
+\[\pi_i(X)\to \pi_{i}(X\cup D^n)\text{ is isomorphism for }i\leq n-2.\]
+So what we have thus far is
+\[\begin{tikzcd}
+	\pi_n(X\cup D^n)\arrow[r]&\pi_{n-1}(X)\arrow[r]&\pi_{n-1}(X\cup D^n)\arrow[r]&0=\pi_{n-1}(X\cup D^n)
+\end{tikzcd}\]
+Notice that $\pi_n(X\cup D^n,X)$ is not ingeneral cyclic (counterexample $S^1\cup D^2$ taking unieversal cover which is real line with spheres on integers, homotopy equivalent to $\bigvee_\Z S^2$ which is not finitely generated).
 
+\begin{prop}
+	For any CW-complex $X$, $X^\ell\to X$ is an $\ell$-equivalence.
+\end{prop}
+\begin{remark}
+	We have used that for $A\hookrightarrow X$ from long exact sequence of relative homotopy groups we get $\pi_n(X,A)=0$.
+\end{remark}
+\begin{coro}
+	Let $i\leq \ell$ and $g: D^i\to X$, $g:\partial D^i\to X^\ell$. Then there is a homotopy $\rel\partial D^i$ to a map with $\img\subset X^\ell$.
+\end{coro}
+\begin{thm}[Cellular approximation theorem]
+	Let $X$ and $Y$ be CW-complexes and $\xi:Y\to X$ be any map. Then $\xi$ is homotopic to a \textbf{\textit{cellular map}}, that is, a map $\psi:Y\to X$, such that for all $\ell$, $\psi Y^0\subset X^\ell$.
+\end{thm}
+
+\clearpage
+%		\arrow[ul, phantom, "\lrcorner", very near start]
+%		\arrow[ul, phantom, "\ulcorner", very near start]
 \addcontentsline{toc}{section}{References}
 \printbibliography
 \end{document}
