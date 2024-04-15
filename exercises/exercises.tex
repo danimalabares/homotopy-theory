@@ -221,7 +221,7 @@ for $I$ the interval category $\{0\to 1\}$.
 			&&Y
 		\end{tikzcd}\]
 		We must show that there is a homotopy between the identity map on $M_f$ and a retraction from $M_f$ to $Y$. So we want $h:M_f\times[0,1]\to M_f$ such that
-		\[h(-,0)=\id_X,\quad \img h(-,1)\subset Y\quad\text{and}\quad h(-,1)|_Y=\id_Y\]
+		\[h(-,0)=\id_{M_f},\quad \img h(-,1)\subset Y\quad\text{and}\quad h(-,1)|_Y=\id_Y\]
 		
 		The fact that $h$ is a deformation retract is consequence of this diagram. {\color{red}But I still can't see why it must be a homotopy equivalence…}
 		\item Consider the following lifting problem:
@@ -232,6 +232,63 @@ for $I$ the interval category $\{0\to 1\}$.
 		{\color{red}Looks OK but why should the dashed arrow exist…?}
 	\end{enumerate}
 \end{proof}
+\clearpage
+\section{path spaces and fibrations}
+\begin{exercise}\leavevmode
+	\begin{enumerate}[label*=\alph*.]
+		\item Show that $\Map(I,Y)$ deformation retracts on $\Map(\pt,Y)$. Most likely you’ll have to find a correct map $I\times I\to I$. Also show that $\Map(I,Y)\to \Map(\pt,Y)$ is a Hurewicz fibration. The key map will be of the form $I \times I \to I \times I$.
+	\end{enumerate}
+\end{exercise}
+\begin{proof}[Solution]\leavevmode
+	\begin{enumerate}[label*=\alph*.]
+		\item
+		
+		\textbf{($\Map(I,Y)\to\Map(\pt,Y)$ is a Hurewicz fibration.)} Let $A$ be any space. We must show that for any homotopy $H$ and lift $h_0$ there exists an homotopy $\tilde{H}$ as in the following diagram:
+		\[\begin{tikzcd}
+			A\times\{0\}\arrow[d,hook]\arrow[r,"h_0"]&\Map(I,Y)\arrow[d,"p"]\\
+			A\times I\arrow[ur,dashed,"\tilde{H}"]\arrow[r,"H",swap]&\Map(0,Y)
+		\end{tikzcd}\]
+		From the isomorphism $\Map(X\times Y,Z)\cong\Map(X,\Map(Y,Z))$ we may rewrite the problem as
+		\[\begin{tikzcd}
+			(A\times\{0\})\times I\arrow[dr,"H_0"]\\
+			(A\times I)\times I\arrow[r,dashed,"\tilde{H}"]&Y\\
+			(A\times I)\times \{0\}\arrow[ur,"H",swap]
+		\end{tikzcd}\]
+		So we define the dashed arrow by
+		\[(a,s,t)\mapsto\begin{cases}
+			H_0(a,0,s-t)\qquad \text{when }s-t\geq0\\
+			H(a,t-s,0)\qquad\text{when }s-t\leq0
+		\end{cases}\]
+		so that when $s=t$ the functions coincide, when $s=0$ we get $H$ and when $t=0$ we get $H_0$.
+		
+		\vspace{1cm}
+		\textbf{($\Map(I,Y)$ deformation retracts on $\Map(\pt,Y)$.)} We must show there is a homotopy
+		\[\begin{tikzcd}
+			h:\Map(I,Y)\times I\arrow[r]&\Map(I,Y)
+		\end{tikzcd}\]
+		such that
+		\begin{gather*}
+			h(-,0)=\id_{\Map(I,Y)},\qquad h(-,1)\subset\Map(\pt,Y)\\\\ \text{and}\qquad h(-,1)|_{\Map(\pt,Y)}=\id_{\Map(\pt,Y)}.
+		\end{gather*}
+		Consider the map
+		\begin{align*}
+			I\times I&\to I\\
+			(s,t)&\mapsto s-st
+		\end{align*}
+		
+		Our deformation retract may be written like
+		\iffalse\[\begin{tikzcd}[row sep=tiny]
+			h:\Map(I,Y) \arrow[r]&\Map(I,\Map(I,Y))\\
+			f(s)\arrow[r,maps to,shorten=2em]&t\mapsto f(s-st)
+		\end{tikzcd}\]\fi
+		\[\begin{tikzcd}[row sep=tiny]
+			h:\Map(I,Y)\times I \arrow[r]&\Map(I,Y)\\
+			(f(s),t)\arrow[r,maps to,shorten=1em]&f(s-st)
+		\end{tikzcd}\]
+		Then for $t=0$ we have the identity on $\Map(I,Y)$, and when $t=1$ we have $\ev_0$.
+	\end{enumerate}
+\end{proof}
+\clearpage
 \section{exercise on model categories}
 \begin{exercise}[3.1.8 from \cite{riehl}]
 	Verify that the class of morphisms $\Lc$ characterized by the left lifting property against a fixed class of morphisms $\Rc$ is closed under coproducts, closed under retracts, and contains the isomorphisms.
@@ -292,6 +349,16 @@ for $I$ the interval category $\{0\to 1\}$.
 		B_i\arrow[r]\arrow[rru]&\coprod B_i\arrow[r]\arrow[ur,dashed]&\bullet
 	\end{tikzcd}\]
 	so the conclusion follows from the former comment.
+	
+	\textbf{(Closed under retracts.)} Let us at least state what a retract of a morphism $g$ should be in the arrow category. Recall that a retract is just
+	\[\begin{tikzcd}
+		X\arrow[r]\arrow[rr,bend right,"\id_X",swap]&Y\arrow[r]&X
+	\end{tikzcd}\]
+	So in the arrow category we get
+	\[\begin{tikzcd}
+		\bullet\arrow[r]\arrow[rr,bend left]\arrow[d,"f"]&\bullet\arrow[d,"g"]\arrow[r]&\bullet\arrow[d,"f"]\\
+		\bullet\arrow[r]\arrow[rr,bend right,swap,"\id"]&\bullet\arrow[r]&\bullet
+	\end{tikzcd}\]
 \end{proof}
 
 \section{Hatcher's exercise on Whitehead's theorem}

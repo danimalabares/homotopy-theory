@@ -11,7 +11,8 @@
 \usepackage[left=4cm, right=4cm]{geometry}
 \usepackage{palatino,eulervm,dutchcal,xcolor}%fonts
 \usepackage{graphicx,subcaption,float}
-\usepackage{enumitem,parskip,multicol}
+\usepackage{enumitem,parskip,multicol,array}
+\newcolumntype{L}{>{$}c<{$}}%table in mathmode
 \usepackage{amsthm,amssymb,amsmath,mathtools,thmtools}
 \usepackage{tikz,tikz-cd}
 \usetikzlibrary{%
@@ -74,7 +75,7 @@
 \declaretheorem[style=colored3,numberlike=thm,name=lemma]{lemma}
 \declaretheorem[style=colored4,numberlike=thm,name=corollary]{coro}
 \declaretheorem[style=colored5,numbered=no,name=example]{example}
-\declaretheorem[style=colored5,numbered=no,name=examples]{exemplos}
+\declaretheorem[style=colored5,numbered=no,name=examples]{examples}
 \declaretheorem[style=colored6,numbered=no,name=exercise]{exercise}
 \declaretheorem[style=colored7,numbered=no,name=remark]{remark}
 \declaretheorem[style=colored8,numbered=no,name=claim]{claim}
@@ -118,26 +119,34 @@
 \newcommand{\Yc}{\mathcal{Y}}
 \newcommand{\Zc}{\mathcal{Z}}
 
+\DeclareMathOperator{\Obj}{Obj}
 \DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\Ho}{Ho}
 \DeclareMathOperator{\Arg}{Arg}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\pt}{pt}
 \DeclareMathOperator{\Alt}{Alt}
 \DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\hTop}{h-Top}
+\DeclareMathOperator{\Loc}{Loc}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\Int}{Int}
 \DeclareMathOperator{\Ob}{Ob}
 \DeclareMathOperator{\Mor}{Mor}
 \DeclareMathOperator{\Top}{Top}
+\DeclareMathOperator{\Path}{Path}
 \DeclareMathOperator{\Set}{Set}
 \DeclareMathOperator{\CGWH}{CGWH}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Map}{Map}
 \DeclareMathOperator{\Tot}{Tot}
+\DeclareMathOperator{\K}{K}
+\DeclareMathOperator{\CW}{CW}
 \DeclareMathOperator{\op}{op}
 \DeclareMathOperator{\ev}{ev}
 \DeclareMathOperator{\hofib}{hofib}
+\DeclareMathOperator{\cofib}{cofib}
+\DeclareMathOperator{\hocofib}{hocofib}
 \DeclareMathOperator{\rel}{rel}
 \DeclareMathOperator{\coker}{coker}
 \DeclareMathOperator{\Arr}{Arr}
@@ -146,6 +155,12 @@
 \DeclareMathOperator{\coeq}{coeq}
 \DeclareMathOperator{\Cyl}{Cyl}
 \DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\Psh}{Psh}
+\DeclareMathOperator{\Sets}{Sets}
+\DeclareMathOperator{\Nat}{Nat}
+\DeclareMathOperator{\Sh}{Sh}
+\DeclareMathOperator{\el}{el}
+\DeclareMathOperator{\Iso}{Iso}
 
 \begin{document}
 {\Huge homotopy theory}
@@ -570,6 +585,9 @@ $\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 		\item Show that $g : X \to M_f$ is a cofibration. You may use exercise (a), but the direct proof might be simpler.
 	\end{enumerate}
 \end{exercise}
+\begin{exercise}
+	$X\to M_f\to Y$. Prove $X\to M_f$ is a cofibration.
+\end{exercise}
 \section{fibrations}
 \begin{itemize}
 	\item (\href{https://ncatlab.org/nlab/show/lift}{nLab}) A morphism $i$ has the \textbf{\textit{left lifting property with respect to a morphism $p$}} and $p$ has the \textbf{\textit{right lifting property with respect to $i$}} if for each morphisms $f$ and $g$, if the outer square in the following diagram commutes, there exists $\phi$ (I think not necessarily unique) completing the diagram:
@@ -577,7 +595,7 @@ $\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 		A\arrow[r,"f"]\arrow[d,"i",swap]&X\arrow[d,"p"]\\
 		B\arrow[r,"g",swap]\arrow[ur,dashed,"\phi"]&Y
 	\end{tikzcd}\]
-	\item (\href{https://ncatlab.org/nlab/show/homotopy+lifting+property}{nLab}) Let $C$ be a category with products and with interval object $I$. A morphism $E\to B$ has the homotopy lifting property if it has the right lifting property with respect to all morphisms of the form $(\id,0):Y\to Y\times I$.
+	\item (\href{https://ncatlab.org/nlab/show/homotopy+lifting+property}{nLab}) Let $C$ be a category with products and with interval object $I$. A morphism $E\to B$ has the \textbf{\textit{homotopy lifting property}} if it has the right lifting property with respect to all morphisms of the form $(\id,0):Y\to Y\times I$.
 	
 	This means that for all commuting squares
 	\[\begin{tikzcd}
@@ -585,6 +603,8 @@ $\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 		Y\times I\arrow[r,swap,"F"]\arrow[ur,dashed,"\sigma"]&B
 	\end{tikzcd}\]
 	there exists a morphism $\sigma:Y\times I\to E$ such that both triangles in the former diagram commute.
+	
+	A \textbf{\textit{fibration}} (also called \textbf{\textit{Hurewicz fibration}}) is a mapping $p:E\to B$ satisfying the homotopy lifting property for all spaces $X$.
 	
 	\item (\cite{hatcher-at}) A map $p:E\to B$ is said to have the \textbf{\textit{homotopy lifting property}} with respect to a space $X$ if, given a homotopy $g_t:X\to B$ and a map $\tilde{g}_0:X\to E$ lifting $g_0$, so $p\tilde{g}_0=g_0$, then there exists a homotopy $\tilde{g}_t:X\to E$ lifting $g_t$.
 	
@@ -630,7 +650,7 @@ $\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 		\includegraphics[width=0.9\linewidth]{hopf-bundle2}
 		\label{fig:hopf-bundle2}
 	\end{figure}
-	{\color{persiangreen}How could we visualize the projection onto $\S^2$? Could it work to think $S^2=\C\cup\infty$ and just do stereographic projection from 3-space to the plane disregarding one point? What would that even mean hehe}
+	{\color{persiangreen}How could we visualize the projection onto $S^2$? Could it work to think $S^2=\C\cup\infty$ and just do stereographic projection from 3-space to the plane disregarding one point? What would that even mean hehe}
 	
 	Replacing the field $\C$ by the quaternions $\H$, the same constructions yield fiber bundles $S^3\to S^{4n+3}\to\H P^{n}$ over quaternionic projective spaces $\H P^n$. Here the fiber $S^3$ is the unit quaternions, and $S^{4n+3}$ is the unit sphere in $\H^{n+1}$. Taking $n=1$ gives a second Hopf bundle $S^3\to S^7\to S^4=\H P^1$.
 	
@@ -651,7 +671,7 @@ $\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 			\bullet\arrow[d,"\Lc\ni\ell",swap]\arrow[r]&\bullet\arrow[d,"r\in\Rc"]\\
 			\bullet\arrow[ur,dashed]\arrow[r]&\bullet
 		\end{tikzcd}\]
-		admits a diagonal filler as indicated making both triangles commute.
+		admits a diagonal filler as indicated making both triangles commute. When this lift is unique, we say the factorization system is \textbf{\textit{orthogonal}}.
 		\item The classes $\Lc$ and $\Rc$ are each closed under retracts in the arrow category: given a commutative diagram
 		\[\begin{tikzcd}
 			\bullet\arrow[r]\arrow[d,"t",swap]\arrow[rr,bend left,no head,shift left=.3]\arrow[rr,bend left,no head,shift right=.3]&\bullet\arrow[r]\arrow[d,"s"]&\bullet\arrow[d,"t"]\\
@@ -660,51 +680,145 @@ $\partial D^n\to D$ is a Huerwicz cofibration. {\color{orange} Why?}
 		if $s$ is in that class then so is its retract $t$.
 	\end{enumerate}
 \end{defn}
-\begin{defn}[Lecture]
-A \textbf{\textit{model structure}} on a category $\Ac$ is a choice of subcategories $\Wc,\Cc,\Fc$ called \textbf{\textit{weak-equivalences}}, \textbf{\textit{cofibrations}} and \textbf{\textit{fibrations}} with the following properties:
-\begin{enumerate}
-	\item Given $\bullet\overset{f}{\to}\bullet\overset{g}{\to}\bullet$, if either 2 out of 3 among $f,g,f\circ g$ are in $\Wc$ then all of them are.
-	\item $(\Cc\cap\Wc,\Fc)$ and $(\Cc,\Fc\cap\Wc)$ are both weak factorization systems.
-	$(\Bc,\Dc)$ is a weak factorization system.
-	\begin{enumerate}
-		\item Any morphism in $\Ac$ can be factored as a morphism in $\Bc$ followed by a morphism in $\Dc$.
-		\item Lifts:
-		\[\begin{tikzcd}[scale cd=1.2]
-			\bullet\arrow["f",d,swap]\arrow[r]&\bullet\arrow[d,"g"]\\
-			\bullet\arrow[ur,dashed,"\exists"]\arrow[r]&\bullet
-		\end{tikzcd}\]
-	\end{enumerate}
-\end{enumerate}
-\end{defn}
-Two interesting model category structures on $\CGWH$.
-\begin{enumerate}
-\item Hurewicz model structure (Strom).
-\begin{itemize}
-	\item Cofibrations:= Huerwicz cofibrations.
-	\item Fibrations:= maps $E\to B$ such that for all spaces $X$ [Photo1].
-	\item Weak equivalences:= homotopy equivalences.
-\end{itemize}
-\item Quillen model structure.
-\begin{itemize}
-	\item Cofibrations = retracts of relative cell complexes.
-	\item (Serre) Fibrations = \begin{tikzcd}
-		D^n\arrow[r]\arrow[d]&E\arrow[d]\\
-		D^n\times I\arrow[ur,dashed]\arrow[r]&B
-	\end{tikzcd}
-	\item Weak equivalences: $f:X\to Y$
-\end{itemize}
-\end{enumerate}
 
 \begin{exercise}[3.1.8 from \cite{riehl}]
 Verify that the class of morphisms $\Lc$ characterized by the left lifting property against a fixed class of morphisms $\Rc$ is closed under coproducts, closed under retracts, and contains the isomorphisms.
 \end{exercise}
 
+\begin{defn}
+	Given a contravariant functor $\Fc:\Cc^{\op}\to\Sets$ there is a corresponding category (\textbf{\textit{of elements of $\Fc$}}) that lies over $\Cc$, that is,
+	\[\el\Fc\to\Cc\]
+	given by
+	
+	Objects: pairs $(C,X)$ where $C\in\Obj\Cc$ and $X\in\Fc(X)$.
+	
+	Morphisms: $f:(C,X)\to(C',C')$ are morphisms $f:C\to C'$ such that $\Fc(f)(X')=X$.
+\end{defn}
+\begin{remark}
+	We can use the Yoneda embedding to view $\Cc$ as a subcategory of $\Psh(\Cc)$,
+	\[\Cc\hookrightarrow\Psh(\Cc)\]
+	And also $\Fc\in\Psh(\Cc)$. In fact, the element category is just the slice category:
+	\[\el\Fc\cong\Cc/\Fc.\]
+\end{remark}
+\begin{question}
+	Given $\Dc\to\Cc$ is it isomorphic to $\el\Fc\to\Cc$?
+\end{question}
+\begin{defn}
+	$G:\Dc\to\Cc$ is a \textbf{\textit{discrete fibration}} if for any $d\in\Dc$ and any $f:C\to G(d)$ there exists a unique lift from $f'$ of $f$ to $f\in\Dc$ such that the target ot $f'$ is is $d$. That is,
+	\[\begin{tikzcd}
+		\bullet\arrow[d,"G",swap]\arrow[r,"\exists!f'",dashed]&d\arrow[d,"G"]\\
+		C\arrow[r,"f",swap]&G(d)
+	\end{tikzcd}\]
+\end{defn}
+\begin{remark}
+	Given a discrete fibration we may construct a functor $\Fc:\Cc^{\op}\to\Sets$ simply by defining $\Fc(C)=G^{-1}(C)$ and if $C\to C'$ $\cdots\to d$.
+\end{remark}
+
+\iffalse
 \begin{remark}[Plan]
 	Blakers-Massey excision theorem (relies on technical lema, proof from Tom Dieck's book) $\implies$ Cellular approximation. Also $\implies$ Freudental theorem.
-\end{remark}
-\begin{exercise}
-	$X\to M_f\to Y$. Prove $X\to M_f$ is a cofibration.
-\end{exercise}
+\end{remark}\fi
+
+\begin{defn}[Lecture]
+	A \textbf{\textit{model structure}} on a category $\Ac$ is a choice of subcategories $\Wc,\Cc,\Fc$ called \textbf{\textit{weak-equivalences}}, \textbf{\textit{cofibrations}} and \textbf{\textit{fibrations}} with the following properties:
+	\begin{enumerate}
+		\item[0.] All (finite) small limits an colimits.
+		\item \textbf{(2 of 3)} Given $\bullet\overset{f}{\to}\bullet\overset{g}{\to}\bullet$, if either 2 out of 3 among $f,g,f\circ g$ are in $\Wc$ then all of them are.
+		\item $(\Cc\cap\Wc,\Fc)$ and $(\Cc,\Fc\cap\Wc)$ are both weak factorization systems.
+		$(\Bc,\Dc)$ is a weak factorization system. That is,
+		\begin{enumerate}
+			\item Any morphism in $\Ac$ can be factored as a morphism in $\Bc$ followed by a morphism in $\Dc$.
+			\item Lifts:
+			\[\begin{tikzcd}[scale cd=1.2]
+				\bullet\arrow["f",d,swap]\arrow[r]&\bullet\arrow[d,"g"]\\
+				\bullet\arrow[ur,dashed,"\exists"]\arrow[r]&\bullet
+			\end{tikzcd}\]
+			\item[(c')] Notice that the aciom of retracts is not necessary. $r'\in\Rc\iff$ it satisfies (b) for all $\ell\in\Lc$.
+ 		\end{enumerate}
+	\end{enumerate}
+\end{defn}
+
+\begin{defn}\leavevmode
+	\begin{itemize}
+		\item $X$ is \textbf{\textit{fibrant}} if $X\twoheadrightarrow\pt$.
+		\item $X$ is \textbf{\textit{cofibrant}} if \begin{tikzcd}
+			X\arrow[r,tail,two heads]&X
+		\end{tikzcd}
+		\item $X$ is \textbf{\textit{bifibrant}} if \begin{tikzcd}
+			0\arrow[r,tail]&X\arrow[r,two heads]&\pt
+		\end{tikzcd}
+	\end{itemize}
+\end{defn}
+
+\begin{examples}[Two interesting model category structures on $\CGWH$]\leavevmode
+\begin{enumerate}
+	\item \textbf{\textit{Hurewicz model structure}} (Strom).
+	\begin{itemize}
+		\item Cofibrations:= Huerwicz cofibrations.
+		\item Fibrations:= maps $E\to B$ such that for all spaces $X$ [Photo1].
+		\item Weak equivalences:= homotopy equivalences.
+	\end{itemize}
+	\item \textbf{\textit{Quillen model structure}}. Defined on $\Top$.
+	\begin{itemize}
+		\item Cofibrations = retracts of relative cell complexes.
+		\item Fibrations = Serre Fibrations: \begin{tikzcd}
+			D^n\arrow[r]\arrow[d]&E\arrow[d]\\
+			D^n\times I\arrow[ur,dashed]\arrow[r]&B
+		\end{tikzcd}
+		\item Weak equivalences: $f:X\to Y$
+	\end{itemize}
+	Also, we have
+	\begin{itemize}
+		\item Fibrant: all of $\Obj\Top$.
+		\item Cofibrant: $\exists\{\text{CW complexes}\}$.
+	\end{itemize}
+\end{enumerate}
+\end{examples}
+\begin{defn}
+	Given a category $\Cc$ and a class of morphisms $W\subset\Mor\Cc$, its \textbf{\textit{localization}} is a category $\Cc[W^{-1}]$ such that there is a functor $\Loc_W\Cc\to\Cc[W^{-1}]$ that sends weak equivalences to isomorphisms. Also, its satisfies the universal property that for every $F:\Cc\to\Dc$ such that $F(X)\subset\Iso$, the following diagram commutes
+	\[\begin{tikzcd}
+		&\Cc[W^{-1}]\arrow[dr,dashed,"\exists!G"]\\
+		\Cc\arrow[ur,swap,"\Loc_W",swap]\arrow[rr,"F"]&&\Dc
+	\end{tikzcd}\]
+\end{defn}
+\begin{thm}
+	Let $\Cc$ and $(C,W,F)$ be a model category and $\Cc[W^{-1}]\cong\Ho\Cc$ where the latter is given by
+	\begin{itemize}
+		\item $\Ob\Ho\Ec=\{\text{fibrant-cofibrant-bifibrant objects of }\Ec\}$.
+		\item $\Mor\Ho\Ec=\Mor_{\Ec}(X,Y)/\text{homotopy}$.
+	\end{itemize}
+\end{thm}
+Let's say what homotopy means
+\begin{defn}
+	Given two maps
+	\[\begin{tikzcd}
+		X\arrow[r,shift={(0,0.08)},"f"]\arrow[r,shift={(0,-0.08)},swap,"g"]&Y
+	\end{tikzcd}\]
+	\begin{itemize}
+		\item We say $f\underset{\text{left}}{\sim}g$ if for the \textbf{\textit{cylinder}} $\Cyl(X)$ defined by
+		\[\begin{tikzcd}
+			X\sqcup X\arrow[rr]\arrow[dr,tail,swap,"\text{cofibr.}"]&&X\\
+			&\Cyl(X)\arrow[ur,two heads,swap,"\text{trivial fib.}"]
+		\end{tikzcd}\]
+		we have that
+		\[\begin{tikzcd}
+			X\sqcup X\arrow[rr,"(f\text{,}g)"]\arrow[dr]&&Y\times Y\\
+			&\Cyl(X)\arrow[ur,"\exists H",swap,dashed]
+		\end{tikzcd}\]
+		\item We say $f\underset{\text{right}}{\sim}g$ if
+		\[\begin{tikzcd}
+			X\sqcup X\arrow[rr,"(f\text{,}g)"]\arrow[dr,"\exists H",swap,dashed]&&Y\times Y\\
+			&\Path(Y)\arrow[ur]
+			\end{tikzcd}\]
+	\end{itemize}
+\end{defn}
+\begin{claim}
+	Given \begin{tikzcd}
+		X\arrow[r,shift={(0,0.08)},"f"]\arrow[r,shift={(0,-0.08)},swap,"g"]&Y
+	\end{tikzcd}, if $X$ is cofibrant and $Y$ is fibrant, then $f\underset{\text{left}}{\sim}g\iff f\underset{\text{right}}{\sim}g$ and $\sim$ is an equivalence relation.
+\end{claim}
+
+
 \section{whitehead theorem}
 
 We introduce a large class of spaces, called CW complexes, between which a weak equivalence is necessarily a homotopy equivalence. Thus, for such spaces, the homotopy groups are, in a sense, a complete set of invariants. Moreover, we shall see that every space is weakly equivalent to a CW complex.
@@ -1165,6 +1279,10 @@ So what we have thus far is
 \end{tikzcd}\]
 Notice that $\pi_n(X\cup D^n,X)$ is not ingeneral cyclic (counterexample $S^1\cup D^2$ taking unieversal cover which is real line with spheres on integers, homotopy equivalent to $\bigvee_\Z S^2$ which is not finitely generated).
 
+\begin{quote}
+	{\color{red} So basically attaching a disk via $f$ will kill $[f]$ inside $\pi_n(X)$ this is called \textbf{\textit{killing}} an element of the homotopy group.}
+\end{quote}
+
 \begin{prop}
 	For any CW-complex $X$, $X^\ell\to X$ is an $\ell$-equivalence.
 \end{prop}
@@ -1178,6 +1296,177 @@ Notice that $\pi_n(X\cup D^n,X)$ is not ingeneral cyclic (counterexample $S^1\cu
 	Let $X$ and $Y$ be CW-complexes and $\xi:Y\to X$ be any map. Then $\xi$ is homotopic to a \textbf{\textit{cellular map}}, that is, a map $\psi:Y\to X$, such that for all $\ell$, $\psi Y^0\subset X^\ell$.
 \end{thm}
 
+We also have
+\begin{prop}
+	Let $n\geq 2$. Then 
+	\[\pi_n\left(\bigvee_{k\in I}S^n\right)=\bigoplus_{k\in I}\i_n(S^n)=\bigoplus_{k\in I}\Z=Z^{\oplus I}\]
+\end{prop}
+\begin{prop}
+	First notice that for finite $I$,
+	\[X^n=X^{n+1}=\bigvee_{k\in I}S^n\]
+	by looking carefully. Then
+	\[\pi_n(X,X^{n+1})=0=\pi_{n+1}(X,X^{n+1})\]
+	so
+	\[\bigoplus_{k\in I}\Z=\prod_{k\in I}\pi_n(S^n)=\pi_n(X)=\pi_n(X^{n+1})=\pi_n(X^n)=\pi_n\left(\bigvee_{k\in I}S^n\right)\]
+	and for the infinite case it also works, using finite compactness of the CW complex.
+\end{prop}
+
+
+\subsection{postnikov tower and CW-approximation, 9 abril}
+\begin{itemize}
+	\item Let $X$ be a space. Then there is a CW-complex $Y$ and a weak homotopy equivalence from $Y\to X$.
+	\item Let $A\to X$ be a map of spaces. Then it can be factored as $A\to Y\to X$ where $A\hookrightarrow Y$ is a relative CW-complex, and $Y\to X$ is a weak homotopy equivalence.
+
+\begin{remark}
+	Notice that the second item is the first one with $A=\varnothing$. Then, the second case is a Serre cofibration since it is a construction involving the cofibration $S^{n-1}\hookrightarrow D^n$ (this is a cofibration by definition).
+\end{remark}
+\item Let $A$ be a space. Then there is a space $\tau_{\leq n}A$ such that $A\hookrightarrow\tau_{\leq n}A$; $\tau_{\leq n}A$ is obtained by adding cells of $\dim\geq n+2$. $A\hookrightarrow\tau_{n\leq n}A$ is $(n+1)$-equivalence and
+\[\pi_k(\tau_{\leq n}A)=0\qquad k>n.\]
+Moreover, $A\to \tau_{\leq n}A$ is unique among morphisms in $\Ho(CGWH)$ from $A$ into spaces with $\pi_k=0$ for $k>n$.
+
+This is called a \textbf{\textit{Postnikow tower}} and it looks like this:
+\[\begin{tikzcd}
+	&\cdots\arrow[d]\\
+	&\tau_{\leq 2}A\arrow[d]\\
+	&\tau_{\leq 1}A\arrow[d]\\
+	A\arrow[uur]\arrow[ur]\arrow[r]&\tau_{\leq 0}A
+\end{tikzcd}\]
+The idea is that $\tau_{\leq n}A$ is obtained from $A$ by killing elements of dimension greater than $n$, that is, by \begin{itemize}
+	\item attaching $n+2$ cells that kill all $\pi_{n+1}(A)$,
+	\item attaching $n+3$ cells that kill all $\pi_{n+2}(A)$,
+	\item attaching $n+3$ …
+	\item attaching $n+n$ …
+\end{itemize}
+So consider the space $X$ that is obtained from $A$ after attaching cells of dimension $\geq n+2$, so we have a map $A\to X$. Consider also a space $Y$ with $\pi_k(Y)=0$ for $k>n$. Then for any map $A\to Y$ there is a map $X\to Y$ that extends $A\to Y$. This accounts for a bijection 
+\[[X,Y]\cong[A,Y].\]
+In class we struggled a bit to prove surjectivity, finally using an argument related to the pair $(X\times I,X\times\partial I\cup A\times I)$.
+
+\begin{quote}
+	{\color{red}The point is that the spaces in the Postnikov tower are like the original space but with trivial homotopy groups for $k\geq n$.}
+\end{quote}
+\begin{question}
+	What is the limit of the Posnikov tower?
+	\[\begin{tikzcd}
+		&\lim\\
+		&\cdots\arrow[d]\\
+		&\tau_{\leq 2}A\arrow[d]\\
+		&\tau_{\leq 1}A\arrow[d]\\
+		A\arrow[uur]\arrow[uuuur]\arrow[ur]\arrow[r]&\tau_{\leq 0}A
+	\end{tikzcd}\]
+\end{question}
+
+\item Let $A\to X$ be a map (of CW-complexes (or spaces?)). Then
+\[\begin{tikzcd}
+	&\cdots\arrow[d]\\
+	&Y_2\arrow[ddr,bend left]\arrow[d]\\
+	&Y_1\arrow[rd]\arrow[d]\\
+	A\arrow[uur,bend left]\arrow[ur]\arrow[r]\arrow[rr,bend right]&Y_0\arrow[r]&X
+\end{tikzcd}\]
+{\color{red}Proof pending}
+
+\item We also have the \textbf{\textit{Whitehead tower}}, obtained from the homotopy fiber
+\[\begin{tikzcd}
+	\hofib f_n\arrow[r]&A\arrow[r,"f_n"]&\tau_{\leq n-1}A
+\end{tikzcd}\]
+which yields
+\[\begin{tikzcd}[column sep=small]
+	\cdots\arrow[r]&\pi_{k+1}(A)\arrow[r,"\cong"]&\pi_{k+1}(\tau_{\leq n}A)\arrow[r]&\pi_k(\hofib)\arrow[r]&\pi_k(A)\arrow[r]&\pi_k(\tau_{\leq n}A)\arrow[r]&\cdots
+\end{tikzcd}\]
+so
+\[\begin{tabular}{|L|L|L|}
+	\hline 
+	k\leq n-1&k=n&k\geq n+1\\\hline
+	\pi_k(\hofib f_n)=0&\pi_n(\hofib f_n)=0&\pi_k(A)=\pi_k(\hofib f_n)\\\hline
+\end{tabular}\]
+
+\item Now there's a natural way to construct the following diagram:
+\[\begin{tikzcd}
+	A\arrow[r]\arrow[rr,bend right]&\tau_{\leq n}A\arrow[r,]&\tau_{\leq n-1}A
+\end{tikzcd}\]
+which yields the bundle
+\[\begin{tikzcd}
+	\hofib\arrow[r]&\tau_{\leq n}A\arrow[r,]&\tau_{\leq n-1}A
+\end{tikzcd}\]
+and in this case we get
+\[\begin{tabular}{|L|L|}
+	\hline k\neq n&k=n\\\hline
+	\pi_k(\hofib)=0&\pi_n(\hofib)=\pi_n(A)\\\hline
+\end{tabular}\]
+and this is what we call a \textbf{\textit{$\K(\pi,n)$-space}} (all homotopy groups are trivial but the $n$th.)
+\end{itemize}
+
+\subsection{11 apr}
+\begin{thm}[Uniqueness of CW-approximations]
+	Recall that a CW-approximation of $X$ is a map $f:Z\to X$ and a CW-complex $Z$ that is a weak homotopy equivalence (induces isomorphisms in all homotopy groups).
+	
+	We have that
+	\[\begin{tikzcd}
+		Y_1\arrow[dr,"\text{CW ap.}"]\\
+		&X\\
+		Y_2\arrow[uu,dashed,"\exists!"]\arrow[ur,"\text{CW ap.}"]
+	\end{tikzcd}\]
+	up to homotopy equivalences
+\end{thm}
+\begin{lemma}[Compression]
+	If the relative homotopy groups of a pair $(Y,B)$ is zero for $n=\dim e$ for every cell $e\in X\backslash A$ then any map $(X,A)\to(Y,B)$ is homotopic $\rel A$ to $(X,A)\to (B,B)$ {\color{persiangreen}(so intuitively we can collapse $Y$)}.
+\end{lemma}
+\begin{proof}
+	With fibrations (photo)
+\end{proof}
+\begin{prop}
+	Let $f:X\to Y$ be an $n$-equivalence (in \cite{hatcher-at} stated as weak equivalence but argument is the same). Then $f$ induces an \textit{\textbf{$n$-equivalence in homology}} $H_i(X,\Z)\to H_i(Y,\Z)$ (an isomorphism for $i<n$ and surjection for $i=n$).
+\end{prop}
+\begin{proof}
+	photo
+\end{proof}
+\begin{coro}
+	If $f:X\to Y$ is a weak equivalence, then $f$ induces an isomorphism in $H_*(-,G)$ and $H^*(-,G)$.
+\end{coro}
+\begin{proof}
+	Universal coefficients.
+\end{proof}
+
+\begin{defn}
+	Let $\pi$ be an abelian group. Take 
+	\[\begin{tikzcd}
+		F_1\arrow[r]& F_0\arrow[r]& \pi
+	\end{tikzcd}\] 
+	a \textbf{\textit{free resolution}}, i.e. $F_1=Z^{\oplus J}$ and $F_0=Z^{\oplus I}$ are free abelian groups and $\pi=F_0/F_1$. Let's take the corresponding maps
+	\[\begin{tikzcd}[row sep=tiny]
+		\bigvee_{j\in S}S^n\arrow[r]&\bigvee_{i\in I}S^n\arrow[r]&\hocofib f\\
+		x_j\arrow[r,maps to]&\sum a_iy_i
+	\end{tikzcd}\]
+	where $a_i$ is the degree of $S^n\to S^n$
+	Recall that the homotopy cofiber $\hocofib f$ is the mapping cone of $f$. It is the \textbf{\textit{cone of pointed spaces}}.
+\end{defn}
+	What do we get in homology? Exactly the sequence of free groups above. So, $H_n(\hocofib f)=\pi$. What do we get in homotopy? {\color{red}Might be $\pi$ as well}. Let's prove something stronger:
+	
+\begin{thm}
+	Let $Y$ be such that $\pi_i(Y)=0$ for $i>n$ and $\pi_0(Y)=0$. Then
+	\[[\hocofib f,Y]\to\Hom(\pi_n(\hocofib f),\pi_n(Y))\]
+	is a bijection.
+\end{thm}
+\begin{proof}
+	Photo
+\end{proof}
+\begin{thm}
+	Take $\tau_{\leq n}(\hofib f)$ which is a $\K(\pi,n)$ space with cells in $\dim\geq n$, obtained from $\hofib f$ by attaching cells of $\dim\geq n+2$. Then
+	\[[\hocofib f,y]\cong[\tau_{\leq n}(\hocofib f), Y]=\Hom(\pi,\pi_n(Y)).\]
+	If $\pi_n(Y)=\pi$, then there is a weak equivalence
+	\[\tau_{\leq n}(\hocofib f)\to Y.\]
+\end{thm}
+
+
+\begin{defn}
+	Let $\Cc$ be a category. Then $\Psh(\Cc)$ is the category of \textbf{\textit{presheaves}} of $\Cc$ i.e. the category of functors $\Cc^{\op}\to\Sets$ and natural transformations. For any object $A$ in $\Cc$ there is a presheaf $\Hom_{\Cc}(-,A)$. A presheaf $\Fc$ that is isomorphic to $\Hom_\Cc(-,A)$ for some $A$ is called \textbf{\textit{representable}}.
+\end{defn}
+	
+For example, $\Hom_{\CW}(X,\K(\pi,n))\cong H^n(X,\pi)$, that is, $H^n$ is representable.
+\begin{lemma}[Yoneda]
+	Let $G$ be a presheaf, $A$ be an object in $\Cc$. Then
+	\[\Nat(\Hom(-,A),G)\cong G(A)\]
+	naturally in $A$.
+\end{lemma}
 \clearpage
 %		\arrow[ul, phantom, "\lrcorner", very near start]
 %		\arrow[ul, phantom, "\ulcorner", very near start]
