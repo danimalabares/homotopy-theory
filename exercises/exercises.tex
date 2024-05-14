@@ -1,18 +1,23 @@
 \documentclass{article}
+\usepackage{titlesec}
 
 \usepackage[citestyle=authortitle-terse,backref,backend=bibtex]{biblatex}
 \addbibresource{homotopy-theory.bib}
 
-\setcounter{secnumdepth}{0}
-\usepackage{sectsty}
-\sectionfont{\fontsize{13}{20}\selectfont}
+\makeatletter
+\renewcommand\thesection{}
+\renewcommand\thesubsection{\@arabic\c@section.\@arabic\c@subsection}
+\makeatother
+\usepackage{tocloft}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
 
 \usepackage[left=4cm, right=4cm]{geometry}
-\usepackage{palatino,eulervm,dutchcal,xcolor}%fonts
+\usepackage{palatino,eulervm,dutchcal,xcolor}
 \usepackage{graphicx,subcaption,float}
-\usepackage{enumitem,parskip,multicol}
-\usepackage{amsthm,amssymb,amsmath,mathtools,thmtools}
-\usepackage{tikz,tikz-cd}
+\usepackage{enumitem,parskip,multicol,array}
+\newcolumntype{L}{>{$}c<{$}}%table in mathmode
+\usepackage{amsthm,amssymb,amsmath,mathtools,thmtools,tikz,tikz-cd}
 \usetikzlibrary{%
 	matrix,%
 	calc,%
@@ -20,7 +25,7 @@
 	shapes,
 	decorations.markings,backgrounds,calc,intersections}
 \tikzcdset{scale cd/.style={every label/.append style={scale=#1},
-			cells={nodes={scale=#1}}}}
+		cells={nodes={scale=#1}}}}
 \usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
 \hypersetup{%colores
 	colorlinks=true,
@@ -68,15 +73,15 @@
 
 \declaretheorem[style=colored1,name=Theorem]{thm}
 \declaretheorem[style=colored2,numberlike=thm,name=proposition]{prop}
-\declaretheorem[style=colored3,numberlike=thm,name=lemma]{lemma}
-\declaretheorem[style=colored4,numberlike=thm,name=corollary]{coro}
-\declaretheorem[style=colored5,numbered=no,name=example]{example}
-\declaretheorem[style=colored5,numbered=no,name=examples]{exemplos}
-\declaretheorem[style=colored6,numbered=no,name=exercise]{exercise}
-\declaretheorem[style=colored7,numbered=no,name=remark]{remark}
-\declaretheorem[style=colored8,numbered=no,name=claim]{claim}
-\declaretheorem[style=colored9,numbered=no,name=definition]{defn}
-\declaretheorem[style=colored10,numbered=no,name=question]{question}
+\declaretheorem[style=colored3,numbered=no,name=Lemma]{lemma}
+\declaretheorem[style=colored4,numbered=no,name=Corollary]{coro}
+\declaretheorem[style=colored5,numbered=no,name=Example]{example}
+\declaretheorem[style=colored5,numbered=no,name=Examples]{exemplos}
+\declaretheorem[style=colored7,numbered=no,name=Exercise]{exercise}
+\declaretheorem[style=colored6,numbered=no,name=Remark]{remark}
+\declaretheorem[style=colored8,numbered=no,name=Claim]{claim}
+\declaretheorem[style=colored9,numbered=no,name=Definition]{defn}
+\declaretheorem[style=colored10,numbered=no,name=Question]{question}
 
 \numberwithin{equation}{section}
 
@@ -137,103 +142,190 @@
 \DeclareMathOperator{\ev}{ev}
 \DeclareMathOperator{\hofib}{hofib}
 \DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\Nat}{Nat}
 \DeclareMathOperator{\Arr}{Arr}
 \DeclareMathOperator{\Funct}{Funct}
 \DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\U}{U}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\M}{M}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\PGL}{PGL}
+\DeclareMathOperator{\PSL}{PSL}
 
 \begin{document}
 {\LARGE algebraic topology exercises}
 \tableofcontents
-\section{some definitions}
-\begin{defn}\leavevmode
-	\begin{itemize}
-		\item An \textbf{\textit{initial object}} in a category $\Cc$ is an object $\varnothing$ such that for any object $x\in\Cc$ there is a unique morphism $\varnothing\to x$ with source $\varnothing$ and target $x$.
-		
-		\item A \textbf{\textit{pullback}} of the morphisms $f$ and $g$ consists of an object $P$ and two morphisms $p_1:P\to X$ and $p_2:P\to Y$ satisfying the following universal property:
-	\[\begin{tikzcd}
-		Q\arrow[rrd,bend left,"q_2"]\arrow[ddr,"q_1",swap,bend right]\arrow[dr,dashed,"\phi"]\\
-		&P\arrow[r,"p_2"] \arrow[rd, phantom, "\lrcorner", very near start]\arrow[d,"p_1",swap]&Y\arrow[d,"g"]\\
-		&X\arrow[r,"f",swap]&Z
-	\end{tikzcd}\]
-	\item A \textbf{\textit{pushout}} of the morphisms $f$ and $g$ consists of an object $P$ and two morphisms $i_1:P\to X$ and $i_2:P\to Y$ satisfying the following universal property:
-	\[\begin{tikzcd}
-		Z\arrow[r,"g"]\arrow[d,swap,"f"]&Y\arrow[d,"i_2"]\arrow[ddr,bend left,"j_2"]\\
-		X\arrow[r,"i_1",swap]\arrow[drr,bend right,swap,"j_1"]&P\arrow[ul, phantom, "\ulcorner", very near start]\arrow[dr,dashed,"\phi"]\\
-		&&Q
-	\end{tikzcd}\]
-	\item A \textbf{\textit{product}} of $X$ and $Y$ is an object $X\sqcup Y$ and a pair of morphisms $p_1:X\sqcap Y\to X$, $p_2:X\sqcap Y\to Y$ satisfying the following universal property:
-	\[\begin{tikzcd}
-		Q\arrow[rrd,bend left,"q_2"]\arrow[ddr,"q_1",swap,bend right]\arrow[dr,dashed,"\phi"]\\
-		&X\sqcap Y\arrow[r,"p_2"]\arrow[d,"p_1",swap]&Y\\
-		&X
-	\end{tikzcd}\]
-	\item A \textbf{\textit{coproduct}} of $X$ and $Y$ is an object $X\sqcup Y$ and a pair of morphisms $i_1:X\to X\sqcup Y$, $i_2:Y\to X\sqcup Y$ satisfying the following universal property:
-	\[\begin{tikzcd}
-	&Y\arrow[d,"i_2"]\arrow[ddr,bend left,"j_2"]\\
-	X\arrow[r,"i_1",swap]\arrow[drr,bend right,swap,"j_1"]&X\sqcup Y\arrow[dr,dashed,"\phi"]\\
-	&&Q
-\end{tikzcd}\]
-\begin{remark}
-	More generally, for $S$ any set and $F:S\to C$ a collection of objects in the category $C$ indexed by $S$, their \textbf{\textit{coproduct}} is an object $\coprod_{s\in S}F(s)$ equipped with maps
-	\[F(s)\to\coprod_{s\in S}F(s)\]
-	such that this is universal among objects with maps from $F(s)$.
-\end{remark}
-\item A morphism $i$ has the \textbf{\textit{left lifting property with respect to a morphism $p$}} and $p$ has the \textbf{\textit{right lifting property with respect to $i$}} if for each morphisms $f$ and $g$, if the outer square in the following diagram commutes, there exists $\phi$ (I think not necessarily unique) completing the diagram:
-\[\begin{tikzcd}[row sep=large]
-	A\arrow[r,"f"]\arrow[d,"i",swap]&X\arrow[d,"p"]\\
-	B\arrow[r,"g",swap]\arrow[ur,dashed,"\phi"]&Y
-\end{tikzcd}\]
-
-\item For $\Cc$ any category, its \textbf{\textit{arrow category}} $\Arr(\Cc)$ is the category such that
-\begin{itemize}
-	\item an object $a$ of $\Arr(C)$ is a morphism $a:a_0\to a_1$ of $\Cc$,
-	\item a morphism $f:a\to b$ of $\Arr(\Cc)$ is a commutative square
-	\[\begin{tikzcd}
-		a_0\arrow[r,"f_0"]\arrow[d,swap,"a"]&b_0\arrow[d,"b"]\\
-		a_1\arrow[r,swap,"f_1"]&b_1
-	\end{tikzcd}\]
-	in $\Cc$,
-	\item composition in $\Arr(\Cc)$ is given simply by placing commutative squares side by side to get a commutative oblong.
-\end{itemize}
-This is osomorphic to the functor category
-\[\Arr(\Cc):=\Funct(I,C)=[I,C]=C^I\]
-for $I$ the interval category $\{0\to 1\}$.
-	\end{itemize}
-\end{defn}
-
-\section{exercise on mapping cylinder and Hurewicz cofibrations}
-\begin{exercise}
-	Let $f:X\to Y$ be a map. Let $M_f=X\times[0,1]\cup_fY$ be the \textbf{\textit{mapping cylinder of $f$}}, i.e. the pushout of $X\overset{\cong}{\to}X\times\{0\}\hookrightarrow X\times[0,1]$ and of $f:X\times Y$.
-	Let $g:X\to M_f$ be the map $X\overset{\cong}{\to}X\times\{1\}\to M_f$. Let $h:M_f\to Y$ be the map that is induced by $X\times[0,1]\to Y:(x,t)\mapsto f(x)$ and $\id_Y:Y\to Y$. Observe that $f$ is the composition of $g$ and $h$.
-	
-	In both exercises below you might have to use the fact that pushouts are colimits and that colimits commute with products in $\CGWH$, i.e. $(\colim A_i)\times B$ is canonically homeomorphic with $\colim(A_i \times B)$.
+\section{Homework 1}
+\setcounter{subsection}{-1}
+\subsection{Preliminaries}
+	In the category of sets there is a bijection $\Hom(X\times Y, Z)\cong \Hom(X, \Hom(Y, Z))$ that depends naturally on $X$, $Y$ and $Z$. The notions related to this bijection are “Cartesian closed category”, “currying” and “internal Hom”.
+\begin{defn}
+	A category $\Cc$ is \textbf{\textit{Cartesian closed}} if:
 	\begin{enumerate}
-		\item Show that $h$ is a deformation retract, and in particular is a homotopy equivalence.
-		\item Show that $g : X \to M_f$ is a cofibration. You may use exercise (a), but the direct proof might be simpler.
+		\item $\Cc$ has all finite products (Caveat: some require that $\Cc$ has all finite limits)
+		\item For any object $Y$ the functor $- \times Y$ has a right adjoint, which we will denote by $\Map(Y,-)$ or by $-^Y$ .
+	\end{enumerate}
+\end{defn}
+\begin{remark}
+	By section 3 \href{https://ncatlab.org/nlab/show/internal+hom }{here}, the second property above implies that we get a functor $\Map(-,-) : \Cc^{\op} \times \Cc \to \Cc$, and moreover we get natural isomorphisms $\Hom(X, \Map(Y, Z)) \cong \Hom(X \times Y, Z)$ and $\Map(X, \Map(Y, Z))\cong \Map(X \times Y, Z)$.
+\end{remark}
+
+\begin{lemma}[Yoneda, \href{https://en.wikipedia.org/wiki/Yoneda_lemma}{wiki}]
+	Let $F$ be a functor from a locally small category $\Cc$ to $\Set$. Then for each object $X$ of $\Cc$, the natural transformations $\Nat(\Hom(X,-),F)$ are in one-to-one correspondence with the elements of $F(X)$, that is
+	\[\Nat(\Hom(X,-), F)\cong F(X)\]
+	Moreover, this isomorphism is natural in $A$ and $F$ when both sides are regarded as functors from $\Cc\times\Set^{\Cc}$ to $\Set$. ($\Set^{\Cc}$ denotes de category of functors from $\Cc$ to $\Set$.)
+	
+	There is a contravariant version of Yoneda lemma asserting that if $F$ is a contravariant functor from $\Cc$ to $\Set$,
+	\[\Nat(\Hom(-,X), F)\cong F(X).\]
+\end{lemma}
+\begin{coro}
+	$\Nat (\Hom(-,X),\Hom(-,Y))\cong\Hom(X,Y)$.
+\end{coro}
+\begin{remark}
+	The correspondence $X\mapsto\Hom(-,X)$ is fully faithful, that is, the correspondence $\Hom(X,X')\to\Nat(\Hom(-,X),\Hom(-,X'))$ is injective and bijective.
+\end{remark}
+\begin{exercise}[a]
+	Let $\Cc$ be any category. Show that if for some objects $X$ and $X'$ we have $\Hom(X, Y )\cong \Hom(X', Y )$ for all objects $Y$, with isomorphisms being natural in $Y$, then $X\cong X'$. Dually, if $\Hom(Y, X) \cong \Hom(Y, X')$ naturally in $Y$ , then also $X\cong X'$.
+\end{exercise}
+\begin{proof}[Solution]
+	The latter correspondence sends isomorphisms to isomorphisms. Since we are given a natural isomorphism in the problem, we conclude $X\cong X'$. The dual statement follows from the analogue formulation of Yoneda lemma.
+\end{proof}
+\begin{exercise}
+	Let $\Cc$ be a Cartesian closed category and $\pt$ be the terminal object. Show that for any object $X$ we have $X\cong\Map(\pt,X)$.
+\end{exercise}
+\begin{proof}[Solution]	
+	Using item (a) with $X$ and $X'=\Map(\pt,X)$, it suffices to show that 
+	\[\Hom(Y,X)\cong\Hom(Y,\Map(\pt,X))\]
+	for all objects $Y$ and isomorphisms natural in $Y$.
+	
+	Since $\Cc$ is Cartesian closed, we have isomorphisms \href{https://ncatlab.org/nlab/show/internal+hom%20#properties}{natural} in $Y$ \[\Hom(Y,\Map(\pt,X))\cong\Hom(Y\times\pt,X)\cong\Hom(Y,X)\]
+	since $\pt$ is a terminal object. Indeed:
+	\begin{claim}
+		In a Cartesian closed category $\Cc$ with terminal object $\pt$, we have that $Y\times\pt\cong Y$ for any object $Y$.
+	\end{claim}
+	\begin{proof}[Proof of claim] \textbf{(From \href{https://math.stackexchange.com/questions/542911/proving-basic-lemmas-about-categories-with-finite-products-and-terminal-initial}{StackExchange})} 
+		The universal property of the product $Y\times\pt$ shows that the maps $\id_Y$ and $t_Y:Y\to\pt$ must factor through some $u:Y\to Y\times\pt$, making $\pi_1\circ u=\id_Y$.
+		\[\begin{tikzcd}
+			Y\arrow[rrd,bend left,"\id_Y"]\arrow[ddr,"t_Y",swap,bend right]\arrow[dr,dashed,"u"]\\
+			&Y\times\pt\arrow[r,"\pi_1"]\arrow[d,"t_{Y\times\pt}"]&Y\\
+			&\pt
+		\end{tikzcd}\]
+		 It is also true that $u\circ\pi_1=\id_{Y\times\pt}$, since \begin{itemize}
+		 	\item $\pi_1\circ u\circ\pi_1=\id_Y\circ\pi_1=\pi_1$ and
+		 	\item $t_{Y\times\pt}\circ u\circ\pi_1=t_{Y\times\pt}$
+		 \end{itemize}
+		 so by uniqueness of the universal property we get that $u\circ\pi_1=\id_{Y\times\pt}$.
+		 \[\begin{tikzcd}
+		 	Y\times\pt\arrow[dr,"\pi_1"]\arrow[rrrdd,bend left=45,"\pi_1"]\arrow[dddrr,bend right=60,swap,"t_{Y\times\pt}"]\\
+		 	&Y\arrow[rrd,bend left,"\id_Y"]\arrow[ddr,"t_Y",swap,bend right]\arrow[dr,dashed,"u"]\\
+		 	&&Y\times\pt\arrow[r,"\pi_1"]\arrow[d,"t_{Y\times\pt}"]&Y\\
+		 	&&\pt
+		 \end{tikzcd}\]
+	\end{proof}
+\end{proof}
+\subsection{Based spaces and smash product}
+[In progress…]
+\subsection{Mapping cylinders and Hurewicz cofibrations}
+\begin{defn}[\href{https://en.wikipedia.org/wiki/Homotopy_extension_property}{wikipedia}]
+	Let $X$ be a topological space and let $A\subset X$. We say that the pair $(X,A)$ has the \textbf{\textit{homotopy extension property}} if for any space $Y$, any homotopy $g_\bullet:A\to Y^I$ and any map $\tilde{g}_0:X\to Y$ such that $\tilde{g}_0\circ\iota=g_0$, there exists an \textbf{\textit{extension}} of $f_\bullet$ to a homotopy $\tilde{g}_\bullet:X\to Y^I$ such that $\tilde{g}_\bullet\circ\iota=g_\bullet$.
+	\[\begin{tikzcd}
+		A\arrow[r,"g_\bullet"]\arrow[d,swap,"\iota"]&Y^I\arrow[d,"\pi_0"]\\
+		X\arrow[ur,dashed,"\tilde{g}_\bullet"]\arrow[r,swap,"\tilde{g}_0"]&Y
+	\end{tikzcd}\]
+	A \textbf{\textit{Hurewicz cofibration}} is a map $\iota:A\to X$ satisfying the homotopy extension property.
+\end{defn}
+\begin{exercise}[a] Prove that an inclusion $f:A\to X$ is a Hurewicz cofibration if and only if $A\times I\cup X\times \{0\}$ is a retract of $X\times I$.
+\end{exercise}
+\begin{remark}
+	A little late I noticed the comment on Telegram that we may assume $A$ to be a closed subspace. Maybe I wouldn't have tried the solution following \cite{lectures} if I had knew this earlier, hehe--- still it was nice to see two different solutions.
+\end{remark}
+\begin{proof}[Solution following \cite{hatcher-at}]
+	$(\implies)$ According to the former definition, choose $Y=(X\times\{0\})\cup(A\times I)$. The inclusion $A\times I\hookrightarrow Y$ is an homotopy $g_\bullet$ from $A$ to $Y$. Also, the inclusion $X\times\{0\}\hookrightarrow Y$ is an extension $\tilde{g}_0$. Then there exists an extension $\tilde{g}_\bullet$ of the whole homotopy, which is just a map from $X\times I$ to $Y$. We have thus produced a retraction:
+	\[\begin{tikzcd}
+		(X\times\{0\})\cup(A\times I)\arrow[d, hook]\arrow[r,"\id"]&(X\times\{0\})\cup(A\times I)=Y\\
+		X\times I\arrow[ur,dashed]
+	\end{tikzcd}\]
+	
+	$(\impliedby)$ Now suppose that $(X\times\{0\})\cup(A\times I)$ is a retract of $X\times I$. Let $Y$ be any space, $g_\bullet:A\to Y$ an homotopy and $\tilde{g}_0$ a map such that $\tilde{g}_0=g_0\circ f$.
+	
+	The homotopy $g_\bullet$ along with $\tilde{g}_0$ yield a map $\varphi:(A\times I)\cup (X\times\{0\})\to Y\cup (X\times\{0\})$. The key observation is that if $A$ is closed in $X$, then this map is continuous by the \href{https://en.wikipedia.org/wiki/Pasting_lemma#Formal_statement}{gluing lemma}. Then we simply compose the given retraction $r$ with this map to obtain the homotopy extension:
+	\[\begin{tikzcd}
+		A\times I\arrow[dd]\arrow[rr,"g_\bullet"]&&Y\\
+		&(X\times\{0\})\cup(A\times I)\arrow[ur,"\varphi",swap]\\
+		X\times I\arrow[ur,"r",swap]
+	\end{tikzcd}\]
+{	\color{red}A complicated argument in Hatcher's appendix shows that such a function is continuous even without the assumption that $A$ is closed.}
+\end{proof}
+\begin{proof}[Solution following \cite{lectures}]
+	The homotopy extension property may be defined as a map $\iota:A\to X$ such that for any solid-arrow diagram as below, a dotted blue arrow exists making the whole diagram commute:
+	\[\begin{tikzcd}
+		A\arrow[r,"\iota"]\arrow[d]&X\arrow[d]\arrow[ddr,bend left]\\
+		A\times I\arrow[r]\arrow[drr,bend right]&X\times I\arrow[dr,dashed,blue]&\\
+		&&Y
+	\end{tikzcd}\]
+	Now consider the pushout corresponding to $\iota$ and the inclusion $A\to A\times I$. By the universal property of the pushout, the former diagram must factor by the pushout, and we get the following diagram:
+	\[\begin{tikzcd}
+		A\arrow[r,"\iota"]\arrow[d]&X\arrow[d]\arrow[ddr,bend left]\arrow[dddrr, bend left]\\
+		A\times I\arrow[r]\arrow[ddrrr,bend right]\arrow[drr,bend right]&X\times\{0\}\sqcup_A(A\times I) \arrow[dr,dashed,"\exists!"]\arrow[ul,phantom,very near start,"\ulcorner"]&\\
+		&&X\times I\arrow[dr,dashed,blue]\\
+		&&&Y
+	\end{tikzcd}\]
+	The implication $(\implies)$ of our exercise again follows by choosing $Y=(X\times\{0\})\cup(A\times I)$. For the implication $(\impliedby)$ {\color{red}it appears that we have the same problem as before}: we need to construct the blue dashed arrow from the rest of the diagram (using that the black dashed arrow has a left inverse), but it seems that the natural thing to do is defining this function from the two pieces just like before, and we must make sure it is continuous.
+\end{proof}
+	\begin{defn}
+		Let $f:X\to Y$ be a map. Let $M_f=X\times[0,1]\cup_fY$ be the \textbf{\textit{mapping cylinder of $f$}}, i.e. the pushout of $X\overset{\cong}{\to}X\times\{0\}\hookrightarrow X\times[0,1]$ and of $f:X\to Y$.
+	Let $g:X\to M_f$ be the map $X\overset{\cong}{\to}X\times\{1\}\to M_f$. Let $h:M_f\to Y$ be the map that is induced by $X\times[0,1]\to Y:(x,t)\mapsto f(x)$ and $\id_Y:Y\to Y$. Observe that $f$ is the composition of $g$ and $h$.
+	\end{defn}
+	
+\begin{remark}
+		In both exercises below you might have to use the fact that pushouts are colimits and that colimits commute with products in $\CGWH$, i.e. $(\colim A_i)\times B$ is canonically homeomorphic with $\colim(A_i \times B)$.
+\end{remark}
+\begin{exercise}\leavevmode
+	\begin{enumerate}
+		\item[b.] Show that $h$ is a deformation retract, and in particular is a homotopy equivalence.\label{exer:1.2.a}
+		\item[c.] Show that $g : X \to M_f$ is a cofibration. You may use exercise (a), but the direct proof might be simpler.
 	\end{enumerate}
 \end{exercise}
+
 \begin{proof}[Solution]\leavevmode
 	\begin{enumerate}
-		\item We have that
+		\item[b.] We have that
 		\[\begin{tikzcd}
-			X\arrow[r,"f"]\arrow[d,swap,"\id\times 1"]\arrow[rd,bend right,"g"]&Y\arrow[d]\arrow[ddr,bend left,"\id_Y"]\\
-			X\times[0,1]\arrow[r,swap]\arrow[drr,bend right,swap,"(x\text{,}t)\mapsto f(x)"]&M_f\arrow[ul, phantom, "\ulcorner", very near start]\arrow[dr,dashed,"h"]\\
+			X\times\{0\}\arrow[r,"f"]\arrow[d,swap,"\id\times 1"]\arrow[rd,bend right,"g"]&Y\arrow[d]\arrow[ddr,bend left,"\id_Y"]\\
+			X\times I\arrow[r,swap]\arrow[drr,bend right,swap,"(x\text{,}t)\mapsto f(x)"]&M_f\arrow[ul, phantom, "\ulcorner", very near start]\arrow[dr,dashed,"h"]\\
 			&&Y
 		\end{tikzcd}\]
-		We must show that there is a homotopy between the identity map on $M_f$ and a retraction from $M_f$ to $Y$. So we want $h:M_f\times[0,1]\to M_f$ such that
+		We must show that there is a homotopy between the identity map on $M_f$ and a retraction from $M_f$ to $Y$. So we want $h:M_f\times I\to M_f$ such that
 		\[h(-,0)=\id_{M_f},\quad \img h(-,1)\subset Y\quad\text{and}\quad h(-,1)|_Y=\id_Y\]
+		Since $M_f$ is a pullback, we can see it as a colimit, that is
+		\[M_f=\colim(\begin{tikzcd}[column sep=small]
+			X\times I&\arrow[l]X\arrow[r]&Y
+		\end{tikzcd})\]
+		and, since colimits commute with products in $\CGWH$, we get
+		\[M_f\times I=\colim(\begin{tikzcd}[column sep=small]
+			X\times I\times I&\arrow[l]X\times I\arrow[r]&Y\times I
+		\end{tikzcd})\]
+		that is,
+		\[\begin{tikzcd}
+			X\times\{0\}\times I\arrow[r]\arrow[d]&Y\times I\arrow[d,"?"]\arrow[ddr,bend left,"(y\text{,}s)\mapsto y"]\\
+			X\times I\times I\arrow[r,"?",swap]\arrow[drr,bend right,"(x\text{,}t\text{,}s)\mapsto f(x)",swap]&M_f\times I\arrow[ul, phantom, "\ulcorner", very near start]\arrow[dr,dashed]\\
+			&&M_f
+		\end{tikzcd}\]
+		{\color{red}[I certainly got stuck in concluding…]}
 		
-		The fact that $h$ is a deformation retract is consequence of this diagram. {\color{red}But I still can't see why it must be a homotopy equivalence…}
-		\item Consider the following lifting problem:
+		\item[c.] {\color{red}[Also in progress…]} Consider the following lifting problem:
 		\[\begin{tikzcd}
 			X\arrow[d,"g",swap]\arrow[r,"H"]&Z^I\arrow[d,"\pi_0"]\\
 			M_f\arrow[ur,dashed]\arrow[r,"h",swap]&Z
 		\end{tikzcd}\]
-		{\color{red}Looks OK but why should the dashed arrow exist…?}
 	\end{enumerate}
 \end{proof}
-\clearpage
-\section{path spaces and fibrations}
+\subsection{Path spaces and fibrations}
 \begin{exercise}\leavevmode
 	\begin{enumerate}[label*=\alph*.]
 		\item Show that $\Map(I,Y)$ deformation retracts on $\Map(\pt,Y)$. Most likely you’ll have to find a correct map $I\times I\to I$. Also show that $\Map(I,Y)\to \Map(\pt,Y)$ is a Hurewicz fibration. The key map will be of the form $I \times I \to I \times I$.
@@ -288,14 +380,16 @@ for $I$ the interval category $\{0\to 1\}$.
 		Then for $t=0$ we have the identity on $\Map(I,Y)$, and when $t=1$ we have $\ev_0$.
 	\end{enumerate}
 \end{proof}
-\clearpage
-\section{exercise on model categories}
+
+Let $f : X \to Y$ be a map. Let $E_f$ be the pullback of $f : X \to Y$ and of $\ev_0 :\Map(I,Y)\to Y$. Let $h:X\to E_f$ be the map that sends $x$ to $(x,\operatorname{const}(f(x)))$, where $\operatorname{const}(f(x)) : I \to Y$ is the constant path at $f(x)$. Let $g : E_f \to Y$ be the composition of projection map $E_f \to \Map(I,Y)$ with $\ev_1 :\Map(I,Y)\to Y$.
+\section{Homework 1.5}
+\subsection{Exercise on model categories}
 \begin{exercise}[3.1.8 from \cite{riehl}]
 	Verify that the class of morphisms $\Lc$ characterized by the left lifting property against a fixed class of morphisms $\Rc$ is closed under coproducts, closed under retracts, and contains the isomorphisms.
 \end{exercise}
 \begin{proof}[Solution]
-	\textbf{\textit{(Coproducts.)}} {\color{magenta} Comment from Sergey: Coproduct of morphisms $A_i\to B_i$ in a category $\Cc$ is the obvious morphism $\sqcup A_i \to \sqcup B_i$. (Because in this construction morphisms $A_i\to B_i$ are seen as objects of what's called the arrow category of the category $\Cc$)}
-	
+	\textbf{(Coproducts.)}
+	%{\color{magenta} Comment from Sergey: Coproduct of morphisms $A_i\to B_i$ in a category $\Cc$ is the obvious morphism $\sqcup A_i \to \sqcup B_i$. (Because in this construction morphisms $A_i\to B_i$ are seen as objects of what's called the arrow category of the category $\Cc$)}
 	Suppose the maps $\ell_i:A_i\to B_i$ are in $\Lc$. Then their coproduct in the arrow category is the obvious map $\coprod A_i\to\coprod B_i$.
 	
 	Explicitly, their coproduct is an arrow $\coprod\ell_i$ and a collection of maps $f_i:\ell_i\to\coprod\ell_i$ such that for any other object $m:A\to B$ in the arrow category and a map $g:\ell\to m$, the following diagram is completed uniquely:
@@ -328,7 +422,7 @@ for $I$ the interval category $\{0\to 1\}$.
 	
 	To conclude we need to check that the triangles below and above the dashed arrow in the former diagram commute. This follows from the universal property of the coproducts $\coprod A_i$ and $\coprod B_i$ since, \href{https://en.wikipedia.org/wiki/Coproduct#Discussion}{in general},
 	\[\Hom\left(\coprod X_i,Y\right)\cong\prod\Hom(X_i,Y).\]
-	More explicitly, we now that the paths in red in the following diagrams are the same:
+	More explicitly, we now that the red paths in the following diagrams are the same:
 	\[\begin{tikzcd}[row sep=large]
 		A_i\arrow[r]\arrow[d,"\Lc\ni\ell_i",swap]&\coprod A_i\arrow[d]\arrow[r]&{\color{red}\bullet}\arrow[d,"r\in\Rc",red]\\
 		{\color{red}B_i}\arrow[r,red]\arrow[rru]&{\color{red}\coprod B_i}\arrow[r]\arrow[ur,dashed,red]&{\color{red}\bullet}
@@ -361,7 +455,7 @@ for $I$ the interval category $\{0\to 1\}$.
 	\end{tikzcd}\]
 \end{proof}
 
-\section{Hatcher's exercise on Whitehead's theorem}
+\subsection{Hatcher's exercise on Whitehead's theorem}
 \begin{thm}[Whitehead, \cite{may}]
 	If $X$ is a CW complex and $e:Y\to Z$ is an $n$-equivalence, then $e_*:[X,Y]\to[X,Z]$ is a bijection if $\dim X<n$ and surjection if $\dim X=n$.
 \end{thm}
@@ -377,6 +471,136 @@ for $I$ the interval category $\{0\to 1\}$.
 \begin{proof}[Solution]
 	Just recall that $n$-connectedness means that $\pi_i(X)=0$ for all $i\leq n$, which means that $X$ is contractible by \cref{thm:W2}.
 \end{proof}
+
+\section{Homework 2}
+\begin{exercise}[4.1.3]
+	For an H–space $(X , x_0 )$ with multiplication $\mu : X \times X \to X$ , show that the group operation in $\pi_n(X,x_0)$ can also be defined by the rule $(f + g)(x) = \mu(f(x),g(x))$.
+\end{exercise}
+\begin{exercise}[4.1.19]
+	Consider the equivalence relation $\simeq_w$ generated by weak homotopy equivalence: $X \simeq_w Y$ if there are spaces $X = X_1, X_2,\ldots, X_n = Y$ with weak homotopy equivalences $X_i\to X_{i+1}$ or $X_i\leftarrow X_{i+1}$ for each $i$. Show that $X\simeq_w Y$ iff $X$ and $Y$ have a common CW approximation.
+\end{exercise}
+\begin{proof}[Solution]
+	$(\impliedby)$ Suppose $Z$ is a common CW approximation of $X$ and $Y$, that is, $Z$ is a CW complex and there are weak homotopy equivalences $Z\to X$ and $Z\to Y$. Then the sequence of spaces $X=X_1$, $Z=X_2$ and $Y=X_3$ shows that $X\simeq_wY$.
+	
+	$(\implies)$ Suppose $Z$ is a CW approximation of $X$ and let's show it can be made (somehow) into a CW approximation of $Y$. There is a weak homotopy equivalence $Z\to X$, and also a weak homotopy equivalence either $X=X_1\to X_2$ or $X=X_1\leftarrow X_2$. I wonder if this implies that the composition $Z\to X=X_1\to X_2$ is also a weak homotopy equivalence
+\end{proof}
+
+\begin{exercise}[4.2.1]
+	Use homotopy groups to show that there is no retraction $\R P^n\to \R P^k$ for $n>k>0$.
+\end{exercise}
+\begin{proof}[Solution (in progress…)]
+	Suppose there is a retraction
+	\[\begin{tikzcd}
+		\R P^k\arrow[r,hook]\arrow[rr,bend right,swap,"\id"]&\R P^n\arrow[r]&\R P^k
+	\end{tikzcd}\]
+	it induces isomorphisms
+	\[\begin{tikzcd}
+		\pi_i(\R P^k)\arrow[r]\arrow[rr,bend right,swap,"\cong"]&\pi_i(\R P^n)\arrow[r]&\pi_i(\R P^k)
+	\end{tikzcd}\]
+	If we had that this is a Serre fibration, we would get that
+	\[\begin{tikzcd}
+		content...
+	\end{tikzcd}\]
+\end{proof}
+
+\begin{exercise}[4.2.13]
+	Show that a map between connected $n$-dimensional CW complexes is a homotopy equivalence if it induces an isomorphism on $\pi_i$ for $i\leq n$. [Pass to universal covers and use homology.]
+\end{exercise}
+\begin{proof}[Solution]
+	Let $X$ and $Y$ be $n$-dimensional CW complexes and $f:X\to Y$ such that $f_*:\pi_i(X)\to\pi_i(Y)$ is an isomorphism for $i\leq n$. Let's try to use Hurewicz theorem, which states that a map between simply connected CW complexes is a homotopy equivalence if it induces isomorphisms on all homology groups.
+	
+	Consider the universal covers $\tilde{X}$ and $\tilde{Y}$, which are simply connected and also \href{https://math.stackexchange.com/questions/1148411/universal-covering-space-of-cw-complex-has-cw-complex-structure/1148918#1148918}{have CW structures}. By prop. 4.1, the cover projections induce isomorphisms in the homotopy groups for all $i\geq2$. By \href{https://math.stackexchange.com/questions/2206906/unique-map-of-universal-covering-space}{StackExchange} there is a unique lift $\tilde{f}$ to the universal covers making the diagram on the left commute, and by functoriality the diagram on the right also commutes.
+	
+	
+%	If we can show that there is a map inducing isomorphisms $H_i(\tilde{X})\cong H_i(\tilde{Y})$ for all $i$, then we get an homotopy equivalence between the universal covers.
+	
+	\[\begin{tikzcd}
+		\tilde{X}\arrow[d,swap,"p"]\arrow[r,"\tilde{f}"]&\tilde{Y}\arrow[d,"q"]\\
+		X\arrow[r,"f",swap]&Y
+	\end{tikzcd}\qquad\qquad
+	\begin{tikzcd}
+		\pi_i(\tilde{X})\arrow[r,"\tilde{f}_*"]\arrow[d,swap,"p_*"]\arrow[d,"\cong"]&\pi_i(\tilde{Y})\arrow[d,"q_*"]\arrow[d,swap,"\cong"]\\
+		\pi_i(X)\arrow[r,"f_*",swap]\arrow[r,"\cong"]&\pi_i(Y)
+	\end{tikzcd}\qquad i\geq2\]
+	We conclude that $\tilde{f}$ {\color{red}is a weak homotopy equivalence}, and by prop. 4.21 it induces isomorphisms on homology groups. Finally, by Hurewicz theorem (coro. 4.33) it is an homotopy equivalence and so is $f$.
+\end{proof}
+
+\iffalse\begin{remark}
+	About Riemann surfaces
+	
+		\[\begin{tikzcd}
+		\widetilde{U\backslash x}\arrow[d,swap,"p"]\arrow[r,"\tilde{f}"]&\widetilde{W\backslash y}\arrow[d,"q"]\\
+		U\backslash x\arrow[r,"f",swap]&W\backslash y
+	\end{tikzcd}\qquad\qquad
+	\begin{tikzcd}
+		\pi_i(\tilde{X})\arrow[r,"\tilde{f}_*"]\arrow[d,swap,"p_*"]\arrow[d,"\cong"]&\pi_i(\tilde{Y})\arrow[d,"q_*"]\arrow[d,swap,"\cong"]\\
+		\pi_i(X)\arrow[r,"f_*",swap]\arrow[r,"\cong"]&\pi_i(Y)
+	\end{tikzcd}\qquad i\geq2\]
+\end{remark}\fi
+
+\begin{exercise}
+	There is a fiber sequence $\U(n)\hookrightarrow\U(n+1)\to\U(n+1)/\U(n)\cong S^{2n+1}$. Use this to show that $\pi_k(\U(n))\to\pi_k(\U(n+1))$ is isomorphism for $n>k/2$. Compute $\pi_k(\U(n))$ for $n\geq 2$ and $k=1,2,3$. In fact, if $k$ is even then $\pi_k(\U(N))=0$ and if $k$ is odd then $\pi_k(\U(N))=\Z$, where again $N>k/2$. These equalities are known as Bott periodicity.
+\end{exercise}
+\begin{proof}[Solution]
+	The required isomorphisms $\pi_k(\U(n))\to\pi_k(\U(n+1))$ follow simply from the fact that $S^{2n+1}$ is $2n+1$-connected: in the long homotopy sequence of the fiber bundle we have
+	\[\begin{tikzcd}
+		\pi_{k+1}(S^{2n+1})\arrow[r]&\pi_k(\U(n))\arrow[r]&\pi_k(\U(n+1))\arrow[r]&\pi_k(S^{2n+1})
+	\end{tikzcd}\]
+	so when $2n+1>k+1\iff n>k/2$ the homotopy groups of the spheres vanish and we have an isomorphism.
+	
+	The group $\pi_1(\U(n))$ is isomorphic to $\Z$. This follows from the fact that $\U(1)$ is homeomorphic to a circle and by induction using the former isomorphism $\pi_1(\U(n))\cong\pi_1(\U(n+1))$. We also have $\pi_2(\U(1))=0$, so that again by induction we get $\pi_2(\U(n))=0$. Finally, a similar argument shows $\pi_3(\U(n))=0$.
+\end{proof}
+
+\begin{exercise}[4.2.32]
+	Show that if \begin{tikzcd}[column sep=small]
+		S^k\arrow[r]&S^m\arrow[r]&S^n
+	\end{tikzcd} is a fiber bundle, then $k=n-1$ and $m=2n-1$. [Look at the long exact sequence of homotopy groups.]
+\end{exercise}
+\begin{proof}[Solution (in progress…)]
+	The sequence of homotopy groups is
+	\[\begin{tikzcd}[column sep=small]
+		\cdots\arrow[r]&\pi_i(S^k)\arrow[r]&\pi_i(S^m)\arrow[r]&\pi_i(S^n)\arrow[r]&\pi_{i-1}(S^k)\arrow[r]&\pi_{i-1}(S^m)\arrow[r]&\cdots
+	\end{tikzcd}\]
+	so that if $i\leq k$ we have $\pi_i(S^m)=\pi_i(S^n)$, 
+\end{proof}
+
+\section{cohomology ring of $\C P^n$}
+We know that cohomology of $\C P^n$ is …
+
+So that
+\begin{align*}
+	H^\bullet(\C P^n)&=H^0(\C P^2)\oplus H^1(\C P^2)\oplus\ldots\oplus H^{2n}(\C P^{n})\\
+	&=\Z\oplus\Z a_1\oplus\ldots\oplus\Z a_{n}
+\end{align*}
+We wish to show that 
+\[a_1=\alpha,a_2=\alpha^2\ldots a_{n}=\alpha^n\]
+for the generator of the cohomology group of degree 2 $\alpha$.
+To show that $H^\bullet(\C P^n,\Z)\approx \Z[\alpha]/(\alpha^{n+1})$ with $\deg\alpha=2$ we use induction.
+
+By Poincaré duality on $\C P^2$
+\begin{align*}
+	H^2(\C P^2)\times H^2(\C P^2)&\to H^4(\C P^2)\\
+	(\alpha,\alpha)&\mapsto\alpha\smile\alpha =\alpha^2
+\end{align*}
+must map a generator to a generator, so the case of $\C P^2$ is done.
+
+Now the case of $\C P^3$ is as follows:
+\begin{align*}
+		H^2(\C P^3)\times H^4(\C P^3)&\to H^6(\C P^3)\\
+	(\alpha,\alpha^2)&\mapsto\alpha\smile\alpha^2=\alpha^3
+\end{align*}
+Notice we have used the isomorphism $H^i(\C P^3)\approx H^i(\C P^2)$ when choosing generators of each of the groups.
+
+So we have the ring morphism
+\begin{align*}
+	\varphi:\Z[\alpha]&\to H^\bullet(\C P^2)=\Z\oplus\Z\alpha\oplus\ldots\oplus\Z\alpha^n\\
+	\sum\lambda_i\alpha^i&\mapsto \bigoplus\lambda_i\alpha^i
+\end{align*}
+with
+\[\ker\varphi=\{\}\]
+
+
+
 \addcontentsline{toc}{section}{References}
 \printbibliography
 \clearpage

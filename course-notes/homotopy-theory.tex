@@ -1,20 +1,19 @@
 \documentclass{article}
 \usepackage{titlesec}
 
-\usepackage[citestyle=authortitle-terse,backref,backend=bibtex]{biblatex}
+\usepackage[citestyle=authortitle-terse,backref]{biblatex}
 \addbibresource{homotopy-theory.bib}
 
 \setcounter{secnumdepth}{0}
-\usepackage{sectsty}
-\sectionfont{\fontsize{13}{20}\selectfont}
+%\usepackage{sectsty}
+%\sectionfont{\fontsize{13}{20}\selectfont}
 
 \usepackage[left=4cm, right=4cm]{geometry}
-\usepackage{palatino,eulervm,dutchcal,xcolor}%fonts
+\usepackage{palatino,eulervm,dutchcal,xcolor}
 \usepackage{graphicx,subcaption,float}
 \usepackage{enumitem,parskip,multicol,array}
 \newcolumntype{L}{>{$}c<{$}}%table in mathmode
-\usepackage{amsthm,amssymb,amsmath,mathtools,thmtools}
-\usepackage{tikz,tikz-cd}
+\usepackage{amsthm,amssymb,amsmath,mathtools,thmtools,tikz,tikz-cd}
 \usetikzlibrary{%
 	matrix,%
 	calc,%
@@ -35,10 +34,6 @@
 	citebordercolor=white,
 	filebordercolor=white}
 \usepackage{cleveref}
-
-\setcounter{secnumdepth}{0}
-\usepackage{sectsty}
-\sectionfont{\fontsize{13}{20}\selectfont}
 
 \definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
 \definecolor{azure}{rgb}{0.0, 0.5, 1.0}
@@ -133,6 +128,8 @@
 \DeclareMathOperator{\Int}{Int}
 \DeclareMathOperator{\Ob}{Ob}
 \DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Tor}{Tor}
 \DeclareMathOperator{\Top}{Top}
 \DeclareMathOperator{\Path}{Path}
 \DeclareMathOperator{\Set}{Set}
@@ -151,6 +148,7 @@
 \DeclareMathOperator{\coker}{coker}
 \DeclareMathOperator{\Arr}{Arr}
 \DeclareMathOperator{\Funct}{Funct}
+\DeclareMathOperator{\gr}{gr}
 \DeclareMathOperator{\eq}{eq}
 \DeclareMathOperator{\coeq}{coeq}
 \DeclareMathOperator{\Cyl}{Cyl}
@@ -493,13 +491,13 @@ The functor $-\times Y$ is left adjoint to $\Map(Y,-)$.
 		\end{tikzcd}\]
 		\item (\href{https://en.wikipedia.org/wiki/Homotopy_extension_property}{wiki}) Let $X$ be a topological space and let $A\subset X$. We say that the pair $(X,A)$ has the \textbf{\textit{homotopy extension property}} if, given a homotopy $f_\bullet:A\to Y^I$ and a map $\tilde{f}_0:X\to Y$ such that
 		\[\tilde{f}_0\circ\iota=f_0\]\
-		{\color{cyan}(so $\tilde{f}$ is the lift of $f_0:A\to Y$)} then there exists an \textbf{\textit{extension}} of $f_\bullet$ to a homotopy $\tilde{f}_\bullet:X\to Y^I$ such that $\tilde{ƒ}_\bullet\circ\iota=f_\bullet$.
+		{\color{cyan}(so $\tilde{f}$ is the lift of $f_0:A\to Y$)} then there exists an \textbf{\textit{extension}} of $f_\bullet$ to a homotopy $\tilde{f}_\bullet:X\to Y^I$ such that $\tilde{f}_\bullet\circ\iota=f_\bullet$.
 		
 		That is,
 		\[\begin{tikzcd}
 			A\arrow[r,"f_\bullet"]\arrow[d,swap,"\iota"]&Y^I\arrow[d,"\pi_0"]\\
 			X\arrow[ur,dashed,"\tilde{f}_\bullet"]\arrow[r,swap,"\tilde{f}_0"]&Y
-		\end{tikzcd}\]\
+		\end{tikzcd}\]
 		{\color{persiangreen}So there's some \href{https://en.wikipedia.org/wiki/Currying#Function_spaces}{currying} to make usual homotopies $f_\bullet:A\times I\to Y$ look like $f_\bullet:A\to Y^I$. Or, as said in our lectures, ``a homotopy $X\times I\to Y$ is the same as a map $X\to \Map(I,Y)$".}
 		
 		\item (\cite{may}) A map $i:A\to X$ is a \textbf{\textit{cofibration}} if it satisfies the \textbf{\textit{homotopy extension property (HEP)}}. This means that if $h\circ i_0=f\circ i$ in the diagram
@@ -1395,7 +1393,7 @@ and in this case we get
 and this is what we call a \textbf{\textit{$\K(\pi,n)$-space}} (all homotopy groups are trivial but the $n$th.)
 \end{itemize}
 
-\subsection{11 apr}
+\subsection{Moore space, $K(\pi,n)$ and Hurewicz theorem, 11\&16 apr}
 \begin{thm}[Uniqueness of CW-approximations]
 	Recall that a CW-approximation of $X$ is a map $f:Z\to X$ and a CW-complex $Z$ that is a weak homotopy equivalence (induces isomorphisms in all homotopy groups).
 	
@@ -1429,15 +1427,19 @@ and this is what we call a \textbf{\textit{$\K(\pi,n)$-space}} (all homotopy gro
 \begin{defn}
 	Let $\pi$ be an abelian group. Take 
 	\[\begin{tikzcd}
-		F_1\arrow[r]& F_0\arrow[r]& \pi
+		0\arrow[r]&F_1\arrow[r]& F_0\arrow[r]& \pi
 	\end{tikzcd}\] 
 	a \textbf{\textit{free resolution}}, i.e. $F_1=Z^{\oplus J}$ and $F_0=Z^{\oplus I}$ are free abelian groups and $\pi=F_0/F_1$. Let's take the corresponding maps
 	\[\begin{tikzcd}[row sep=tiny]
 		\bigvee_{j\in S}S^n\arrow[r]&\bigvee_{i\in I}S^n\arrow[r]&\hocofib f\\
 		x_j\arrow[r,maps to]&\sum a_iy_i
 	\end{tikzcd}\]
-	where $a_i$ is the degree of $S^n\to S^n$
-	Recall that the homotopy cofiber $\hocofib f$ is the mapping cone of $f$. It is the \textbf{\textit{cone of pointed spaces}}.
+	where $a_i$ is the degree of $S^n\to S^n$.
+	Recall that the homotopy cofiber $\hocofib f$ is the mapping cone of $f$. It is the \textbf{\textit{cone of pointed spaces}}. We call this space the \textbf{\textit{Moore space $M(\pi, n)$}} and it is such that
+	\[\tilde{H}_i(M(\pi, n))=\begin{cases}
+		0,\quad&i\neq n\\
+		\pi,\quad &i=n
+	\end{cases}\]
 \end{defn}
 	What do we get in homology? Exactly the sequence of free groups above. So, $H_n(\hocofib f)=\pi$. What do we get in homotopy? {\color{red}Might be $\pi$ as well}. Let's prove something stronger:
 	
@@ -1448,25 +1450,479 @@ and this is what we call a \textbf{\textit{$\K(\pi,n)$-space}} (all homotopy gro
 \end{thm}
 \begin{proof}
 	Photo
+	
+	Take
+	\[\begin{tikzcd}
+		\bigvee_I S^n\arrow[r]&\bigvee_J S^m\arrow[r]&\hocofib f
+	\end{tikzcd}\]
+	Now apply $[-,Y]$. We get
+	\[\begin{tikzcd}
+		\left[\bigvee_I S^1\right]&\arrow[l]\left[\bigvee_J S^1\right]&\arrow[l][\hocofib f,Y]&\arrow[l]0
+	\end{tikzcd}\]
 \end{proof}
+\begin{lemma}
+	If $(X,A)$ is $r$-connected, $A$ $s$-connected for all $r,s\geq0$, then the map
+	\[\pi_i(X,A)\to\pi_i(X/A)\]
+	induced by the quotient map $X\to X/A$ is an $(r+s+1)$ equivalence.
+\end{lemma}
+\begin{proof}
+	If $(X,A)$ is $r$-connected.
+\end{proof}
+{\color{red}After the lemma we proved that $\pi_n(C_f\cong G$.}
 \begin{thm}
-	Take $\tau_{\leq n}(\hofib f)$ which is a $\K(\pi,n)$ space with cells in $\dim\geq n$, obtained from $\hofib f$ by attaching cells of $\dim\geq n+2$. Then
+	Now consider a Moore space, kill all homotopy groups to get $\tau_{\leq n}(M)$. It is a $\K(\pi,n)$ space with cells in $\dim\geq n$, obtained from $\hofib f$ by attaching cells of $\dim\geq n+2$. Then
+	\[\begin{tikzcd}
+		M\arrow[rr]\arrow[dr]&&\tau_{\leq n}M\arrow[dl,dashed,"\exists!\text{ up to homotopy}"]\\
+		&Y
+	\end{tikzcd}\]
 	\[[\hocofib f,y]\cong[\tau_{\leq n}(\hocofib f), Y]=\Hom(\pi,\pi_n(Y)).\]
 	If $\pi_n(Y)=\pi$, then there is a weak equivalence
 	\[\tau_{\leq n}(\hocofib f)\to Y.\]
 \end{thm}
 
+\begin{thm}[Hurewicz]
+	Let $X$ be an $(n-1)$-connected space for $n\geq 2$. Then
+	\[\tilde{H}_i(X)=\begin{cases}
+		0,\quad&i<n\\
+		\pi_n(X),\quad&i=n
+	\end{cases}\]
+\end{thm}
+\begin{proof}
+	Photo.
+	
+	Idea is to construct a Moore space that is {\color{red}a piece of the CW approximation}. {\color{persiangreen}Why a piece? Write and understand why this worked!}
+\end{proof}
+\begin{thm}[Relative Hurewicz theorem]
+	Let $(X,A)$ be $n$-connected, $A$ be 1-connected, $n\geq2$. Then
+		\[H_i(X,A)=\begin{cases}
+		0,\quad&i<n\\
+		\pi_n(X,A),\quad&i=n
+	\end{cases}\]
+\end{thm}
+\begin{proof}
+	Take a CW approximation of $(X,A)$,
+	\[\begin{tikzcd}
+		&Y\arrow[dr,"\cong"]\\
+		B\arrow[ur]\arrow[r,swap,"\cong"]&A\arrow[r]&X
+	\end{tikzcd}\]
+	So the approximation is $(B,Y)$.
+	
+	Then we have
+	\begin{align*}
+		\pi_i(Y,B)&=\pi_i(Y/B),\quad i\leq n\\
+		H_i(Y,B)&=\tilde{H}_i(Y/B),\quad \forall i
+	\end{align*}
+	and first line implies that $\pi_1(Y/B)=0$ for $i<n$. But then we are done, right?
+\end{proof}
 
+\subsection{Representability of the functor $H^n(-,G)$}
+
+\begin{remark}
+	Recall the \textbf{\textit{adjoint relation}}
+\[\langle \Sigma X,K\rangle=\langle X,\Omega K\rangle\]
+where $\Sigma X$ is the \textbf{\textit{reduced suspension}} of a space $X$, $\Omega K$ is the \textbf{\textit{loop space}} of another space $K$ and the brackets mean homotopy classes of basepointed maps. Choosing $X=S^0$ and $K=M$, the left-hand side becomes $\pi_1(M,m)$ and the right-hand side becomes the path components of $\Map((S^1,0),(M,m))$.
+\end{remark}
+
+Now let's do some other interesting remarks.
 \begin{defn}
 	Let $\Cc$ be a category. Then $\Psh(\Cc)$ is the category of \textbf{\textit{presheaves}} of $\Cc$ i.e. the category of functors $\Cc^{\op}\to\Sets$ and natural transformations. For any object $A$ in $\Cc$ there is a presheaf $\Hom_{\Cc}(-,A)$. A presheaf $\Fc$ that is isomorphic to $\Hom_\Cc(-,A)$ for some $A$ is called \textbf{\textit{representable}}.
 \end{defn}
-	
+
 For example, $\Hom_{\CW}(X,\K(\pi,n))\cong H^n(X,\pi)$, that is, $H^n$ is representable.
+
+\[\begin{tikzcd}[row sep=tiny]
+	0\arrow[r]&\Ext^1(H_{n-1}(K(G,n),G))\arrow[r]&H^n(K(G,n),G)\arrow[r,"\cong"]&\Hom(H_n(K(G,n)),G)\arrow[r]&0\\
+	&0\arrow[u,equal]&&0\arrow[u,equal]
+\end{tikzcd}\]
+There is a special element in $\H^n(K(G,N),G)$, the preimage if $\id_G$.
+\begin{claim}
+	\[[X,K(G,n)\cong\tilde{H}^n(X,G)]\]
+	where on the left we have based $\CW$-complexes. 
+\end{claim}
+
 \begin{lemma}[Yoneda]
-	Let $G$ be a presheaf, $A$ be an object in $\Cc$. Then
-	\[\Nat(\Hom(-,A),G)\cong G(A)\]
+	Let $\Fc$ be a presheaf, $A$ be an object in $\Cc$. Then
+	\[\Nat(\Hom_{\Cc}(-,A),\Fc)\cong \Fc(A)\]
 	naturally in $A$.
 \end{lemma}
+\begin{proof} For $f:C\to A$, we have this commutative diagram:
+	\[\begin{tikzcd}
+		\id_A\arrow[r,maps to]&f\\
+		\Hom(A,A)\arrow[r]\arrow[d,swap,"\eta_A"]&\Hom(C,A)\arrow[d,"\eta_C"]\\
+		\Fc(A)\arrow[r]&\Fc(C)\\
+		\eta_A(\id_A)\arrow[r,maps to]&\eta_C(f)
+	\end{tikzcd}\]
+	So, natural transformations $\eta:\Hom(-,A)\to \Fc$ are determined by $\eta_A(\id_A)$. And that's it because then the map $\eta\mapsto\eta_A(\id_A)$ is what we are looking for. It remains to write why it is injective, surjective and natural.
+\end{proof}
+
+\section{representability theory}
+If a functor $F:\Cc^{\op}\to\Sets$ is representable, then it sends colimits to limits and sends weak colimits to weak colimits.
+
+\begin{thm}
+	If $F:\Ho\CW_*\to\Sets$ sends
+	\begin{enumerate}
+		\item coproducts (=wedges) to products,
+		\item \begin{tikzcd}[column sep=small,row sep=small]
+			A\arrow[r]\arrow[d]&B\arrow[d]\\
+			C\arrow[r]&B\cup_{A}C
+		\end{tikzcd} to weak pullback, where $B\cup_A C$ is a CW complex, $B$ and $C$ are CW complexes, $A=B\cap C$,
+		
+		then $F$ is representable.
+		
+		(By $B$ with isomorphism $F\cong[-, B]$ given by some $X\in F(B)$.)
+	\end{enumerate}
+\end{thm}
+\begin{defn}
+	A CW-complex $B$ together with a choice of $\gamma\in F(B)$ is a \textbf{\textit{spherical classifying space}} of $F$ if
+	\begin{align*}
+		\gamma_*:[S^n,B]&\to F(S^n)\\
+		f&\mapsto f^*(\gamma)
+	\end{align*}
+	is an isomorphism for $n>0$ (because for $n=0$ $S^n$ is not connected).
+\end{defn}
+\begin{prop}
+	If $(B_1,\gamma_1)$ and $(B_2,\gamma_2)$ are two classifying spaces for $F$, then $B_1$ and $B_2$ are homotopy equivalent via the map that sends $\gamma_1$ to $\gamma_2$.
+\end{prop}
+\begin{prop}
+	If $(B_1,\gamma_1)$ and $(B_2,\gamma_2)$ are two classifying spaces for $F$, then $g:B_1\to B_2$ is such that $g^*/(\gamma_2)=\gamma_1$, then $f$ is a homotopy equivalence.
+\end{prop}
+\subsection{May 2: after representation theorem}
+\subsubsection{Cohomology operations}
+\[\Nat(H^n(-,G_1),H^n(-,G_2))\leftrightarrow[K(G_1,n),K(G_2,n)]\]
+\begin{example}\leavevmode
+	\begin{enumerate}
+		\item $x\mapsto x\smile x$, $H^n\to H^{2n}$. This is a natural transformation between the $H$ functors.
+		\item The short exact sequence
+		\[\begin{tikzcd}
+			0\arrow[r]&\Z/p^2\arrow[r]&\Z/p^2\arrow[r]&\Z/p\arrow[r]&0
+		\end{tikzcd}\]
+		yields
+		\[\begin{tikzcd}
+			\cdots\arrow[r]&H^n(X,\Z/p^2)\arrow[r]&H^n(X,\Z/p)\arrow[r]&H^{n+1}(X,\Z/p)\arrow[r]&H^{n+1}(X,\Z/p^2)\arrow[r]&\cdots
+		\end{tikzcd}\]
+		which is natural in $X$, yielding the \textbf{\textit{Bockstein homomorphism}}
+		\[H^n(-,\Z/p\to H^{n+1}(-,\Z/p)\]
+	\end{enumerate}
+\end{example}
+\subsubsection{spectral sequences}
+\begin{enumerate}
+	\item \textbf{\textit{Exact couple}}: \begin{tikzcd}
+		A\arrow[rr,"i"]&&A\arrow[dl,"j"]\\
+		&E\arrow[ul,"k"]
+	\end{tikzcd}
+	
+	{\color{azure}It looks like this is just notation for an exact sequence that repeats over and over.}
+	
+	\begin{example}
+		Take 
+		\[\begin{tikzcd}
+			0\arrow[r]&\Z/p^2\arrow[r]&\Z/p^2\arrow[r]&\Z/p\arrow[r]&0
+		\end{tikzcd}\]
+		and take $C_\bullet$ torsion free chain complex. You get
+		\[\begin{tikzcd}
+			0\arrow[r]&C_\bullet\arrow[r,"\times p"]&C_\bullet\arrow[r]&C_\bullet\otimes\Z/p\arrow[r]&0
+		\end{tikzcd}\]
+		which yields a long exact sequence
+		\[\begin{tikzcd}
+			H_n\arrow[rrr]&&&H_n\arrow[ddl]\\
+			&H_{n-1}\arrow[r]&\ldots\\
+			&&H_n\arrow[ul]
+		\end{tikzcd}\]
+		Or better yet (notation)
+		\[\begin{tikzcd}
+			H_*(C)\arrow[rr]&&H_*(C)\arrow[dl]\\
+			&H_*(C,\Z_p)\arrow[ul]
+		\end{tikzcd}\]
+	\end{example}
+	
+	\item \textbf{\textit{Derived couple of exact couple}}
+			\[\begin{tikzcd}
+		A'\arrow[rr,"i'"]&&A'\arrow[dl,"j'"]\\
+		&E'\arrow[ul,"k'"]
+	\end{tikzcd}\]
+	Where $A'=\img i$, 
+	
+	And the exact couple yields a homology $E^1=H(A,)d$ with differential $d=jk$,
+	
+	 $i'=i|_{A'}$, $j'(ia):=[j(a)]$, $k'([e])=k(e)$.
+	 
+	 We have checked that 
+	 \begin{itemize}
+	 	\item $j'$ and $k'$ are well-defined. $i'$ is well-defined automatically.
+	 	\item that the image of $k'$ is in fact in $A'$
+	 	\item $j'i'=0$, $k'j'=0$, $i'k'=0$.
+	 	\item that $j'(ai)=0\implies ia=i'a'$, $k'[e]=0\implies [e]=j'(a')$ and that $i'(a')=0\implies a'=k[e]$.
+	 \end{itemize}
+	 
+	 {\color{azure}So, we have shown that each exact couple gives a derived couple.}
+	
+
+	
+	\item \[\begin{tikzcd}
+		\text{Filtration on something}\arrow[r]&\text{filtration on chain complex}\arrow[r]\arrow[dr]&\text{exact couple}\arrow[d]\\
+		&&\text{spectral seq}
+	\end{tikzcd}\]
+\end{enumerate}
+A \textbf{\textit{filtration}} on an abelian group/$R$-module/chain complex/... $C$ is
+\[\ldots\subseteq F_nC\subseteq F_{n+1}C\subseteq C,\qquad n\in\Z\]
+and there is an associated graded $\gr F_\bullet C:=\bigoplus_{n\in\Z}F_nC/F_{n-1}C$.
+
+{\color{magenta}We hope to recover $C$ from $gr F_\bullet$.}
+
+\paragraph{Problem 1.} If $\bigcap_{n\in\Z}F_nC\neq0$ then the map $\bigcap_{n\in\Z}F_nC$ looses some information. We may solve this by asking that
+\begin{enumerate}
+	\item $F_nC=0$ for $n<0$
+	\item $C\to\lim C/F_nC$ is isomorphism.
+\end{enumerate}
+\paragraph{Problem 2.} If $\bigcup_{n\in\Z}F_nC\neq C$ that would be very bad. Then we should ask that $C=\bigcup_{n\in\Z}F_nC$ which is $C=\colim F_nC$.
+\begin{example}
+	We discussed the cases of $\bigoplus_{n\in\N}\Z$ and $\prod_{n\in\N}\Z$. We found that even though $\bigcap_{n\in\Z}F_nC=0$ in both cases, we could not recover the desired information (?).
+\end{example}
+Now, to each Serre fibration corresponds a spectral sequence.
+
+\subsection{following sss.pdf}
+$X$ is a filtered chain complex
+\[\cdots\subseteq X_{n-1}\subseteq X_{n}\subseteq X_{n+1}\subseteq\cdots\]
+We automatically get
+\[\begin{tikzcd}[column sep=small]
+	H_{p+q}(X_p)\arrow[r]\arrow[d,"i",swap]\arrow[r,red,shift={(0,0.2)}]&H_{p+q}(X_p/X_{p-1})\arrow[r]\arrow[r,red,shift={(0,0.2)}]\arrow[d]&H_{p+q-1}(X_{p-1})\arrow[r]\arrow[d,red,shift={(0.2,0)}]\arrow[d,"i",swap]&H_{p+q-1}(X_{p-1}/X_{p-2})\arrow[d]\arrow[r]&\cdots\\
+	H_{p+q}(X_{p+1})\arrow[r]\arrow[d,"i",swap]&H_{p+q}(X_{p+1}/X_{p})\arrow[r]\arrow[d]&H_{p+q-1}(X_{p})\arrow[r,"j",swap]\arrow[r,red,shift={(0,0.2)}]\arrow[d,"i",swap]&H_{p+q-1}(X_{p}/X_{p-1})\arrow[r,red,shift={(0,0.2)}]\arrow[d]\arrow[r,"k",swap]&\cdots\\
+	H_{p+q}(X_{p+2})\arrow[r]\arrow[d,"i",swap]&H_{p+q}(X_{p+2}/X_{p+1})\arrow[r]\arrow[d]&H_{p+q-1}(X_{p+1})\arrow[r]\arrow[d,"i",swap]&H_{p+q-1}(X_{p+1}/X_{p})\arrow[d]\arrow[r]&\cdots\\
+	\cdots&\cdots&\cdots&\cdots
+\end{tikzcd}\]
+Notice that the red arrows are the induced exact sequence of
+\[\begin{tikzcd}
+	0\arrow[r]&X_{p-1}\arrow[r]\arrow[d]&X_{p}\arrow[r]\arrow[d]&X_{p}/X_{p-1}\arrow[r]\arrow[d]&0\\
+	0\arrow[r]&X_p\arrow[r]&X_{p+1}\arrow[r]&X_{p+1}/X_p\arrow[r]&0
+\end{tikzcd}\]
+Now consider
+\[A=\bigoplus_{p+q}H_{p+q}(X_p)\]
+and simply call $A_{p,1}=H_{p+q}(X_p)$. Also take
+\[E=\bigoplus_{p,q}H_{p+q}(X_p/X_{p-1})\]
+and $E_{p,q}:=H_{p+q}(X_p/X_{p-1})$.
+
+We have
+\[\begin{tikzcd}
+	A\arrow[rr,"i"]&&A\arrow[dl,"j"]\\
+	&E\arrow[ul,"k"]
+\end{tikzcd}\]
+where
+\begin{align*}
+	\begin{array}{cc}
+		\text{\bfseries map}&\text{\bfseries bidigree}\\\\
+		i:A_{p,q}\to A_{p+1,q-1}&(1,-1)\\
+	j:A_{p,q}\to E_{p,q}&(0,0)\\
+	k:E_{p,q}\to A_{p-1,q}&(-1,0)\\
+	&
+	\end{array}
+\end{align*}
+Now consider the derived couple of this exact couple several times:
+\[\begin{tikzcd}[column sep=small,row sep=small]
+	A^2\arrow[rr,"i_2"]&&A^2\arrow[dl,"j_2"]\\
+	&E^2\arrow[ul,"k_2"]
+\end{tikzcd}\qquad\qquad \begin{tikzcd}[column sep=small,row sep=small]
+A^3\arrow[rr,"i_3"]&&A^3\arrow[dl,"j_3"]\\
+&E^3\arrow[ul,"k_3"]
+\end{tikzcd}\]
+where, going back to definitions
+\[E^2=\ker d_1/\img d_1\qquad E^3=\ker d_2/\img d_2\]
+and so on.
+
+And then think about the bidigrees of the other maps. Well they are
+\begin{align*}
+	\begin{array}{cc}
+		\text{\bfseries map}&\text{\bfseries bidigree}\\\\
+		i_k=i_{k-1}|_{\img i_{k-1}}&(1,-1)\\
+		j_n&(-(n-1),n-1)\\
+		k_n&(-1,0)\\
+		d=j_nk_n&(-n,n-1)
+	\end{array}
+\end{align*}
+(we thought about this).
+
+Here are some reasonable assumtions:
+\begin{enumerate}
+	\item $X_p=0$ for $p<0$.
+	\item $\bigcup_p X_p=X$.
+	\item $H_{p+q}(X_p/X_{p-1})=0$ for $q<0$.
+\end{enumerate}
+\begin{remark}
+	It will happen that for very large $r$, $E^r_{p,q}=E^r_{p,q}=\cdots=E^\infty_{p,q}$.
+	
+	Also it will happen that
+	\[E^\infty_{p,q}\cong \img H_{p+q}(X_p)/\img H_{p+q}(X_{p-1})\]
+	and we will know what
+	\[\bigoplus_{\substack{p+q\text{ fixed}\\p\in\N}}\img H_{p+q}(X_p)/\img H_{p+q}(X_{p-1})\]
+	is, and understand
+	\[H_*\qquad \ldots\subseteq \img H_{p+q}(X_p)\subseteq \img H_{p+q}(X_{p+1})\subseteq \ldots\subseteq H_{p+q}(X),\]
+	which is induced by
+	\[\begin{tikzcd}
+		X\arrow[r]&X_{p+1}\arrow[r]&X
+	\end{tikzcd}\]
+	in {\color{azure}our hopes to understand $H_{p+q}(X)$ which is of course just the homology of $X$}.
+\end{remark}
+Now let's put the $E$'s in a diagram like
+\begin{align*}
+\begin{array}{|ccc}
+	\cdots&&\\
+	E^1_{0,1}&E^1_{1,1}&E^1_{2,1}\\
+	E^1_{0,0}&E^1_{1,0}&E^1_{2,0}\\
+	\hline
+\end{array}
+\end{align*}
+and if arrows are the differential $d$ with bidegree $(-n,n-1)$, we already have Hatcher's picture
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{spectral}
+	\label{fig:spectral}
+\end{figure}
+And something interesting will happen when $r$ is very big. {\color{magenta}What?}
+This:
+\[\begin{array}{|c}
+	\begin{tikzcd}[column sep=small,row sep=small]
+	(p-r,q+r-1)&&&&\\\\
+	&&(p,q)\arrow[uull]&&\\\\
+	&&&&(p+r,q-r+1)\arrow[uull]
+\end{tikzcd}\\
+\hline
+\end{array}\]
+that for a fixed $(p,q)$ there is a large $r$ such that if $p<r$ and $q+1<r$ we shall have
+\[E^r_{p,q}=E^{r+1}_{p,q}:=E^\infty_{p,q}.\]
+
+\subsection{Serre spectral sequence}
+Now take a Serre fibration \begin{tikzcd}
+	F\arrow[r]&E\arrow[r]&B
+\end{tikzcd}
+with
+\[\pi_0(F)=0\quad\text{and}\quad\pi_1(B)=0\]
+and it turns out that
+\[E^2_{p,q}=H_p(B,H_q(H))\implies H_{p,q}(E).\]
+\begin{example}
+	For $S^1\to S^3\to S^2$ we have found that the first two pages are
+	\[\begin{array}{ccccc}
+		\begin{tikzcd}[column sep=small,row sep=small]
+		\Z&&\Z\\
+		\Z&&\Z\arrow[ull,"d"]\arrow[ull,"\cong",swap]
+	\end{tikzcd}&&&&\begin{tikzcd}[column sep=small,row sep=small]
+	\Z/\img d_2&&\Z\\
+	\Z&&\Z/\img d_2
+	\end{tikzcd}\\
+	E_2&&&&E_3
+	\end{array}\]
+	so $E^3=E^\infty$.
+\end{example}
+\begin{example}
+	We have also done $S^3\to S^7\to S^4$ and $S^1\to S^{2n+1}\to\C P^n$. See \cite{sssguide}.
+\end{example}
+
+\subsection{proofs}
+Now we will prove that there exists a spectral sequence and that it converges where it converges.
+\subsubsection{serre spectral sequence}
+Consider either of
+\[\pi_0(B)=0\qquad\qquad \text{or}\qquad\qquad\begin{cases}
+	\pi_1(B)=0\\
+	\text{or } \pi_1(B)\text{ acts trivially on }H_q(F)\\
+	\text{or take } H_*\text{ with local coefficients}
+\end{cases}\]
+
+\begin{thm}
+	There is spectral sequence $E^v$ that converges to $H_*(E)$ and such that
+	\[E^2_{p,q}=H_p(B,H_q(F,G)).\]
+\end{thm}
+\begin{proof}
+	The construction of the spectral sequence is not complicated. Start with $E^1$. Then Do $E^2$ with
+	\[\begin{tikzcd}
+		E^k\times F\arrow[r]\arrow[d]\arrow[dr,phantom,very near start,"\lrcorner"]&E\arrow[d]\\
+		D^k\arrow[r]&B
+	\end{tikzcd}\]
+\end{proof}
+	Consider the following conditions on the big staircase diagram:
+	\begin{enumerate}[label*=\alph*.]
+		\item In each $A$ column almost all maps are isomorphisms.
+		\item In each column $E$ almost each entry is 0.
+		\item $E^1_{p,q}=0$ for $p<0$ and $q<0$.
+		\item $X_p=0$ for $p<0$ and $H_n(X_p)\to H_n(X_{p+1})$ is isomorphism for $p\gg0$.
+	\end{enumerate}
+	And also
+	\begin{itemize}
+		\item $A_{-\infty,p+q}:=A_{p,q}$ for $p\ll0$.
+		\item $A_{+\infty,p+q}:=A_{p,q}$ for $p\gg0$.
+	\end{itemize}
+	And then
+	\begin{enumerate}
+		\item[e1.] $A_{-\infty,p+q}=0$.
+		\item[e2.] $A_{+\infty,p+q}=0$.
+	\end{enumerate}
+\begin{claim}
+	$b\implies E^r_{p,q}$ stabilizes for fixed panel $q$, so $E^\infty_{p,q}$ makes sense.
+\end{claim}
+Now let's check that indices are the way they are in
+\[\begin{tikzcd}[column sep=tiny,row sep=tiny]
+	E^r_{p+r-1,q-r+2}\arrow[r,"k"]\arrow[d,equal]&A^r_{p+r-2,q-r+2}\arrow[r,"i"]&A^r_{p+r-1,q-r+1}\arrow[r,"j"]&E^r_{p,q}\arrow[r,"k"]&A_{p-1,q}^r\arrow[r,"i"]\arrow[d,equal]&A^r_{p,q-1}\arrow[r,"j"]\arrow[d,equal]&E^r_{p-r+1,q-r-2}\arrow[d,equal]\\
+	0&&&&\substack{0\\\text{if e1}}&\substack{0\\\text{if e1}}&0
+\end{tikzcd}\]
+Ok, after some other considerations we have concluded that
+\begin{quotation}
+	$E^\infty_{p,q}$ also makes sense and it is a piece of $p$-graded associative algebra graded of $A_{+\infty,p+q}$ with
+	\begin{align*}
+		E^r_{p,q}&=A^r_{p+q+r,q-r+q/iA^r_{p+r-2,q-1+2}}\\
+		&=i^{r-1}(A^1_{p,q})/i^r(A^1_{p-1,q+1})\\
+		&=F_pA_{+\infty,p+q}/F_{p-1}A_{+\infty,p+q}
+	\end{align*}
+\end{quotation}
+
+\section{Something on 14 may}
+In cover spaces we have homeomorphisms between the fibers. In hurewicz fibrations this may not be true, but we still can have homotopy equivalences. So consider a Hurewicz fibration $f:E\to B$ and a path $I\to B$. Then we have:
+\[\begin{tikzcd}
+	F_a\arrow[d,"i_0"]\arrow[rr,hook]&&E\arrow[d,two heads,"f"]\\
+	F_a\times I\arrow[r,"\pi",swap]\arrow[urr,dash]&I\arrow[r,"p"]&B
+\end{tikzcd}\]
+And we claim that there is an homotopy equivalence
+\[F_a\cong F_a\times\{1\}\to F_b=f^{-1}b\]
+To see why, consider two homotopic paths $p_1,p_2:I\to B$. Construct the following diagram:
+
+We have (or will?) established:
+\begin{prop}
+	For any Hurewikz fibration $f:E\to B$ there is "an action of $\pi_1(B)$ on $F_b$ up to homotopy"
+	\begin{align*}
+		\Pi_1(B)&\to \Ho\Top\\
+		b&\mapsto F_b
+	\end{align*}
+\end{prop}
+We have an action
+\[\pi_1(B)\curvearrowright H_*(F_b)\]
+
+Why do need this? Consider the following case:
+\[\begin{tikzcd}
+	f_i^*E\arrow[r]\arrow[dr,phantom,"\lrcorner",very near start]\arrow[d]&E\arrow[d,two heads]\\
+	X\arrow[r,swap,"f_i"]&B
+\end{tikzcd}\]
+for $f_1,f_2:X\to B$.
+
+\subsection{serre spectral sequence for cohomology}
+Suppose
+\[\begin{tikzcd}
+	F\arrow[r,hook]&X\arrow[r]&B
+\end{tikzcd}\]
+Is a Serre fibration with $\pi_0(B)=0$ and that the action described above $\pi_1(B)\curvearrowright H^*(F;G)$ is trivial.
+
+Then there is a spectral sequence $\{E_r^{p,q},d_r\}$ such that
+\begin{enumerate}[label*=\alph*.]
+	\item $d_r:E_r^{p,q}\to E_r^{p+r,q-r+q};\qquad E_{r+1}^{p,q}=\ker d_r/\img d_r$.
+	\item $E_{\infty}^{p,q}\cong F^{p+q}_p/F^{p+q}_{p+1}$; $\qquad 0\subset F^{p+q}_{p+q}\subset\ldots\subset F^{p+q}_0=H^{p+q}(X,G)$.
+	\item $E^{p,q}_2=H^p(B,H^{q}(F,G))$.
+	\item $E^{p,q}_2\times E^{s,t}_2\to E^{p+s,q+t}_2$, which is given by $(-1)^{qs}$.
+	\[H^p(B,H^q(F,R))\times H^s(B,H^t(F,R))\overset{\smile}{\to} H^{p+s}(B,H(F,R))\]
+	now supposing that $G=R$ is a ring.
+	\item This
+	\begin{align*}
+		F^m_p\times F^n_s&\overset{\smile}{\to}F^{m+n}_{p+s}
+	\end{align*}
+	which induces
+	\[F^m_p/F^m_{p+1}\times F^n_s/F^n_{s+1}\to F^{m+n}_{p+s}/F^{m+n}_{p+s+1}\]
+	and is
+	\[F_\infty^{p,m-p}\times E_\infty^{s,n-s}\to E_{\infty}^{p+s,m+n-p-s}\]
+\end{enumerate}
 \clearpage
 %		\arrow[ul, phantom, "\lrcorner", very near start]
 %		\arrow[ul, phantom, "\ulcorner", very near start]
