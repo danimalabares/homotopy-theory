@@ -565,41 +565,59 @@ Let $f : X \to Y$ be a map. Let $E_f$ be the pullback of $f : X \to Y$ and of $\
 \end{proof}
 
 \section{cohomology ring of $\C P^n$}
-We know that cohomology of $\C P^n$ is …
-
-So that
-\begin{align*}
-	H^\bullet(\C P^n)&=H^0(\C P^2)\oplus H^1(\C P^2)\oplus\ldots\oplus H^{2n}(\C P^{n})\\
-	&=\Z\oplus\Z a_1\oplus\ldots\oplus\Z a_{n}
-\end{align*}
-We wish to show that 
-\[a_1=\alpha,a_2=\alpha^2\ldots a_{n}=\alpha^n\]
-for the generator of the cohomology group of degree 2 $\alpha$.
-To show that $H^\bullet(\C P^n,\Z)\approx \Z[\alpha]/(\alpha^{n+1})$ with $\deg\alpha=2$ we use induction.
-
-By Poincaré duality on $\C P^2$
-\begin{align*}
-	H^2(\C P^2)\times H^2(\C P^2)&\to H^4(\C P^2)\\
-	(\alpha,\alpha)&\mapsto\alpha\smile\alpha =\alpha^2
-\end{align*}
-must map a generator to a generator, so the case of $\C P^2$ is done.
-
-Now the case of $\C P^3$ is as follows:
-\begin{align*}
+	\begin{exercise}
+	Show that
+	\[H^\bullet(\C P^n)\cong \Z[\alpha]/(\alpha^{n+1})\]
+	where $\alpha$ has degree 2.
+\end{exercise}
+\begin{proof}
+	The CW structure of $\C P^n$ consists of one cell for every even dimension. This gives us the following chain complex:
+	\[\begin{tikzcd}
+		\Z\arrow[r]&0\arrow[r]&\Z\arrow[r]&\ldots\arrow[r]&\Z,\qquad\text{if }n\text{ is even}
+	\end{tikzcd}\]
+	\[\begin{tikzcd}
+		\Z\arrow[r]&0\arrow[r]&\Z\arrow[r]&\ldots\arrow[r]&0,\qquad\text{if }n\text{ is odd}
+	\end{tikzcd}\]
+	which yields the cohomology
+	\[H^i(\C P^n)=\begin{cases}
+		\Z,\quad&i=0,2,4,\ldots 2n\\
+		0,\quad&i\text{ otherwise}
+	\end{cases}\]
+	so that
+	\begin{align*}
+		H^\bullet(\C P^n)&=H^0(\C P^n)\oplus H^2(\C P^n)\oplus\ldots\oplus H^{2n}(\C P^{n})
+	\end{align*}
+	This means that the underlying group of the cohomology ring is the same as that of
+	\[\Z[\alpha]/(\alpha^{n+1})\]
+	where $\alpha$ has degree 2. To show that these groups are also isomorphic as algebras we can use Poincar\'e duality as follows.
+	
+	Consider the case $n=2$, where we may immediately multiply the generator of second cohomology group with itself:
+	\begin{align*}
+		H^2(\C P^2)\times H^2(\C P^2)&\to H^4(\C P^2)\\
+		(\alpha,\alpha)\qquad\quad&\mapsto\alpha\smile\alpha =\alpha^2
+	\end{align*}
+	By Poincar\'e duality this map is a nondegenerate symmetric bilinear form, so it must map generator to a generator. {\color{blue-violet}The fact that the product of the generator in degree 2 is the generator of degree 4} yields an homomorphism
+	\iffalse\begin{align*}
+		\varphi:H^\bullet(\C P^n)&\to\Z[\alpha]/(\alpha^{n+1})\\
+		H^2(\C P^n)\ni\alpha&\mapsto\alpha
+	\end{align*}
+	satisfying
+	\[\varphi(\alpha\smile\alpha)=\varphi()\]\fi
+	\begin{align*}
+		\varphi:\Z[\alpha]&\to H^\bullet(\C P^n)\\
+		\alpha&\mapsto\alpha\in H^2(\C P^n)
+	\end{align*}
+	with kernel $(\alpha^{n+1})$ as desired.
+	
+	Now the case of $\C P^3$ is:
+	\begin{align*}
 		H^2(\C P^3)\times H^4(\C P^3)&\to H^6(\C P^3)\\
-	(\alpha,\alpha^2)&\mapsto\alpha\smile\alpha^2=\alpha^3
-\end{align*}
-Notice we have used the isomorphism $H^i(\C P^3)\approx H^i(\C P^2)$ when choosing generators of each of the groups.
-
-So we have the ring morphism
-\begin{align*}
-	\varphi:\Z[\alpha]&\to H^\bullet(\C P^2)=\Z\oplus\Z\alpha\oplus\ldots\oplus\Z\alpha^n\\
-	\sum\lambda_i\alpha^i&\mapsto \bigoplus\lambda_i\alpha^i
-\end{align*}
-with
-\[\ker\varphi=\{\}\]
-
-
+		(\alpha,\alpha^2)\qquad\quad&\mapsto\alpha\smile\alpha^2=\alpha^3
+	\end{align*}
+	which also  maps generator to generator, producing the desired algebra isomorphism. Notice we have used the group isomorphism $H^4(\C P^3)\approx H^4(\C P^2)$ when denoting the generator of $H^4(\C P^3)$ as $\alpha^2$. Such an isomorphism is induced by inclusion $\C P^{n-1}\hookrightarrow\C P^n$ via relative cohomology exact sequence.
+	
+	The case for dimension $n$ follows by induction.
+\end{proof}
 
 \addcontentsline{toc}{section}{References}
 \printbibliography
