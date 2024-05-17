@@ -159,6 +159,17 @@
 \DeclareMathOperator{\Sh}{Sh}
 \DeclareMathOperator{\el}{el}
 \DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\U}{U}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\M}{M}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\PGL}{PGL}
+\DeclareMathOperator{\PSL}{PSL}
+
 
 \begin{document}
 {\Huge homotopy theory}
@@ -1923,6 +1934,46 @@ Then there is a spectral sequence $\{E_r^{p,q},d_r\}$ such that
 	and is
 	\[F_\infty^{p,m-p}\times E_\infty^{s,n-s}\to E_{\infty}^{p+s,m+n-p-s}\]
 \end{enumerate}
+\begin{example}
+	We have computed the cohomology of $\C P^n$ using Serre spectral sequence.
+\end{example}
+\begin{example}
+	Consider the fibration
+	\[\begin{tikzcd}[row sep=tiny]
+		\Omega S^3\arrow[r]&PS^3\arrow[r]&S^3\\
+		&\pt\arrow[u,phantom,"\simeq"]
+	\end{tikzcd}\]
+	We use the following
+	\begin{claim}
+		On $E^3,E^4,\ldots$ are equal when the differentials on the second page are 0.
+	\end{claim}
+	\begin{proof}
+		It's because
+		\[E_r^{p,q}=0\implies E_r^{p,q}=0\]
+		We have $E_2^{p,q}=0$ for $q\geq2$ or $q<0$, so we have $E_3^{p,q}=0$ for $q\geq2$ or $q<0$, and finally $d_r=0$ for $r\geq3$. More finally,
+		\[d_r:E^{p,q}\to E^{p+q}\to E^{p+r,q-r+1}\]
+		for $-r+1\geq-2$.
+	\end{proof}
+	We discovered that
+	\begin{align*}
+		\begin{array}{|cccc}
+			\cdots&&&\\
+			\Z&0&0&\Z\\
+			0&0&0&0\\
+			\Z&0&0&\Z\\
+			0&0&0&0\\
+			\Z&0&0&\Z\\
+			\hline
+		\end{array}
+	\end{align*}
+	We have also computed ring structure.
+\end{example}
+
+\begin{example}
+	\[\begin{tikzcd}
+		\SU(n-1)\arrow[r]&\SU
+	\end{tikzcd}\]
+\end{example}
 \clearpage
 %		\arrow[ul, phantom, "\lrcorner", very near start]
 %		\arrow[ul, phantom, "\ulcorner", very near start]
