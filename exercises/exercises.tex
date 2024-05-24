@@ -229,7 +229,23 @@
 	\end{proof}
 \end{proof}
 \subsection{Based spaces and smash product}
-[In progress…]
+\begin{defn}
+	The appropriate analogue of the Cartesian product in the category of based spaces is the \textbf{\textit{smash product}} $X\wedge Y$ defined by
+	\[X\wedge Y=X\times Y/X\vee Y.\]
+	Here $X\vee Y$ is viewed as the subspace of $X\times Y$ consisting of those pairs $(x,y)$ such that either $x$ is the basepoint of $X$ or $y$ is the basepoint of $Y$.
+\end{defn}
+\begin{exercise}
+	For a based space $(X,x_0)$ let $\Sigma X$ be $[0,1]\times X/\{1\}\times X\cup\{0\}\times X\cup[0,1]\times\{x_0\}$. Check that $\Sigma X\cong S^1\wedge X$. In particular $S^n\cong S^1\wedge S^{n-1}\cong (S^1)^{\wedge n}$.
+\end{exercise}
+\begin{remark}
+	Another way of defining the reduced suspension $\Sigma X$ {\color{magenta}(I think)} is
+	\[\Sigma X=(I\times X)/(t,x)\sim (0,y)\sim (1,y)\;\forall y\in X.\]
+\end{remark}
+\begin{proof}
+	To see that $\Sigma X\cong S^1\wedge X$ simply notice that "both spaces are the quotient $X\times I$ with $X\times\partial I\cup\{x_0\}\times I$ collapsed to a point" (\cite{hatcher-at}, ex. 0.10). This is clear for $\Sigma X$. For $X\wedge S^1$, notice that collapsing $X\times\partial I$ to a point in $X\times I$ ammounts to taking $X\times S^1$ and collapsing one copy of $X$ to a point. Further, collapsing ${x_0}\times I$ to a point ammounts to collapsing the copy of $S^1$ in $X\vee S^1$ to a point.
+	
+	Let's try induction on $n$. If $n=2$, the smash product $S^1\wedge S^1$ is easily seen to be $S^2$ since it consists on collapsing the boundary $S^1\vee S^1$ of the square whose quotient yields $S^1\times S^1$. For the inductive step {\color{orange}Still incomplete…}
+\end{proof}
 \subsection{Mapping cylinders and Hurewicz cofibrations}
 \begin{defn}[\href{https://en.wikipedia.org/wiki/Homotopy_extension_property}{wikipedia}]
 	Let $X$ be a topological space and let $A\subset X$. We say that the pair $(X,A)$ has the \textbf{\textit{homotopy extension property}} if for any space $Y$, any homotopy $g_\bullet:A\to Y^I$ and any map $\tilde{g}_0:X\to Y$ such that $\tilde{g}_0\circ\iota=g_0$, there exists an \textbf{\textit{extension}} of $f_\bullet$ to a homotopy $\tilde{g}_\bullet:X\to Y^I$ such that $\tilde{g}_\bullet\circ\iota=g_\bullet$.

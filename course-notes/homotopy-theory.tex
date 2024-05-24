@@ -143,6 +143,7 @@
 \DeclareMathOperator{\ev}{ev}
 \DeclareMathOperator{\hofib}{hofib}
 \DeclareMathOperator{\cofib}{cofib}
+\DeclareMathOperator{\sk}{sk}
 \DeclareMathOperator{\hocofib}{hocofib}
 \DeclareMathOperator{\rel}{rel}
 \DeclareMathOperator{\coker}{coker}
@@ -1184,7 +1185,7 @@ We also have the \textbf{\textit{suspension of pointed spaces}}, which is like u
 
 Then we have
 \[\Hom_{\CGWH_*}(\Sigma X,\Sigma X)\cong\Hom_{\CGWH_*}(X,\Omega\Sigma X)\]
-where $\Sigma X=S^\wedge X$ and $\Omega\Sigma X=\Map(S^1,\Sigma X)$. That is, $S^1\wedge-$ is adjoint to $\Map(S^1,-)$.
+where $\Sigma X=S\wedge X$ and $\Omega\Sigma X=\Map(S^1,\Sigma X)$. That is, $S^1\wedge-$ is adjoint to $\Map(S^1,-)$.
 
 So let $X$ be a space. The identity map $\id_{\Sigma X}:\Sigma X\to \Sigma X$ then induces a map $X\to\Omega\Sigma X$.
 \begin{thm}[Freudenthal]\label{thm:freudenthal}
@@ -1691,7 +1692,7 @@ and there is an associated graded $\gr F_\bullet C:=\bigoplus_{n\in\Z}F_nC/F_{n-
 \end{example}
 Now, to each Serre fibration corresponds a spectral sequence.
 
-\subsection{following sss.pdf}
+\subsection{spectral sequences cont.}
 $X$ is a filtered chain complex
 \[\cdots\subseteq X_{n-1}\subseteq X_{n}\subseteq X_{n+1}\subseteq\cdots\]
 We automatically get
@@ -1800,7 +1801,7 @@ This:
 that for a fixed $(p,q)$ there is a large $r$ such that if $p<r$ and $q+1<r$ we shall have
 \[E^r_{p,q}=E^{r+1}_{p,q}:=E^\infty_{p,q}.\]
 
-\subsection{Serre spectral sequence}
+\subsection{serre spectral sequence}
 Now take a Serre fibration \begin{tikzcd}
 	F\arrow[r]&E\arrow[r]&B
 \end{tikzcd}
@@ -1826,9 +1827,7 @@ and it turns out that
 	We have also done $S^3\to S^7\to S^4$ and $S^1\to S^{2n+1}\to\C P^n$. See \cite{sssguide}.
 \end{example}
 
-\subsection{proofs}
 Now we will prove that there exists a spectral sequence and that it converges where it converges.
-\subsubsection{serre spectral sequence}
 Consider either of
 \[\pi_0(B)=0\qquad\qquad \text{or}\qquad\qquad\begin{cases}
 	\pi_1(B)=0\\
@@ -1882,7 +1881,7 @@ Ok, after some other considerations we have concluded that
 	\end{align*}
 \end{quotation}
 
-\section{Something on 14 may}
+\subsection{14 may}
 In cover spaces we have homeomorphisms between the fibers. In hurewicz fibrations this may not be true, but we still can have homotopy equivalences. So consider a Hurewicz fibration $f:E\to B$ and a path $I\to B$. Then we have:
 \[\begin{tikzcd}
 	F_a\arrow[d,"i_0"]\arrow[rr,hook]&&E\arrow[d,two heads,"f"]\\
@@ -1891,10 +1890,10 @@ In cover spaces we have homeomorphisms between the fibers. In hurewicz fibration
 And we claim that there is an homotopy equivalence
 \[F_a\cong F_a\times\{1\}\to F_b=f^{-1}b\]
 To see why, consider two homotopic paths $p_1,p_2:I\to B$. Construct the following diagram:
-
+\[\text{[see sss.pdf]}\]
 We have (or will?) established:
 \begin{prop}
-	For any Hurewikz fibration $f:E\to B$ there is "an action of $\pi_1(B)$ on $F_b$ up to homotopy"
+	For any Hurewicz fibration $f:E\to B$ there is "an action of $\pi_1(B)$ on $F_b$ up to homotopy"
 	\begin{align*}
 		\Pi_1(B)&\to \Ho\Top\\
 		b&\mapsto F_b
@@ -1902,6 +1901,13 @@ We have (or will?) established:
 \end{prop}
 We have an action
 \[\pi_1(B)\curvearrowright H_*(F_b)\]
+
+\begin{quotation}
+	Today I've forgotten to prove that the action of $\pi_1(B)$ on fibre is actually an action: that the action of $x\cdot y$ is the composition of the action of $y$ and of $x$
+\end{quotation}
+\begin{quotation}
+	The fact that fibrations over disks are always trivial is easy to prove. The algebraic analogue of this is the \href{https://en.m.wikipedia.org/wiki/Quillen%E2%80%93Suslin_theorem}{Quillen-Suslin theorem}
+\end{quotation}
 
 Why do need this? Consider the following case:
 \[\begin{tikzcd}
@@ -1934,10 +1940,42 @@ Then there is a spectral sequence $\{E_r^{p,q},d_r\}$ such that
 	and is
 	\[F_\infty^{p,m-p}\times E_\infty^{s,n-s}\to E_{\infty}^{p+s,m+n-p-s}\]
 \end{enumerate}
-\begin{example}
+\begin{example}[Cohomology of base space]
 	We have computed the cohomology of $\C P^n$ using Serre spectral sequence.
 \end{example}
-\begin{example}
+
+\begin{example}[Cohomology of Étale space]
+	Consider the Hopf fibration
+	\[\begin{tikzcd}
+		S^1\arrow[r]&S^3\arrow[r]&S^2
+	\end{tikzcd}\]
+	Its easy to see that the second page is
+	\begin{align*}
+		\begin{array}{c|ccc}
+			&&&\\
+			1&\Z&&\Z\\
+			0&\Z&&\Z\\
+			\hline
+			&0&1&2
+		\end{array}
+	\end{align*}
+	We notice immediately that $E_3=E_\infty$, since the 0's in the diagram remain to future pages. To find $E_3$, {\color{orange}it turns out} that it can be shown that $d_2$ is an isomorphism (recall that $d_2$ goes two to the right and one down). {\color{orange}This makes the upper-left and lower-right groups zero} on the third page:
+	\begin{align*}
+		\begin{array}{c|ccc}
+			&&&\\
+			1&&&\Z\\
+			0&\Z&&\\
+			\hline
+			&0&1&2
+		\end{array}
+	\end{align*}
+	
+	It is now possible to read off the cohomology of the total space $S^3$ by assembling along the diagonals. In this case, we have
+	\[H^n(S^3)=\bigoplus_{s+t=n}E^{s,t}_\infty.\]
+	(This is what leads to considering the diagonals in the diagram.) {\color{orange}This gives} a $\Z$ in dimension 0 from $E^{0,0}_\infty$ and $\Z$ in dimension $3$ from $E^{2,1}$ as expected.
+\end{example}
+
+\begin{example}[Cohomology of fiber]
 	Consider the fibration
 	\[\begin{tikzcd}[row sep=tiny]
 		\Omega S^3\arrow[r]&PS^3\arrow[r]&S^3\\
@@ -1969,11 +2007,279 @@ Then there is a spectral sequence $\{E_r^{p,q},d_r\}$ such that
 	We have also computed ring structure.
 \end{example}
 
-\begin{example}
+\begin{example}[Cohomology of Ètale espace]  
+	Consider the fibration
 	\[\begin{tikzcd}
-		\SU(n-1)\arrow[r]&\SU
+		\SU(n-1)\arrow[r]&\SU(n)\arrow[r]&S^{2n-1}
 	\end{tikzcd}\]
+	The particular case of 
+		\[\begin{tikzcd}
+		\SU(3)\arrow[r]&\SU(4)\arrow[r]&S^{2\dot 4-1}
+	\end{tikzcd}\]
+	yields
+	\begin{align*}
+		\begin{array}{c|cccccccc}
+			&\cdots&&&&&&&\cdots\\
+			8&\Z a_3a_5&&&&&&&\Z a_7a_5a_3\\
+			7&&&&&&&&\\
+			6&&&&&&&&\\
+			5&\Z a_5&&&&&&&\Z a_7a_5\\
+			4&&&&&&&&\\
+			3&\Z a_3&&&&&&&\Z a_7a_3\\
+			2&&&&&&&&\\
+			1&&&&&&&&\\
+			0&\Z&&&&&&&\Z a_3\\
+			\hline\\
+			&0&1&2&3&4&5&6&7
+		\end{array}
+	\end{align*}
+	Giving $E_2=E_\infty$ since all differentials are zero. It follows that the cohomology ring is $\Lambda(a_3,a_5,a_7)$.
+	The case of 
+	\[\begin{tikzcd}
+		\SU(2)=S^3\arrow[r]&\SU(3)\arrow[r]&S^{2\dot 3-1}=S^5
+	\end{tikzcd}\]
+	yields, too, that $E_2=E_\infty$ 
 \end{example}
+
+\subsection{21 may}
+\begin{thm}
+	Let $F\to X\to B$ be a Serre fibration. Then there is a spectral sequence that converges to $H_n(X,G)$. If the action of $\pi_1(B)$ on $H_*(F,G)$ is trivial, then
+	\[H^{p,q}_2=H_p(B,H_q(F,G)).\]
+	More generally, if the action is not trivial, then $E^{p,q}_2=H_p(B,\Lc_q)$ where $\Lc$ is a local system coming from $\pi_1(B)\curvearrowright F$.
+\end{thm}
+We are not going to prove this theorem.
+\begin{defn}
+	Action of $\pi_1(B)$ on $H_*(F,G)$ for Serre fibration.
+	\[\begin{tikzcd}
+		F\arrow[d]&F\arrow[d]&F\arrow[d]\\
+		i^*p^*E\arrow[r,"\simeq"]\arrow[d]\arrow[dr,phantom,very near start,"\lrcorner"]&p^*E\arrow[r]\arrow[d]\arrow[dr,phantom,very near start,"\lrcorner"]&E\arrow[d]\\
+		0\arrow[r,"i"]\arrow[r,"\simeq",swap]&I\arrow[r,"p"]&B
+	\end{tikzcd}\]
+	Now considering the long exact sequence of homotopy, we get:
+	\[\begin{tikzcd}
+		\pi_i(F)\arrow[d,"\cong"]\arrow[r]&\pi_i(p^*E)\arrow[r]\arrow[d,"\cong"]&\pi_i(X)\arrow[d,"\cong"]\\
+		\pi_i(F)\arrow[r]&\pi_i(i^*p^*E)\arrow[r]&\pi_i(Y)
+	\end{tikzcd}\]
+	because, in general, for an homotopy equivalence $f:X\to Y$, the pullback is an homotopy equivalence:
+	\[\begin{tikzcd}
+		F\arrow[r,"="]\arrow[d]&F\arrow[d]\\
+		f^*E\arrow[r,"\simeq"]\arrow[d,two heads]&E\arrow[d,two heads]\\
+		X\arrow[r,"\simeq"]&Y
+	\end{tikzcd}\]
+	Then we take pullback of a larger diagram to prove that the action is associative (that it is, in fact, an action) via homoloy groups.
+\end{defn}
+\begin{proof}\leavevmode
+	\begin{enumerate}
+		\item We may assume that $B$ is a CW-complex with one 0-cell, and $X\to B$ is a Hurewicz fibration.
+		\begin{proof}
+			\[\begin{tikzcd}
+				&F\arrow[d]\\
+				&X\arrow[d]\\
+				C\arrow[r]&B
+			\end{tikzcd}\]
+			There is a CW approximation $\alpha:C\to B$ with $C$ having exaclty one 0-cell that is sent to the basepoint of $B$. Now we say
+			\begin{quotation}
+				Every space can factored as weak equivalence followed by Hurewicz fibration. (Path space is behind the scenes.)
+			\end{quotation}
+			We obtain
+			\[\begin{tikzcd}
+				p^{-1}_{\alpha^*p}e_0\arrow[d]&F\arrow[l,"\simeq"]\arrow[r]&F\arrow[d]\\
+				E^{\alpha_{0,p}}\arrow[d]&\alpha^*X\arrow[d,two heads]\arrow[dr,phantom,"\lrcorner"]\arrow[l,"\simeq"]\arrow[r,"\cong"]&X\arrow[d]\\
+				C\arrow[r,equal]&C\arrow[r]&B
+			\end{tikzcd}\]
+			Anyway, that's the CW-complex replacing $B$.
+		\end{proof}
+		\item There is a nice filtration on $X$. Take the filtration
+		\[\begin{tikzcd}
+			\varnothing\arrow[r,phantom,"\subseteq"]&\sk_0 B\arrow[r,phantom,"\subseteq"]&\sk_1B\arrow[r,phantom,"\subseteq"]&\cdots\arrow[r,phantom,"\subseteq"]&B
+		\end{tikzcd}\]
+		which induces
+		\[\begin{tikzcd}
+			\varnothing\arrow[r,phantom,"\subseteq"]&X^0:=p^{-1}\sk_0 B\arrow[r,phantom,"\subseteq"]&X^1:=p^{-1}\sk_1B\arrow[r,phantom,"\subseteq"]&\cdots&\arrow[r,phantom,"\subseteq"]&X
+		\end{tikzcd}\]
+		and it turns out that
+		\begin{enumerate}
+			\item $\bigcup_iX^i=X$.
+			\item $\sk_nB\to B$ is an $n$-equivalence (we already know this from other constructions). Then $X^n\hookrightarrow X$ induces isomorphisms on $H_i$ for $i<n-1$ by Hurewicz theorem and five-lemma.
+			
+			This means that we get a filtration on $C_*(X)$ and on $H_*(X)$. From b. we get that in each column $A'_{\bullet,p+q}$ only a finite number of maps are not isomorphisms. When we discussed spectral sequences, we say that this corresponds to a filtration
+			\[\begin{tikzcd}
+				\varnothing\arrow[r,phantom,"\subseteq"]&X^0\arrow[r,phantom,"\subseteq"]&X^1\arrow[r,phantom,"\subseteq"]&\cdots\arrow[r,phantom,"\subseteq"]&X
+			\end{tikzcd}\]
+			\textbf{that converges to $H_*$}.
+			
+			Namely, we have a spectral sequence such that
+			\[E^1_{p,q}=H_{p+q}(X_p,X_{p-1})\]
+			and
+			\[E^\infty_{p,q}=\text{the }p\text{-th graded piece of }H_{p+q}(X).\]
+			This means that
+			\begin{align*}
+				B^{p-1}\hookrightarrow B^p\quad\text{is a }(p-1)\text{-equivalence}\\
+				X^{p-1}\hookrightarrow X^p\quad\text{is a }(p-1)\text{-equivalence}\\
+				H_{p+q}(X_p,X_{p-1})=0\quad q<0.
+			\end{align*}
+			In conclusion, we have the first-quadrant of the spectral sequence $E^1_{p,q}=H_{p+q}(X_p,X_{p-1})$, which proves the first statement in the theorem.
+			
+			\item Now suppose the action of $\pi_1(B)$ on $H_*(F,G)$ is trivial. Look at the CW structure of things
+			\[\begin{tikzcd}
+				\widetilde{S^{p-1}}\arrow[d,two heads]\arrow[dr,phantom,very near start,"\ulcorner"]\arrow[r]&\widetilde{D^p}\arrow[r]\arrow[dr,phantom,very near start,"\ulcorner"]\arrow[d,two heads]&X^p\arrow[d]\\
+				S^{p-1}\arrow[r]&D^p\arrow[r,"\alpha"]&B^p
+			\end{tikzcd}\]
+			We also proved that
+			\begin{claim}
+				$\bigoplus_\alpha H_*(\widetilde{D^p},\widetilde{S^{p-1}})\to H_*(X^p,X^{p-1})$ is an isomorphism.
+			\end{claim}
+			And then for this we did
+			\[\begin{tikzcd}
+				u\;\;\;\; x \;\;\;\;o&x&x\\
+				S^{p-1}\times F_\alpha\times0\arrow[r]\arrow[d]&F_\alpha\arrow[r,hook]&\widetilde{D^p_\alpha}\arrow[d]\\
+				S^{p-1}\times F_\alpha\times I\arrow[r,"\text{proj}"]&S^{p-1}\times I\arrow[r,"(u\text{,}t)\mapsto t\cdot u"]&D^p\\
+				u\;\; \;\;x\;\;\;\; o&u\;\;\;\;o&0
+			\end{tikzcd}\]
+			and used Künneth formula:
+		\begin{quotation}
+			By definition, $(X,A)\times $
+		\end{quotation}
+		\end{enumerate}
+		
+	\end{enumerate}
+\end{proof}
+
+\subsection{23 may}
+\begin{quotation}
+	In the end we would like to prove that homotopy groups of sphere are finitely generated and moreover all except two kinds (which?) are in fact finite.
+\end{quotation}
+
+\begin{defn}
+	A \textbf{\textit{Serre class}} $\Cc$ of abelian groups is a class of abelian groups closed under the operations of taking subgroups, quotients, and forming extensions. That is, for any short exact sequence of abelian groups
+	\[\begin{tikzcd}
+		0\arrow[r]&A\arrow[r]&B\arrow[r]&C\arrow[r]&0
+	\end{tikzcd}\]
+	with $A$ and $C$ in $\Cc$, then $B$ is also in $\Cc$.
+\end{defn}
+\begin{example}\leavevmode
+	\begin{enumerate}
+		\item The class of finitely-generated groups.
+		\item Torsion groups. From algebraic geometry you might be acquainted with
+		\[M\otimes_\Z\Q=S^{-1}M,\quad S=\Z\backslash\{0\}\]
+		More generally,
+		\[M\otimes_RS^{-1}R=S^{-1}M\]
+		Why do we care? Because \textbf{localization is an exact functor}, equivalently, $S^{-1}R$ is a flat $R$-module. Notice that
+		\[M\otimes_\Z\Q=0\iff M\text{ is a torsion group.}\]
+		Which follows simply from the fact that
+		\[\forall m,s,\quad\frac{m}{s}=\frac{0}{1}\iff\forall m,x\;\exists s':\; s'm=0.\]
+		So
+			\[\begin{tikzcd}
+			0\arrow[r]&A\arrow[r]&B\arrow[r]&C\arrow[r]&0
+		\end{tikzcd}\]
+		implies
+			\[\begin{tikzcd}
+			0\arrow[r]&A\otimes\Q\arrow[r]&B\otimes\Q\arrow[r]&C\otimes\Q\arrow[r]&0
+		\end{tikzcd}\]
+		so $A\otimes\Q$ and $B\otimes\Q$ are zero iff $B\otimes\Q$ is zero.
+	\end{enumerate}
+	\item $\Cc_1$ and $\Cc_1$ are Serre classes then $\Cc_1\cap\Cc_2$ is a Serre class.
+	\item Finite abelian groups.
+	\item Torsion groups such that the order of any element is coprime to any $p\in P$ for some subset $P$ of primes. For example,
+	\begin{itemize}
+		\item $P=\{p\}$ then we get the \textit{condition $p$ does not divide the orders of ements}.
+		\item $P=$ all primes except $p$ = all $s\neq0$ such that $(p,s)=1$. Then we get \textit{the order of elements are powers of $p$}. It turns out that $\Z_{(p)}=p^{-1}\Z$, where $(p)$ is the ideal generated by $p$. Then
+		\[M\otimes_\Z\Z_{(p)}=0\iff M\text{ does not have } p\text{-torsion}\]
+		that is, the orders are not divisible by $p$.
+		
+		{\color{red}I think} we concluded that localization of $\Z/p\Z$ by $\Z_{(p)}$ does not change anything.
+		
+		So again
+		\[\begin{tikzcd}
+			0\arrow[r]&A\arrow[r]&B\arrow[r]&C\arrow[r]&0
+		\end{tikzcd}\]
+		implies
+		\[\begin{tikzcd}
+			0\arrow[r]&A\otimes\Z_{(p)}\arrow[r]&B\otimes\Z_{(p)}\arrow[r]&C\otimes\Z_{(p)}\arrow[r]&0
+		\end{tikzcd}\]
+		so $A\otimes\Z_{(p)}$ and $B\otimes\Z_{(p)}$ are zero iff $B\otimes\Z_{(p)}$ is zero.
+	\end{itemize}
+\end{example}
+\begin{claim}
+	For a simply connected space it is equivalent that $H_i\in\Cc$ for $0<i<n$ and that $\pi_i\in\Cc$ for $0<i<n$.
+\end{claim}
+\begin{prop}
+	Suppose $\Cc$ is a Serre class and
+\[\begin{tikzcd}
+	A\arrow[r]&B\arrow[r]&C
+\end{tikzcd}\]
+and $A,C\in\Cc$. Then $B\in\Cc$.
+\end{prop}
+\begin{proof}
+	\[\begin{tikzcd}
+		&A\arrow[d,two heads]\arrow[dr]&&0\arrow[d]\\
+		0\arrow[r]&\ker\arrow[r]\arrow[d]&B\arrow[rd]\arrow[r]&\img\arrow[d]\arrow[r]&0\\
+		&0&&C
+	\end{tikzcd}\]
+\end{proof}
+\begin{remark}\leavevmode
+	\begin{enumerate}
+		\item If $C_\bullet$ is a chain complex, all $C_n$ is in $\Cc$, then $H_n$ is in $\Cc$.
+		\item $F_\bullet A$ a filtration, $A$ in $\Cc$ then each graded piece of $\gr A$ is in $\Cc$.
+		\item $F_\bullet A$ finite filtration, i.e. $0\subset F_0A\subset \ldots\subset F_nA=A$, and each graded piece $\gr A$ is in $\Cc$, then $A$ is in $\Cc$. This follows from the fact that $F_0A=F_0A/0$, $F_1A/F_0A$, $F_2A/F_1A$ … are all in $\Cc$.
+		\item First-quadrant of spectral sequence that converges to $H_*(C_\bullet)$. Suppose $E^r_{p,q}$ is in $\Cc$ for all $p,q$ and some fixed $r$. Then $E^{r+1}_{p,q}$ is in $\Cc$ implies that $E^\infty_{p,q}$ is in $\Cc$, which in turn implies that $H_*(C_\bullet)$ is in $\Cc$.
+	\end{enumerate}
+\end{remark}
+\begin{defn}\leavevmode
+	\begin{itemize}
+		\item $f:A\to B$ is \textbf{\textit{monomorphism $\mod\Cc$}} if $\ker f$ is in $\Cc$.
+		\item $f:A\to B$ is \textbf{\textit{epimorphism $\mod\Cc$}} if $\coker f$ is in $\Cc$.
+		\item $f:A\to B$ is \textbf{\textit{isomorphism $\mod\Cc$}} if both $\ker f$ and $\coker f$ are in $\Cc$.
+	\end{itemize}
+\end{defn}
+\begin{prop}\leavevmode
+	\begin{enumerate}
+		\item A monomorphism $\mod\Cc$, epimorphism $\mod\Cc$ and isomorphism $\mod\Cc$ are closed under composition.
+		\item Isomorphisms $\mod\Cc$ satisfy 2-out-of-3.
+	\end{enumerate}
+\end{prop}
+\begin{proof}\leavevmode
+	
+	\includegraphics[width=0.9\linewidth]{dgm}
+\end{proof}
+\begin{defn}
+	A Serre class $\Cc$ is 
+	\begin{itemize}
+		\item a \textbf{\textit{Serre ideal}} if for all $A,B$ abelian groups, $A\in\Cc$ implies $A\otimes B$ and $\Tor(A,B)$ are in $\Cc$, and
+		\item a \textbf{\textit{Serre ring}} if for all $A,B$ in $\Cc$, $A\otimes B$ and $\Tor(A,B)$ are in $\Cc$.
+	\end{itemize}
+\end{defn}
+\begin{examples}\leavevmode
+	\begin{enumerate}
+		\item Finitely-generated groups are a Serre ring.
+		\item Torsion groups is a Serre ideal. $\Q\otimes A=0\implies\Q\otimes A\otimes B=0$ so
+		\[\begin{tikzcd}
+			0\arrow[r]&F_1\arrow[r]&F_0\arrow[r]&B\arrow[r]&0
+		\end{tikzcd}\]
+		implies
+		\[\begin{tikzcd}
+			0\arrow[r]&F_1\otimes A\arrow[r]&F_0\otimes A\arrow[r]&\Tor(B,A)\arrow[r]&0
+		\end{tikzcd}\]
+		implies
+		\[\begin{tikzcd}
+			0\arrow[r]&F_1\otimes A\otimes\Q\arrow[r]&F_0\otimes A\otimes\Q\arrow[r]&\Tor(B,A)\otimes\Q\arrow[r]&0
+		\end{tikzcd}\]
+		so $F_0\otimes A\otimes\Q$ and $\Tor(B,A)\otimes\Q$ are zero iff $F_1\otimes A\otimes\Q$ is zero.
+		\item Finite groups is a Serre ring.
+		\item Intersection of Serre rings is Serre ring.
+		\item $M\otimes\Z_{(p)}$ is a Serre ideal.
+	\end{enumerate}
+\end{examples}
+\begin{prop}
+	$F\to X\to B$ Serre fibration. $\pi_0(B)=0$, $\pi_1(B)\curvearrowright H_A(F)$ trivial. Then if 2 out of 3 among $F,X,B$ have $H_n$ in $\Cc$ for $n>0$, then the third one does too.
+\end{prop}
+\begin{proof}\leavevmode
+	\textbf{($X,B$ in $\Cc$.)} Notice
+	\[E_{p,q}^2=H_p(B,H_q(F))\cong H_p(B)\otimes H_q(F)\oplus\Tor(H_{p-1}(B),H_q(F))\]
+	which means that if $E^3,E^4,\ldots E^\infty$ are in $\Cc$, then $H_*$ is in $\Cc$.
+	
+	\textbf{($F,B$ in $\Cc$.)}
+\end{proof}
 \clearpage
 %		\arrow[ul, phantom, "\lrcorner", very near start]
 %		\arrow[ul, phantom, "\ulcorner", very near start]
