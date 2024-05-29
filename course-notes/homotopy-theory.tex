@@ -170,6 +170,7 @@
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\PGL}{PGL}
 \DeclareMathOperator{\PSL}{PSL}
+\renewcommand{\mod}{\operatorname{mod}}
 
 
 \begin{document}
@@ -2147,7 +2148,7 @@ We are not going to prove this theorem.
 
 \subsection{23 may}
 \begin{quotation}
-	In the end we would like to prove that homotopy groups of sphere are finitely generated and moreover all except two kinds (which?) are in fact finite.
+	In the end we would like to prove that homotopy groups of sphere are finitely generated and moreover all except two kinds ({\color{magenta}which}?) are in fact finite.
 \end{quotation}
 
 \begin{defn}
@@ -2225,11 +2226,11 @@ and $A,C\in\Cc$. Then $B\in\Cc$.
 		\item First-quadrant of spectral sequence that converges to $H_*(C_\bullet)$. Suppose $E^r_{p,q}$ is in $\Cc$ for all $p,q$ and some fixed $r$. Then $E^{r+1}_{p,q}$ is in $\Cc$ implies that $E^\infty_{p,q}$ is in $\Cc$, which in turn implies that $H_*(C_\bullet)$ is in $\Cc$.
 	\end{enumerate}
 \end{remark}
-\begin{defn}\leavevmode
+\begin{defn}$f:A\to B$ is a
 	\begin{itemize}
-		\item $f:A\to B$ is \textbf{\textit{monomorphism $\mod\Cc$}} if $\ker f$ is in $\Cc$.
-		\item $f:A\to B$ is \textbf{\textit{epimorphism $\mod\Cc$}} if $\coker f$ is in $\Cc$.
-		\item $f:A\to B$ is \textbf{\textit{isomorphism $\mod\Cc$}} if both $\ker f$ and $\coker f$ are in $\Cc$.
+		\item  \textbf{$\mod\Cc$ \textit{monomorphism}} if $\ker f$ is in $\Cc$.
+		\item \textbf{\textit{$\mod\Cc$ epimorphism}} if $\coker f$ is in $\Cc$.
+		\item \textbf{\textit{$\mod\Cc$ isomorphism}} if both $\ker f$ and $\coker f$ are in $\Cc$.
 	\end{itemize}
 \end{defn}
 \begin{prop}\leavevmode
@@ -2274,12 +2275,97 @@ and $A,C\in\Cc$. Then $B\in\Cc$.
 	$F\to X\to B$ Serre fibration. $\pi_0(B)=0$, $\pi_1(B)\curvearrowright H_A(F)$ trivial. Then if 2 out of 3 among $F,X,B$ have $H_n$ in $\Cc$ for $n>0$, then the third one does too.
 \end{prop}
 \begin{proof}\leavevmode
-	\textbf{($X,B$ in $\Cc$.)} Notice
-	\[E_{p,q}^2=H_p(B,H_q(F))\cong H_p(B)\otimes H_q(F)\oplus\Tor(H_{p-1}(B),H_q(F))\]
-	which means that if $E^3,E^4,\ldots E^\infty$ are in $\Cc$, then $H_*$ is in $\Cc$.
 	
-	\textbf{($F,B$ in $\Cc$.)}
+	\textbf{($X,B$ in $\Cc$.)} By universal coefficients theorem on homology,
+	\[E_{p,q}^2=H_p(B,H_q(F))\cong H_p(B)\otimes H_q(F)\oplus\Tor(H_{p-1}(B),H_q(F))\]
+	\begin{lemma}[that we will need later]
+		Notice that if for all $0\leq k\leq p$, $H_p(B)\in\Cc$, for all $q$, $H_q(F)\in\Cc\implies E^2_{p,q}\in\Cc$.
+	\end{lemma}
+	Anyway from universal coefficients we get that $E^3,E^4,\ldots E^\infty$ are in $\Cc$, because every subgroup and quotient of objects in a Serre class are also in the Serre class. Since $E^\infty_{p,q}=F_pH_{p,q}(E)/F_{p-1}H_{p+q}(E)$ is $\Cc$, we get that $E_{0,q}^\infty\in\Cc$, so that we have a filtration $0\to F_{p-1}\to\ldots\to F_p/F_{p-1}\to 0$ {\color{azure}satisfying some property that allows us to conclude that} $H_{p+q}(E)=E_{p+q}H_{p+q}(E)\in\Cc$. Then $H_*$ is in $\Cc$.
+	
+	\vspace{2em}
+	\textbf{($F,E$ in $\Cc$.)} Since $H_n(E)\in\Cc$, then $F_pH_{p+q}(E)/F_{p-1}H_{p+1}(E)=E^\infty_{p,q}\in\Cc$. Then we have
+	\[\begin{tikzcd}
+		0\arrow[r]&E^{r+1}_{k,0}\arrow[r]&E^r_{k,0}\arrow[r]&E^r_{k-1,r-1}
+	\end{tikzcd}\]
+	And again, if for all $r\geq2$, $E^r_{k-r,r-1}\in\Cc$ and $E^\infty_{k,0}\in\Cc$, then for all $r$, $E^r_{k,0}\in\Cc$. {\color{azure}This follows from going all the way to infinity to make sure the two nontrivial groups not in the middle on the last sequence are in $\Cc$, and then go back one by one to make show that actually all of them are in $\Cc$.}
+	
+	In conclusion, $E^2_{k,0}\in\Cc$, and then $H_0(B)=\Z$ and $E^2_{0,q}\in\Cc$, and then $H_1(B)\in\Cc\implies E^2_{1,q}\in\Cc$. {\color{azure}So its just some inductions over and over.}
+	
+	\vspace{2em}
+	\textbf{($B,E$ in $\Cc$.)} Again we have that $E^\infty_{p,q}\in\Cc$.
+	\[\begin{tikzcd}
+		E^{r}_{r,q-r+1}\arrow[r]&E^r_{0,q}\arrow[r]&E^{r+1}_{0,q}\arrow[r]&0
+	\end{tikzcd}\]
+	{\color{azure}Now we do induction again}. We get $E^2_{r,q-r+1}=H_r(B,H_{q-r+1}(F))$. Now the left-hand-side of this equality is in $\Cc$, so $H_k(F)\in\Cc$ for all $0<k<q$. {\color{azure}(Technical proof, try to read the details…)}
 \end{proof}
+Let's consider further examples.
+\begin{examples}\leavevmode
+	\begin{itemize}
+		\item \textbf{(Wang sequence)} Consider a fibration over $S^n$ of the form $F\to E\to S^n$ for $n\geq2$. We get
+			\begin{align*}
+			\begin{array}{c|cccccccc}
+				&\cdots&&&&&&&\cdots\\
+				2&H_2(F)&&&&&&&H_2(F)\\
+				1&H_2(F)&&&&&&&H_1(F)\\
+				0&H_0(F)&&&&&&&H_0(F) a_3\\
+				\hline\\
+				&0&&&\ldots&&&&n
+			\end{array}
+		\end{align*}
+		So we only get nontrivial differentials in the $n$th page. We get
+		\begin{equation}
+			\begin{tikzcd}
+			0\arrow[r]&E^\infty_{n,q}\arrow[d,equal]\arrow[r]&E^n_{n,q}\arrow[r]&E^n_{0,q+n-1}\arrow[r]\arrow[dr]&E^\infty_{0,q+n-1}\arrow[r]&0\\
+			0\arrow[r]&E^{n+1}_{n,q}\arrow[ur]&E^2_{n,q}\arrow[u,equal]&E^{2}_{0,q+n-1}\arrow[u,equal]&E^{n+1}_{0,q+n-1}\arrow[r]&0
+		\end{tikzcd}
+		\end{equation}
+		Also we get
+		\begin{equation}
+			\begin{tikzcd}
+				0\arrow[r]&E^\infty_{0,q+n-1}\arrow[d,equal]\arrow[r]&H_{q+n-1}(E)\arrow[r]&E^\infty_{n,q-1}\arrow[r]\arrow[d,equal]&0\\
+				&F_0H_{q+n-1}&&F_nH_{q+n-1}/F_{n-1}H_{q+n-1}
+			\end{tikzcd}
+		\end{equation}
+		And from those two we get
+			\begin{equation}
+			\begin{tikzcd}
+				\cdots\arrow[r]&H_{q+n}(E)\arrow[d,two heads]\arrow[r]&E^2_{n,q}=H_q(F)\arrow[dl]\arrow[r]&E^2_{0,q+n-1}=H_{q+n-1}(F)\arrow[r]\arrow[dr]&H_{q+n-1}(E)\arrow[r]&0\\
+				0\arrow[r]&E^{n+1}_{n,q}\arrow[ur]&E^2_{n,q}\arrow[u,equal]&E^{2}_{0,q+n-1}\arrow[u,equal]&E^{n+1}_{0,q+n-1}\arrow[r]&0
+			\end{tikzcd}
+		\end{equation}
+		So in the end, we have
+		\[\begin{tikzcd}
+			\cdots\arrow[r]&H_{q+n}(E)\arrow[r]&H_q(F)\arrow[r]&H_{q+n-1}(E)\arrow[r]&\cdots
+		\end{tikzcd}\]
+		\item \textbf{(Gysin.)} Nos consider $S^n\to E\to B$ for $n\geq 1$ and trivial action on homology of $F$. As before we get
+		\[\begin{tikzcd}
+			0\arrow[r]&E^\infty_{p,0}\arrow[r]&E^{n+1}_{p,0}\arrow[r]&E^{n+1}
+		\end{tikzcd}\]
+	\end{itemize}
+\end{examples}
+\begin{quotation}
+	Spectral sequences allow us to reconstruct $H_*(\gr C_\bullet)$ from $\gr C_\bullet$.
+\end{quotation}
+\subsection{Spans and multi-valued maps}
+Consider this picture
+\[\begin{tikzcd}
+	&C\arrow[dl,"f",swap]\arrow[dr,"g"]\\
+	A&&B
+\end{tikzcd}\]
+Such that for all $c\in C$, $f(c)$ is \textbf{\textit{seat}} to $g(c)$. The whole thing is called a \textbf{\textit{span}}.
+
+Now let
+\begin{align*}
+	D&=\img C\to A\\
+	I&\img \text{ of }f^{-1}\text{ under }C\to B\\
+	D&\to B/I
+\end{align*}
+Now from Serre spectral sequence we shall get that
+\[\begin{tikzcd}
+	&H_n(E,F)\arrow[dl]\arrow[dr]\\
+	H_n(B,\pt)&&H_{n-1}(F)
+\end{tikzcd}\]
 \clearpage
 %		\arrow[ul, phantom, "\lrcorner", very near start]
 %		\arrow[ul, phantom, "\ulcorner", very near start]
