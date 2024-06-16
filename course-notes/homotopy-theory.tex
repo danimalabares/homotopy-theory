@@ -1568,7 +1568,7 @@ There is a special element in $\H^n(K(G,N),G)$, the preimage if $\id_G$.
 	So, natural transformations $\eta:\Hom(-,A)\to \Fc$ are determined by $\eta_A(\id_A)$. And that's it because then the map $\eta\mapsto\eta_A(\id_A)$ is what we are looking for. It remains to write why it is injective, surjective and natural.
 \end{proof}
 
-\section{representability theory}
+\subsection{representability theory}
 If a functor $F:\Cc^{\op}\to\Sets$ is representable, then it sends colimits to limits and sends weak colimits to weak colimits.
 
 \begin{thm}
@@ -1599,8 +1599,7 @@ If a functor $F:\Cc^{\op}\to\Sets$ is representable, then it sends colimits to l
 \begin{prop}
 	If $(B_1,\gamma_1)$ and $(B_2,\gamma_2)$ are two classifying spaces for $F$, then $g:B_1\to B_2$ is such that $g^*/(\gamma_2)=\gamma_1$, then $f$ is a homotopy equivalence.
 \end{prop}
-\subsection{May 2: after representation theorem}
-\subsubsection{Cohomology operations}
+\subsection{May 2: cohomology operations}
 \[\Nat(H^n(-,G_1),H^n(-,G_2))\leftrightarrow[K(G_1,n),K(G_2,n)]\]
 \begin{example}\leavevmode
 	\begin{enumerate}
@@ -1617,7 +1616,7 @@ If a functor $F:\Cc^{\op}\to\Sets$ is representable, then it sends colimits to l
 		\[H^n(-,\Z/p\to H^{n+1}(-,\Z/p)\]
 	\end{enumerate}
 \end{example}
-\subsubsection{spectral sequences}
+\subsection{also May 2: spectral sequences}
 \begin{enumerate}
 	\item \textbf{\textit{Exact couple}}: \begin{tikzcd}
 		A\arrow[rr,"i"]&&A\arrow[dl,"j"]\\
@@ -2321,18 +2320,18 @@ Let's consider further examples.
 		\end{tikzcd}
 		\end{equation}
 		Also we get
-		\begin{equation}
+		\begin{equation*}
 			\begin{tikzcd}
 				0\arrow[r]&E^\infty_{0,q+n-1}\arrow[d,equal]\arrow[r]&H_{q+n-1}(E)\arrow[r]&E^\infty_{n,q-1}\arrow[r]\arrow[d,equal]&0\\
 				&F_0H_{q+n-1}&&F_nH_{q+n-1}/F_{n-1}H_{q+n-1}
 			\end{tikzcd}
-		\end{equation}
+		\end{equation*}
 		And from those two we get
-			\begin{equation}
-			\begin{tikzcd}
-				\cdots\arrow[r]&H_{q+n}(E)\arrow[d,two heads]\arrow[r]&E^2_{n,q}=H_q(F)\arrow[dl]\arrow[r]&E^2_{0,q+n-1}=H_{q+n-1}(F)\arrow[r]\arrow[dr]&H_{q+n-1}(E)\arrow[r]&0\\
-				0\arrow[r]&E^{n+1}_{n,q}\arrow[ur]&E^2_{n,q}\arrow[u,equal]&E^{2}_{0,q+n-1}\arrow[u,equal]&E^{n+1}_{0,q+n-1}\arrow[r]&0
-			\end{tikzcd}
+		\begin{equation}
+		\begin{tikzcd}[column sep=small]
+			\cdots\arrow[r]&H_{q+n}(E)\arrow[d,two heads]\arrow[r]&E^2_{n,q}=H_q(F)\arrow[dl]\arrow[r]&E^2_{0,q+n-1}=H_{q+n-1}(F)\arrow[r]\arrow[dr]&H_{q+n-1}(E)\arrow[r]&0\\
+			0\arrow[r]&E^{n+1}_{n,q}\arrow[ur]&E^2_{n,q}\arrow[u,equal]&E^{2}_{0,q+n-1}\arrow[u,equal]&E^{n+1}_{0,q+n-1}\arrow[r]&0
+		\end{tikzcd}
 		\end{equation}
 		So in the end, we have
 		\[\begin{tikzcd}
@@ -2372,7 +2371,7 @@ Some questions:
 \begin{enumerate}
 	\item What is this whole filtration business? I still don't understand what the filtration is and how it works. It's very important because that's the way we get the homology of the Etále space out of the spectral sequence but why how.
 	\item Is the action of $\pi_1$ on $\pi_n$ the one I studied today in Hatcher? The idea of that action is \textit{do a loop, do the map of the sphere (the element of $\pi_n$, then do the loop backwards)}.
-	\item Didn't we were going to study transgression next?
+	\item Weren't we going to study transgression next?
 \end{enumerate}
 \clearpage
 %		\arrow[ul, phantom, "\lrcorner", very near start]

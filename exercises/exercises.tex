@@ -761,6 +761,158 @@ which makes $f_*:H_3(T^3)\to H_3(S^3)$ an isomorphism.
 	The case for dimension $n$ follows by induction.
 \end{proof}
 
+\section{spectral sequences}\label{sec:spectral sequences}
+Here I assemble some examples we worked on in the lectures. 
+
+First let's make a spectral sequences quick summary following \cite{hatcher}:
+\begin{enumerate}
+ 	\item Suppose a space $X$ is expressed a union of a sequence of subspaces $\ldots\subset X_p\subset X_{p+1}\subset \ldots$. Such a sequence is called a \textit{\textbf{filtration of $X$}}. For example, $X$ could be a CW comples and $X_p$ its $p$-skeleton.
+	\item Given such a filtration, for every $p$ we have a pair $(X_p,X_{p-1})$ that yields a long exact sequence. All these long exact sequences can be arranged in a staricase fashion:
+\[\begin{tikzcd}[column sep=tiny,row sep=small]
+	H_{p+q}(X_p)\arrow[r]\arrow[d,"i",swap]\arrow[r,red,shift={(0,0.2)}]&H_{p+q}(X_p/X_{p-1})\arrow[r]\arrow[r,red,shift={(0,0.2)}]\arrow[d]&H_{p+q-1}(X_{p-1})\arrow[r]\arrow[d,red,shift={(0.2,0)}]\arrow[d,"i",swap]&H_{p+q-1}(X_{p-1}/X_{p-2})\arrow[d]\arrow[r]&\cdots\\
+	H_{p+q}(X_{p+1})\arrow[r]\arrow[d,"i",swap]&H_{p+q}(X_{p+1}/X_{p})\arrow[r]\arrow[d]&H_{p+q-1}(X_{p})\arrow[r,"j",swap]\arrow[r,red,shift={(0,0.2)}]\arrow[d,"i",swap]&H_{p+q-1}(X_{p}/X_{p-1})\arrow[r,red,shift={(0,0.2)}]\arrow[d]\arrow[r,"k",swap]&\cdots\\
+	\cdots&\cdots&\cdots&\cdots
+\end{tikzcd}\]
+	\item If you put all the absolute groups $H_n(X_p)$ in a big $A=\bigoplus_{n,p\in \N}H_n(X_p)$ and all the relative $H_n(X_p,X_{p-1})$ in a big $E=\bigoplus_{n,p\in \N}H_n(X_p,X_{p-1})$, you can write all those long exact sequences in a compact triangle diagram called an \textit{\textbf{exact couple}} triangle diagram
+	\[
+	\begin{tikzcd}[column sep=tiny,row sep=tiny]
+		A\arrow[rr,"i"]&&A\arrow[dl,"j"]\\
+		&E\arrow[ul,"k"]
+	\end{tikzcd}
+\]
+here the maps $i,j$ and $k$ are just the maps from the long exact sequences in the other big diagram (which makes the exact couple actually \textit{exact}).
+
+
+	\item There is a nice way to define new groups $A'$ and $E'$ and maps between them that yield a \textit{\textbf{derived couple}}, which is another exact couple.	Namely,
+		\begin{itemize}
+			\item $A^1_{n,p}:=H_n(X_p)$
+			\item $E^1_{n,p}:=H_n(X_p,X_{p-1})$.
+			\item $d:=jk$
+			\item $E':=\ker d/\operatorname{img}d$, the homology of $E$ respect to $d$.
+			\item $A':=i(A)\subset A$.
+			\item $i':=i|_{A'}$.
+			\item $j'(ia):=[ja]\in E'$.
+			\item $k'[e]:=ke$.
+		\end{itemize}
+	anyway, they are well defined and yield the exact
+	\[\begin{tikzcd}[column sep=small,row sep=small]
+		A'\arrow[rr,"i'"]&&A'\arrow[dl,"j'"]\\
+		&E'\arrow[ul,"k'"]
+	\end{tikzcd}\]
+	\item The sequence $E,E',\ldots$ is called a \textit{\textbf{spectral sequence}}.
+	\item Notice two things: $E^{r+1}=\ker d_r/\img d_r$ and that knowing $E^{r}$ and $d^r$ is enough to know $E^{r+1}$ but not to know $d_{r+1}$.
+	\item As we pass to the derived couple, 
+	\begin{itemize}
+		\item Each group $A^1_{n,p}$ is replaced by a \textit{subgroup} $A^2_{n,p}$, the image of the term $A^\text{whatever}$ above it under $i$.
+		\item The horizontal maps $j$ now go one to the right and one up.
+		\item Each $E^r_{n,p}$ is replaced by a subquotient of $E^{r+1}_{n,p}$, ie. a subgroup of a quotient. {\color{magenta}In practice, if some $E$ is zero then the next ones will also be zero…}
+		\item In the end, the differential $d_r$ goes upward $r-1$ rows. {\color{blue} And $r$ columns to the right?}
+	\end{itemize}
+	\item In the Serre spectral sequence all but finitely many terms in each $E$ column are zero. This means that for big $r$, $d_r$ will vanish and then $E^r_{n,p}$ will stabilize, meaning \textit{they will be independent of $r$}. These values are denoted $E^\infty_{n,p}$. This is implied by the first of the following three items that hold for Serre spectral sequences:
+	\begin{enumerate}
+	\item All but finitely many of the maps in each $A$-column are isomorphisms. By exactness this is equivalent to saying that only finitely many terms in each $E$ column are nonzero.
+	\item $A^1_{n,-\infty}=0$ for all $n$. {\color{blue}So this is just the $n$-th homology group of the first thing in the filtration $\ldots\subset X_p\subset X_{p+1}\subset \ldots$}.
+	\item $A^1_{n,\infty}=0$ for all $n$. {\color{blue}So maybe this is the $n$th homology of $X$.}
+	\item {\color{blue}Can someone tell me what is the filtration?}
+	\end{enumerate}
+	\item The filtration.
+	\begin{itemize}
+		\item From the $r$th derived couple and the latter assumptions, we see that for very large $r$, maybe where $A^1_{n,p+r=1}=A^1_{n,\infty}$, we shall define $F^p_n:=\ker A^1_{n,p}\to A^1_{n,\infty}$. And all this means is that $F_n^p:=\img(H_n(X_p)\to H_n(X))$ where the map $H_{n}(X_p)\to H_{n}(X)$ is just the induced map by inclusion $X_p\hookrightarrow X$. (It turns out that in some lucky cases like Serre fibration, for $p\gg n$ this map (on homology) is an isomorphism and we get the following construction regarding the filtration.)
+ 
+		\item The group $\bigoplus_{p}F^p_n/F^{p-1}_n$ is called the \textit{\textbf{associated graded group of the filtered group $H_n(X)$}}.
+		\item The proposition (5.2) says that this graded is isomorphic to $\bigoplus_{p}E^\infty_{n,p}$.
+		\item So this gives us
+				\[E^\infty_{p,q}\cong F^p_{p,q}/F^{p-1}_{p+q}\]
+		\item And of course it is interesting because $\operatorname{gr}H_{p+q}(X)=\bigoplus_{p}F^p_{p+q}/F^{p-1}_{p+q}$. It turns out that not always can we get $H_{p+q}(X)$ from this information...  
+	\end{itemize}
+	\item And then, the \textit{\textbf{Serre spectral sequence for homology}}. 
+
+	Let $F\to X\to B$ be a fibration with $B$ path-connected. If $\pi_1(B)$ acts trivially on $H_*(F;G)$, then there is a spectral sequence $\{E^r_{p,q},d_3\}$ with
+	\begin{enumerate}[label=\alph*.]
+		\item $d_r:E^r_{p,q}\to E^r_{p-q,q+r-1}$ and $E^{r+1}_{p,q}=\ker d_r/\img d_r$ at $E^r_{p,q}$.
+		\item Stable terms $E^\infty_{p,n-p}$ are isomorphic to the successive quotients $F_n^p/F^{p-1}_n$ in a filtration
+		\[0\subset F^0_n\subset \ldots\subset F^n_n=H_n(X;G)\]
+		of $H_n(X;G)$.
+		\item {\color{blue}$E^2_{p,q}\cong H_p(B;H_q(F;G))$.}
+\end{enumerate}
+	
+
+\item 	And then, the \textit{\textbf{Serre spectral sequence for cohomology}} .
+
+	Let $F\to X\to B$ be a Serre fibration with $\pi_0(B)=0$ such that the action $\pi_1(B)\curvearrowright H^*(F;G)$ is trivial.
+
+Then there is a spectral sequence $\{E_r^{p,q},d_r\}$ such that
+\begin{enumerate}[label=\alph*.]
+	\item $d_r:E_r^{p,q}\to E_r^{p+r,q-r+q};\qquad E_{r+1}^{p,q}=\ker d_r/\img d_r$.
+	\item {\color{blue}$E_{\infty}^{p,q}\cong F^{p+q}_p/F^{p+q}_{p+1}$}; {\color{blue}$\qquad 0\subset F^{p+q}_{p+q}\subset\ldots\subset F^{p+q}_0=H^{p+q}(X,G)$, this is the filtration!}.
+	\item {\color{blue}$E^{p,q}_2=H^p(B,H^{q}(F,G))$.}
+	\item $E^{p,q}_2\times E^{s,t}_2\to E^{p+s,q+t}_2$, which is given by $(-1)^{qs}$.
+	\[H^p(B,H^q(F,R))\times H^s(B,H^t(F,R))\overset{\smile}{\to} H^{p+s}(B,H(F,R))\]
+	now supposing that $G=R$ is a ring.
+	\item This
+	\begin{align*}
+		F^m_p\times F^n_s&\overset{\smile}{\to}F^{m+n}_{p+s}
+	\end{align*}
+	induces
+	\[F^m_p/F^m_{p+1}\times F^n_s/F^n_{s+1}\to F^{m+n}_{p+s}/F^{m+n}_{p+s+1}\]
+	and is
+	\[F_\infty^{p,m-p}\times E_\infty^{s,n-s}\to E_{\infty}^{p+s,m+n-p-s}\]
+\end{enumerate}
+\end{enumerate}
+Ok, here are some questions:
+\begin{enumerate}
+	\item What was the action of $\pi_{1}(F)$ on $H_{*}(F,G)$? Is there some intuition about this? There is an action of $\pi_{1}(X)$ on $\pi_{n}(X)$.
+	\item Was the point of Serre classes to show that homotopy groups of the sphere are finitely generated? How did this go, using Hurewicz theorem?
+	\item Wang and Gysin exact sequences.
+	\item Transgression.
+\end{enumerate}
+
+Here are some answers:
+
+\paragraph{action of $\pi_1$ on homology.} 
+
+\clearpage
+Ok, so, some exercises now.
+
+The first one is from \cite{sssguide}, which a nice first example but it is kind of cheating since we must use previous knowledge of the cohomology of spheres for it to make sense.
+
+\begin{exercise}[my first Serre spectral sequence]
+	Consider the Serre fibration $S^1\to S^3\to S^2$.  Always remember that
+	\[
+		{\color{blue}E^2_{p,q}=H_p(B;H_q(F;G))}
+	.\]
+	Or, as in \cite{sssguide},
+	\[
+	{\color{blue}E^{s,t}_2=H^s(B,H^t(F))}
+	.\]
+	
+	
+
+
+	We see that the second page is
+	\[
+	\begin{tikzcd}[column sep=small,row sep=small]
+			&\leavevmode\arrow[d,"p"]\\
+			\leavevmode\arrow[r,"q"]&\Z&0&\Z\\
+			&\Z&0&\Z\arrow[ull,"d"]\arrow[ull,"\cong",swap]\\
+	\end{tikzcd}\]
+	
+	Also always remember that
+	{\color{blue}\begin{align*}
+		E_{r+1}^{s,t}	&=\ker d_r/\operatorname{img}d_r\\
+				&=\frac{\ker d_r:E^{s,t}_{r}\to E^{s+r,t+1-r}_{r}}{\operatorname{img}d_r:E^{s-r,t-1+r}_{r}\to E^{s,t}_{r}}
+	\end{align*}}
+	Then you can see that the third page is	
+	\[
+	\begin{tikzcd}[column sep=small,row sep=small]
+	\Z/\img d_2&0&\Z\\
+	\Z&0&\Z/\img d_2
+	\end{tikzcd}\
+	\]
+	so $E^3=E^\infty$.
+
+\end{exercise}
+
 \addcontentsline{toc}{section}{References}
 \printbibliography
 \clearpage
