@@ -945,11 +945,13 @@ Now we do the homology spectral sequence of this fibration. We get the following
 	Recall that a CW decomposition of $S^{3}$ is given by a 3-cell and a 0-cell. Since $Y_4$ is obtained from $S^{3} $ by attaching cells of dimension $n+2$, we get that
 \[H_{4}(Y_{4})=H_{5}(Y_5)=0.\]
 We know there is a filtration on homology
-\[0=F_{-1}H_{n}\subset F_{0}H_{n}\subset \ldots\subset F_{n}H_n=H_n\]
+\[0=F_{-1}H_{n}\subset F_{0}H_{n}\subset \ldots\subset F_{n}H_n=H_n(Y_4)\]
 such that
 \[E^{\infty}_{p,q}=F^{p} H^{p+q} /F^{p-1} H^{p+q}.\]
-But the 4th and 5th homology groups are zero, so the filtration is zero and so are the groups $E^{\infty}_{p,q}$ with $p+q=4,5$.
-…so finally we are convinced that we should compute $H^{5}(K(\mathbb{Z},3)\mathbb{Z})$. First thing is 
+But the 4th and 5th homology groups are zero, so the filtration is zero and so are the groups $E^{\infty}_{p,q}$ with $p+q=4,5$. And of course the groups $E^{6}_{5,0}$ and $E^{6}_{0,4}$ are (always) already $E^{\infty}_{5,0}$ and $E^{\infty}_{0,4}$, meaning
+\[0=E^{6}_{5,0}=\dfrac{\ker d^5}{\img d^{5}}{\color{red}\implies }\pi_{4}(S^{3})\cong H_{5}(K(\mathbb{Z},3)).\]
+
+…so finally we are convinced that we are looking for $H^{5}(K(\mathbb{Z},3)\mathbb{Z})$.
 
 \begin{quotation}
 	and because the generator squared is minus the generator, the group must be $\mathbb{Z}/2$.
