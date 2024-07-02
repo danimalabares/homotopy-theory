@@ -65,10 +65,10 @@
 \declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored9}
 \declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored10}
 
-\declaretheorem[style=colored1,name=Theorem]{thm}
-\declaretheorem[style=colored2,numberlike=thm,name=proposition]{prop}
-\declaretheorem[style=colored3,numberlike=thm,name=lemma]{lemma}
-\declaretheorem[style=colored4,numberlike=thm,name=corollary]{coro}
+\declaretheorem[style=colored1,name=theorem,numbered=no]{thm}
+\declaretheorem[style=colored2,numbered=no,name=proposition]{prop}
+\declaretheorem[style=colored3,numbered=no,name=lemma]{lemma}
+\declaretheorem[style=colored4,numbered=no,name=corollary]{coro}
 \declaretheorem[style=colored5,numbered=no,name=example]{example}
 \declaretheorem[style=colored5,numbered=no,name=examples]{examples}
 \declaretheorem[style=colored6,numbered=no,name=exercise]{exercise}
@@ -1549,7 +1549,7 @@ For example, $\Hom_{\CW}(X,\K(\pi,n))\cong H^n(X,\pi)$, that is, $H^n$ is repres
 \end{tikzcd}\]
 There is a special element in $\H^n(K(G,N),G)$, the preimage if $\id_G$.
 \begin{claim}
-	\[[X,K(G,n)\cong\tilde{H}^n(X,G)]\]
+	\[[X,K(G,n)]\cong\tilde{H}^n(X,G)\]
 	where on the left we have based $\CW$-complexes. 
 \end{claim}
 
@@ -2155,7 +2155,7 @@ We are not going to prove this theorem.
 	\[\begin{tikzcd}
 		0\arrow[r]&A\arrow[r]&B\arrow[r]&C\arrow[r]&0
 	\end{tikzcd}\]
-	with $A$ and $C$ in $\Cc$, then $B$ is also in $\Cc$.
+	with $A$ and $C$ in $\Cc$, then $B$ is also in $\Cc$ \textit{and} if $B$ is in $\mathcal{C}$ then also are $A$ and $C$.
 \end{defn}
 \begin{example}\leavevmode
 	\begin{enumerate}
@@ -2304,32 +2304,32 @@ Let's consider further examples.
 		\item \textbf{(Wang sequence)} Consider a fibration over $S^n$ of the form $F\to E\to S^n$ for $n\geq2$. We get
 			\begin{align*}
 			\begin{array}{c|cccccccc}
-				&\cdots&&&&&&&\cdots\\
+				&\vdots&&&&&&&\vdots\\
 				2&H_2(F)&&&&&&&H_2(F)\\
-				1&H_2(F)&&&&&&&H_1(F)\\
-				0&H_0(F)&&&&&&&H_0(F) a_3\\
+				1&H_1(F)&&&&&&&H_1(F)\\
+				0&H_0(F)&&&&&&&H_0(F)\\
 				\hline\\
 				&0&&&\ldots&&&&n
 			\end{array}
 		\end{align*}
-		So we only get nontrivial differentials in the $n$th page. We get
-		\begin{equation}
-			\begin{tikzcd}
-			0\arrow[r]&E^\infty_{n,q}\arrow[d,equal]\arrow[r]&E^n_{n,q}\arrow[r]&E^n_{0,q+n-1}\arrow[r]\arrow[dr]&E^\infty_{0,q+n-1}\arrow[r]&0\\
-			0\arrow[r]&E^{n+1}_{n,q}\arrow[ur]&E^2_{n,q}\arrow[u,equal]&E^{2}_{0,q+n-1}\arrow[u,equal]&E^{n+1}_{0,q+n-1}\arrow[r]&0
-		\end{tikzcd}
-		\end{equation}
-		Also we get
+		So we only get nontrivial differentials in the $n$th page. We get {\color{blue}(why?)}
 		\begin{equation*}
+			\begin{tikzcd}
+			0\arrow[r]&E^\infty_{n,q}\arrow[d,equal]\arrow[r]&E^n_{n,q}\arrow[r]&E^n_{0,q+n-1}\arrow[r]\arrow[dr]&E^\infty_{0,q+n-1}\arrow[r]\arrow[d,equals]&0\\
+			0\arrow[r]&E^{n+1}_{n,q}\arrow[ur]&E^2_{n,q}=H_{q}(F)\arrow[u,equal]&E^{2}_{0,q+n-1}=H_{q+n-1}(F)\arrow[u,equal]&E^{n+1}_{0,q+n-1}\arrow[r]&0
+		\end{tikzcd}
+		\end{equation*}
+		Also we get {\color{blue}(why? is this just homological algebra, kernels and cokernels?)}
+		\begin{equation}
 			\begin{tikzcd}
 				0\arrow[r]&E^\infty_{0,q+n-1}\arrow[d,equal]\arrow[r]&H_{q+n-1}(E)\arrow[r]&E^\infty_{n,q-1}\arrow[r]\arrow[d,equal]&0\\
 				&F_0H_{q+n-1}&&F_nH_{q+n-1}/F_{n-1}H_{q+n-1}
 			\end{tikzcd}
-		\end{equation*}
-		And from those two we get
+		\end{equation}
+			And from those two we get {\color{blue}(how?)}
 		\begin{equation}
 		\begin{tikzcd}[column sep=small]
-			\cdots\arrow[r]&H_{q+n}(E)\arrow[d,two heads]\arrow[r]&E^2_{n,q}=H_q(F)\arrow[dl]\arrow[r]&E^2_{0,q+n-1}=H_{q+n-1}(F)\arrow[r]\arrow[dr]&H_{q+n-1}(E)\arrow[r]&0\\
+			\cdots\arrow[r]&H_{q+n}(E)\arrow[d,two heads]\arrow[r]&H_q(F)\arrow[dl]\arrow[r]&H_{q+n-1}(F)\arrow[r]\arrow[dr]&H_{q+n-1}(E)\arrow[r]&0\\
 			0\arrow[r]&E^{n+1}_{n,q}\arrow[ur]&E^2_{n,q}\arrow[u,equal]&E^{2}_{0,q+n-1}\arrow[u,equal]&E^{n+1}_{0,q+n-1}\arrow[r]&0
 		\end{tikzcd}
 		\end{equation}
@@ -2373,9 +2373,415 @@ Some questions:
 	\item Is the action of $\pi_1$ on $\pi_n$ the one I studied today in Hatcher? The idea of that action is \textit{do a loop, do the map of the sphere (the element of $\pi_n$, then do the loop backwards)}.
 	\item Weren't we going to study transgression next?
 \end{enumerate}
+
+\subsection{June 18}\label{sec:June 18}
+\begin{defn}[Acyclic Serre class]
+	A serre class $\mathcal{C}$ is \textit{\textbf{acyclic}}  if
+\[G\in \mathcal{C}\implies \widetilde{H}_*(K(G,n))\in \mathcal{C}\]
+\end{defn}
+\begin{lemma}
+	The classes of finitely generated groups and finite $p$-torsion groups are acyclic.
+\end{lemma}
+\begin{proof}
+	We have a Serre fibration
+	\[\begin{tikzcd}
+		K(G,n-1)=\Omega K(G,n)\arrow[r]&PK(G,n)\arrow[r,two heads]&K(G,n)
+	\end{tikzcd}\]
+This sequence makes it possible to do induction. The group in the middle is contractible so it is in the class (fg or finite $p$-torsion). So via this induction we have that
+\[\mathcal{C}\text{ is acyclic } \iff\widetilde{H}_*K(G,1)\in \mathcal{C}\]
+So its enough to do step 1.
+
+Ok so we have
+\[\begin{tikzcd}
+	0\arrow[r]&H_{*}(X)\otimes H_{*}(Y)\arrow[r]&H_{*}(X\times Y)\arrow[r]&\operatorname{Tor}_{*-1}(H_{*}(X),H_{*}(Y))\arrow[r]&0
+\end{tikzcd}\]
+where the left and right groups are in $\mathcal{C}$.
+
+We have since $G$ is either fg or finite $p$-torsion that it is of the form
+\[G=\Z\oplus\Z/k_1\oplus\Z/k_2\oplus\ldots\oplus\Z/k_m\]
+Also
+\[K(A\oplus B,1)=K(A,1)\times K(B,1)\]
+which follows simply from
+\[\pi_{n}(X\times Y)=\pi_{n}(X)\times \pi_{n}(Y)\qquad \forall n\geq 1\]
+and from these we get that
+\[K(G,1)=K(\Z,1)\times \ldots K(\Z,1)\times K\Z/k_1,1)\times \ldots\times K(\Z/k_m,1)\]
+And finally from this last one and the one of the short exact sequence with torsion we get that it suffices to show that $\widetilde{H}_*K(\Z,1)$ and $\widetilde{H}_*K(\Z/k_1,1)$ are in $\mathcal{C}$.
+
+And this happens:
+\begin{itemize}
+	\item For finitely generated it just is $K(\Z,1)=S^1$.
+	\item For finite $p$-torsion it happens to be $K(\Z/m,1)=S^\infty/(\Z/m\curverightarrow S^\infty)$ which has to do with some lens space, well, it holds.
+\end{proof}
+
+\begin{thm}[mod $\Cc$ Hurewicz theorem]
+	Let $\mathcal{C}$ be f.g. or finite $p$-torsion. Let $X$ be a 1-connected space. If there exists $i$ such that $\forall 0<i<n$ $\pi_{i}(X)\in \mathcal{C}$, then
+	\[H_{i}(X)\in \mathcal{C}\qquad \forall 0<i<n\]
+	and
+	\[h:\pi_{n}(X)\to H_{n}(X)\]
+	is an isomorphism $\mod \mathcal{C}$.
+\end{thm}
+\begin{proof}
+We have the notion of Posnikov tower,
+\[\begin{tikzcd}
+	&\cdots\arrow[d]\\
+	&X_2\arrow[d]\\
+	&X_1\arrow[d]\\
+	X\arrow[uur]\arrow[ur]\arrow[r]&X_0
+\end{tikzcd}\]
+Where $X\to X_k$ is a $k$-equivalence and $\pi_{i}(X_k)=0$ for $i>k$. This was the idea of killing higher homotopy groups.
+
+We may replace the maps $X_k\to X_{k-1}$ by fibrations and the homotopy fiber will be the same. And what is the homotopy fiber of that?
+\[\begin{tikzcd}
+	0\arrow[r]&\operatorname{hofib}\arrow[r]&X_k\arrow[r]&X_{k-1}\arrow[r]&0
+\end{tikzcd}\]
+We get
+\[\begin{tikzcd}
+	\pi_{i}(\operatorname{hofib})\arrow[r]&\pi_{i}(X_k)\arrow[r]&\pi_{i}(X_{k-1})
+\end{tikzcd}\]
+for $i<k$ we have isomorphism and for $ i=k$ we have a surjection because $\pi_{k}(X_{k+1})=0$. Then:
+\[\begin{tikzcd}
+	0=\pi_{k+1}(X_{k-1})\arrow[r]&\pi_{k}(\operatorname{hofib})\arrow[r]&0\arrow[r]&\arrow[r]&\pi_{k-1}(\operatorname{hofib})=0\arrow[r]&\bullet\arrow[r]&\bullet
+\end{tikzcd}\]
+So we have
+\begin{align*}
+	\pi_{k}(\operatorname{hofib})=\pi_{k}(X)\\
+	\pi_{i}(\operatorname{hofib})=0
+\end{align*}
+So in the end:
+\[{\color{blue}\operatorname{hofib}=K(\pi_{k}(X),k) }\]
+Now:
+\begin{enumerate}
+	\item[0.] 2-out-of-3 for $\widetilde{H}_*$ and $F\hookrightarrow E\to B$.
+	\item $K(\pi_{k}(X),k)\to X_k\to X_{k-1}$.
+	\item $\widetilde{H}_{*}(X_1)\in \mathcal{C}$ 
+	\item $\widetilde{H}_{*}(K(\pi_{k}(X),K))\in \mathcal{C}$ 
+	\item $\widetilde{H}_{*}(X_k)\in \mathcal{C}$ for $0<k<n$.
+	\item $H_{i}(X_k)=H_{i}(X)$ for $i\leq k$
+		
+		This proves that
+		 \[H_{i}(X)\in \mathcal{C}\qquad \text{for } 0<i<n.\]
+
+ Now take
+\[\begin{tikzcd}
+	 	K(\pi_{n}(X),n)\arrow[r]&X_n\arrow[r]&X_{n-1}
+\end{tikzcd}\]
+and do
+\begin{align*}
+		\begin{array}{c|cccccccc}
+			&\cdots&&&&&&&\cdots\\
+			n&\pi_{n}(X)&&&&&&&\\
+			&&&&&&&&\\
+			&&&&&&&&\\
+			&&&&&&&&\\
+			&&&&&&&&\\
+			&&&&&&&&\\
+			2&&&&&&&&\\
+			1&&&&&&&&\\
+			0&\Z&&&&&&H_{n}(X_{n-1})&H_{n+1}(X_{n-1})\\
+			\hline\\
+			&0&1&2&&&&n&n+1
+		\end{array}
+	\end{align*}
+Since $H_{q}(F)=0$ for $0<q<n$.
+	So we can see that
+	\[E^{n+2}_{0,n}=E^\infty_{0,n}.\]
+	and that
+	\[E^\infty_{n,0}=H_{n}(X_{n-1})\]
+It also follws that
+\[\operatorname{gr}H_{n}(X_n)=E^\infty_{0,n}\oplus E^\infty_{n,0}\]
+since the fibration of $H_{n}(X_n)$ is
+\[0\subset E^\infty_{0,n}=\ldots=E^\infty_{0,n}=H_{n}(X_n)\]
+which in turn is because so many of the $E^\infty_{p,n-p}=0$ and of course $F^\infty_{p,n-p}=F^p/F^{p-1}$. And also the first one is $E^{\infty}_{0,n}=F^0$.
+
+Now let's do a longer sequence:
+\iffalse
+\[\begin{tikzcd}
+	H_{n+1}(X_{n-1})\arrow[r,"d^{n+1}]&\pi_{n}(X)=E^{n+1}\arrow[r]&E^{n+2}_{0,n}=\operatorname{coker}d^{n+1}=E^{\infty}_{0,n}\arrow[r,hook,"\text{filtration}"]&E^{\infty}_{n,0}=H_{n}(X_{n-1})=E^2_{n,0}
+\end{tikzcd}\]\fi
+\[\begin{tikzcd}[column sep=small,row sep=tiny]
+	&&&\operatorname{coker}d^{n+1}\arrow[d,equals]\\
+	H_{n+1}(X_{n-1}) \arrow[r,"d^{n+1}"] & \pi_{n}(X)\arrow[r,equals]&E^{n+1}_{0,n} \arrow[r] & E^{n+2}_{0,n}\arrow[r]\arrow[d,equals]&0\\
+					     &&0\arrow[r]&E^{\infty}_{0,n} \arrow[r,hook,swap,"\text{filtration}"]&H_{n}(X)\arrow[r]& E^{\infty}_{n,0}=H_{n}(X_{n-1})=E^2_{n,0}
+\end{tikzcd}\]
+
+which shows that kernel and cokernel are in $\mathcal{C}$, as we wanted…
+\end{enumerate}
+\end{proof}
+Finally let's prove that homotopy groups of spheres are finitely generated. We know that
+\begin{align*}
+	\pi_{i}(S^m)&=0\qquad i<m\\ 
+	\pi_{m}(S^m)&=\Z
+\end{align*}
+And now we know that
+\[\pi_{m+1}(S^m)\to H_{m+1}(S^m)=0\]
+is an isomorphism mod $\mathcal{C}$, ie. its kernel is in $\mathcal{C}$. And the same for
+\[\pi_{m+2}(S^m)\to H_{m+2}(S^m)=0\]
+its kernel is in $\mathcal{C}$.
+
+More explicitly,
+
+\begin{coro}
+	For any $X$ that is 1-connected, we have that
+\[\text{all } \pi_{i}\text{ are f.g}\iff\text{ all }H_{i}\text{ are f.g}   \]
+(or finite $p$-torsion).
+\end{coro}
+\begin{proof}
+	It's because
+ \[\begin{tikzcd}
+	0\arrow[r]&\mathcal{C}\arrow[r]&\pi_{i}\arrow[r]&H_{i}\arrow[r]&\mathcal{C}\arrow[r]&0
+\end{tikzcd}\]
+\end{proof}
+
+
+\section{June 25: products in spectral sequences}\label{sec:June 25: products in spectral sequence}
+We start remembering that
+\begin{thm}[Serre spectral sequence for cohomology]
+	Let $F\to X\to B$ be a Serre fibration with $\pi_0(B)=0$ such that the action $\pi_1(B)\curvearrowright H^*(F;G)$ is trivial.
+
+	Then there is a spectral sequence $\{E_r^{p,q},d_r\}$ such that
+\begin{itemize}
+	\item \[d_r:E_r^{p,q}\to E_r^{p+r,q-r+q}\qquad\text{and} \qquad  E_{r+1}^{p,q}=\ker d_r/\img d_r.\]
+	\item The groups
+		\[F_p^n:=\img (F_pH^n\to F^n_n=H^n(X))\]
+	form a filtration
+	\[H^{n}(E)=F^0H^n\supset F^1H^n\supset \ldots\supset F^nH^n\supset \varnothing \]
+
+	of $H^{n}(X,G)$ such that
+	\[E_{\infty}^{p,q}\cong F^{p+q}_p/F^{p+q}_{p+1}.\]
+\item \[E^{p,q}_2\cong H^p(B,H^{q}(F,G)).\]
+\end{itemize}
+\end{thm}
+
+Now let's have a look at the product.
+
+Let $E^{\bullet,\bullet}_r$ be a bigraded ring.
+\begin{itemize}
+	\item Consider
+		\[E^{p,q}_r\otimes E^{p',q'}_r\to E^{p+p',q+q'}_r\qquad \text{signs?}\]
+	
+	\item \[d_r(x\cdot y)=d_rx\cdot y+(-1)^{\deg x}x\cdot d_ry\]
+		\[\deg x=p+q,\quad x\in E^{p,q}_r\]
+		
+\item $E^{\bullet,\bullet}_{r+1}=H(E^{\bullet,\bullet}_r)$ as bigraded algebra.
+
+\item The second page is
+	 \[E^{p,q}_2\otimes E^{p',q'}_2=H^{p}(B,H^{q}(F))\otimes H^{p'}(H^{q'}(F))\to H^{p+p'}(B,H^q\otimes H^{q'}(F))\to H^{p+p'}(B,H^{q+q'}(F))\]
+	 and looks like also
+	 \[H^{n}(X,R)\otimes H^{m}(X,R')\to H^{n+m}(X,R\otimes R')\to H^{n+m}(X,R)\]
+
+\item The filtration is compatible with the product in the sense that
+	\[\smile :F^n\otimes F^m\to F^{n+m}\]
+	is well-defined in the quotient as a map
+	\[F^n/F^{n+1}\otimes F^m/F^{m+1}\to F^{n+m}/F^{n+m+1}\]
+
+\item \[F^p/F^{p+1}=E^{p,n-p}_\infty\]
+
+\item \[E^{p,q}_{\infty}=F^pH^{p+q}(E,R)/F^{p+1}H^{p+q}(E,R)\]
+
+\item $E^{p,q}_\infty$ is a bigraded ring which comes from $E_r$ as a $r\to \infty$.
+\end{itemize}
+
+\begin{example}[Cohomology of lens spaces]
+	Recall that \textit{\textbf{lens spaces}} are just
+	\[K(\Z/n,1)=S^\infty/\Z/n.\]
+Also there's the real \textit{\textbf{lens spaces}} which are
+\[L(k,n)=S^{2k+1}/\Z/n\]
+and it happens that
+\[L(2,n)\subset L(3,n)\subset \ldots\subset S^\infty/\Z/n\]
+
+and that
+
+\[L(k,n)\hookrightarrow K(\Z/n,1)\quad \text{is a }k\text{-equivalence.}\]
+
+And it follows that this map is a {\color{magenta}weak equivalence} on $H^{*}$ up to $k-1$.
+
+So in conclusion, to compute the cohomology of $S^\infty/\Z/n$ it sufficies to compute the cohomology of the lens spaces.
+
+So from all this we have a Serre fibration
+\[S^1\hookrightarrow L(k,n)\to \C P^k\]
+And we have
+\[S^1\curvearrowright S^{2k+1},\qquad S^1\cong S^1/\Z/n\curvearrowright S^{2k+1}/\Z/n\]
+and also
+\[E^{\bullet,\bullet}_2=H^{*}(\C P^k,H^{*}(S^1,\Z))=H^{*}(\C P^k,\Z)\otimes H^{*}(S^1,\Z)\]
+
+So we get
+\begin{align*}
+\begin{array}{c|cccccccc}
+	&&&&&&&&\\
+	 &\vdots&&&&&&&\vdots\\
+	2&&&&&&&&\\
+	1&\Z x&\Z xy&\Z xy^2&\Z&\Z&&&\\
+	0&\Z&\Z y&\Z y^2&\Z&\Z&&&\\
+	\hline\\
+	E_3=E_\infty&0&&&\ldots&&&&
+\end{array}
+\end{align*}
+where the cohomology of $S^1$ is generated by $1$ in $H^{0}$ and by $x$ in $H^1$; and for $\C P^k$ it is generated by $1$ in $H^0$ and by $y^m$ in $H^{2m}$. So it all makes sense because
+\[dxy^m=(dx)\cdot y^m-x\cdot my^{m-1}dy=(dx)\cdot y^m.\]
+{\color{blue}I could not draw the differentials but they are diagonal down-right arrows in the last diagram, ie. $\Z x\to \Z$, $\Z xy\to \Z y^2$, $\Z xy^2\to \Z$ and $\Z\to \Z$.}
+
+It looks like then some homology was computed, and we found that
+\[\begin{tikzcd}
+	\Z&\Z&\Z&\cdots\\
+	\Z&\Z\arrow[ul]&\Z\arrow[ul]&\cdots
+\end{tikzcd}\]
+We concluded that
+\[\pi_{1}(L(k,n))=\Z/n\]
+\[H_{1}(?)=\Z/n\]
+\[H_{2}(?)=0\]
+and by universal coefficient theorem,
+\[H^2(?)=(\Z/n)\]
+and that $E^\infty_{0,1}$ has to be $\Z/n$ since $E^\infty_{1,0}=0$ and $E^\infty_{0,1}\oplus E^\infty_{1,0}$ is a ssgr of $H_1$.
+
+From this we get that $d_2$ on $E_2$ is multiplication by $n$. $dx=n\cdot y$.
+
+\[\begin{tikzcd}
+	\Z&\Z/ny&\Z/n&\Z/y^3&{\color{magenta}\text{something else?} }
+\end{tikzcd}\]
+$\ddot\smile $
+
+
+\subsection{exam!!!}\label{ssec:exam!!!}
+\begin{quotation}
+	state theorems without proofs
+
+	definitions
+
+	explain one of the proofs that uses spectral sequences
+	\[\pi_{4}(S^3),\pi_{5}(S^3),\pi_{i}(S^{2k})\]
+	is finite except for $4k-1$ and $\pi_{i}(S^{2k+1})$.
+\end{quotation}
+also try to finish the homework.
+
+\section{Last lecture: a survey}\label{sec:Last lecture: a survey}
+\begin{enumerate}
+	\item Cohomology operations.
+
+	Here we are interested in natural transformations of the form 
+	\[H^{n}(-,A_1)\to H^{k}(-,A_2)\]
+	This cohomology is represented by the Eilenberg-Mclane space, $K(A,n)$.
+
+	We have
+	\[H^{k}(K(A_1,n),A_2)\]
+	which is of course zero for $0<k<n$, in which case there are no non-trivial c. op. that decrease grading.
+
+	\begin{example}
+		\begin{align*}
+			 H^{n}(X;A) &\longrightarrow H^{2n}(X;A) \\
+			\psi &\longmapsto \psi\smile \psi
+		.\end{align*}
+	is a \textit{\textbf{cohomology operation}}.	
+	\end{example}
+
+	Now, \textit{\textbf{stable cohomology operations}} are
+	\[\begin{tikzcd}
+		H^{k}(X;R)\arrow[r,"\cong "]\arrow[d,"\Sigma",swap]&H^{k+1}(\Sigma X;R)\arrow[d,"\Sigma"]\\
+		H^{k+\ell}(X;R)\arrow[r,"\cong "]&H^{k+\ell+1}(\Sigma;R)
+	\end{tikzcd}\]
+	
+	\item Characterstic classes
+	
+	And here we are interested in natural transformations from principal $G$-bundles on a space to $H^{n}(-,A)$.
+	The functor "\textit{principal $G$-bundles} is represented by $\operatorname{BG}$ for any topological group. If $G$ is discrete, then $\operatorname{BG}$ is $K(G,1)$, and $\{G\text{-bundles on } X\}=H^{1}(X,G)$ \textit{when $G$ is abelian}. If $G$ is not abelian, the statement holds for $[X,\operatorname{BG}]$ insted of $H^{1}(X,G)$.
+
+In parallel to stable cohomology operations, notice that
+\[H^{n}(\operatorname{BG},A)=\text{Natural transformations of principal $ G$ bundles on a space.} \]
+
+\end{enumerate}
+
+\begin{thm}[Proofless fact]
+	There exist natural transformations 
+	\begin{align*}
+		\operatorname{Sq}^i: H^{i}(-,\Z/2) &\longrightarrow H^{n+i}(-,\Z/2) \\
+	\end{align*}
+called \textit{\textbf{Standard operations}} or \textit{\textbf{Steenrod squares}} such that
+\begin{enumerate}
+	\item $\operatorname{Sq}^0=\operatorname{id}$.
+	\item $\operatorname{Sq}^ix=x\smile x$ if $|x|=i$.
+	\item $\operatorname{Sq}^i=0$ if $|x|<i$. (And if $|x|=n$, then the only non-trivial $\operatorname{Sq}^ix$ are $\operatorname{Sq}^0x,\ldots\operatorname{Sq}^nx$.
+	\item For $\operatorname{Sq}:=\sum_{i=0}^\infty\operatorname{Sq}^i$ 
+		\[\operatorname{Sq}(x\smile y)=\operatorname{Sq}x\smile \operatorname{Sq}y\]
+	\item The \textit{\textbf{connecting homomorphism}}
+		\[\delta:H^{n}(Y;\Z/2)\to H^{n+1}(X,Y;\Z/2)\]
+		is such that 
+		\[\delta\circ \operatorname{Sq}^i=\operatorname{Sq}^i\circ \delta.\]
+	\item \textbf{(Compatibility with suspension.)} $\operatorname{Sq}^i$ are stable.
+		\[\Sigma\circ \operatorname{Sq}^i=\operatorname{Sq}^i\circ \Sigma\]
+		for the $\Sigma$ in the other square diagram.
+	 \item $\operatorname{Sq}^i$ is Bockstein homomorphism for
+		 \[\begin{tikzcd}
+		 	0\arrow[r]&\Z/p\arrow[r]&\Z/p^2\arrow[r]&\Z/p\arrow[r]&0
+		 \end{tikzcd}\]
+	 which in turn yields
+	 \[\begin{tikzcd}
+	 	0\arrow[r]&\operatorname{Hom}(C_*(X),\Z/p)\arrow[r]&(\ldots,\Z/p^2)\arrow[r]&(\ldots,\Z/p)\arrow[r]&0
+	 \end{tikzcd}\]
+	 
+\end{enumerate}
+\end{thm}
+Now some more facts/theorems.
+\begin{thm}[Facts/theorems]
+	\begin{enumerate}
+		\item All \textit{stable} cohomology operations are generated by some operations of a very special form: $\operatorname{Sq^i}$ of course. (As a graded algebra.) This called the \textit{\textbf{Steenrod algebra}}.
+		\item \textbf{(Adam relations.)} The algebra is quite involved here so let's just write that
+			\[\operatorname{Sq}^i\operatorname{Sq}^j=\sum_{k=0}^{i/2}{j-k-1\choose i-2k} \operatorname{Sq}^{i+j-k}\operatorname{Sq}^k\]
+			and these generate all the ideal of all relations.
+		\item It happens that $\operatorname{Sq}^{2n-1}\operatorname{Sq}^n=0$ and that for all $n$, $\operatorname{Sq}^n\mapsto \operatorname{Sq}^{n-1}$ is a derivation of $\mathcal{A}$. Moreover, these properties imply the last complicated equation with binomial coefficients.
+
+		\item $\mathcal{A}$ is generated by $\operatorname{Sq}^{2^k}$ for all $k$. And we can explicitly describe the basis in terms of all $\operatorname{Sq}^i$.
+
+		Moreover, $\mathcal{A}$ is not only an algebra but actually also a coalgebra, and even a Hopf algebra. So what's up
+		\begin{align*}
+			\text{ algebras}: &\mu:A\otimes A\to A\quad \text{ such that } \mu(\mu\otimes \operatorname{id}=\mu(\operatorname{id}\otimes \mu))\\
+			\text{coalgebras}:&\Delta:A\to A\otimes A\quad \text{such that }  (\Delta\otimes \operatorname{id})\circ \Delta=(\operatorname{id}\otimes \Delta\circ \Delta)\\
+			\text{Hopf} :&H:A\to A\quad \text{such that}
+
+			\end{align*}
+			\[\begin{tikzcd}
+				A \arrow[rrr,bend right,swap,"\operatorname{id}"]\arrow[r,"\Delta"]&A\otimes A \arrow[r,"H\otimes \operatorname{id}"]&A\otimes A \arrow[r,"\mu"]&A
+			\end{tikzcd}\]
+		and we have that
+		\[\Delta(\operatorname{Sq}^k)=\sum_{i+j=k}\operatorname{Sq}^i\otimes \operatorname{Sq}^j\]
+		Dual of coalgebra is algebra. Dual of Hopf algebra is a Hopf algebra. Dual of $\mathcal{A}$ as coalgebra is polynomial algebra (yes!) generated by $\xi^k$ of degree $2^k-1$ for all $k$. This is \textit{\textbf{dual Steenrod algebra}} is the group scheme of automorphisms of the \textit{\textbf{formal group scheme}} $x+y$ such that they are identity up to first order.
+	\end{enumerate}
+\end{thm}
+
+Now remember that there is some sort of equivalence of categories between simply connected Lie groups and Lie algebras. In algebraic geometry we have that
+\[\begin{tikzcd}
+	\text{"nice group+schemes} \arrow[r]&\text{formal group} \arrow[r]&\text{Lie algebras} 
+\end{tikzcd}\]
+when $\pi_{0}=\pi_1=0$.
+
+\subsection{characterstic classes}\label{ssec:characterstic classes}
+\[X\mapsto \{\text{principal $G$-bundles on $X$} \} \]
+is represented by $\operatorname{BG}$. This means that
+\[\{\text{principal $G$-bundles on $X$} \}=[X,\operatorname{BG}] \]
+So, for all $G$ there is a contractible $\operatorname{E}G$ such that
+\[\begin{tikzcd}
+	\bullet\arrow[r]\arrow[d]\arrow[dr,phantom,very near start,"\lrcorner"]&\operatorname{E}G\arrow[d]\
+	X\arrow[r]&\operatorname{B}G
+\end{tikzcd}\]
+And then there's these guys
+\begin{align*}
+	\operatorname{B}\operatorname{O}(n)&=\text{the Grassmanian of $n$-planes in $\R^\infty$}.\\
+	\operatorname{B}\operatorname{U}(n)&=\operatorname{Gr}(n,\C^\infty)\\
+	H^{*}(\operatorname{B}\operatorname{U}(n)&=\Z)=\Z[c_1,\ell,c_n],\quad |c_{i}|=z_{i},\quad \text{Chern classes.} \\
+	$[X,\operatorname{B}\operatorname{O}(u)\rightsquigarrow [X,K(\Z/2,i)]$
+\end{align*}
+\begin{itemize}
+	\item \[\operatorname{Sq}^iw_j=\sum_{k}{j+k-i-1\choose k}w_{i-k}w_{j+k}.\]
+	\item Chacteristic numbers of manifolds. Take a manifold $X$ of dimension $n$, embed $X$ in $\R^{n+k}$ for large $k$, take normal bundle, take corresponding Stiefel-Whitney classes, take their product of total degree $n$, take $-\cap [X]$. This gives a collection of integers called the characterstic numbers.
+
+\begin{thm}
+	Two manifolds are cobordant iff the have the same characteristic numbers. Here \textit{\textbf{cobordant}} means that there is a manifold of one dimension higher such that the other two manifolds are its boundary.
+\end{thm}
+\end{itemize}
+
+
 \clearpage
 %		\arrow[ul, phantom, "\lrcorner", very near start]
 %		\arrow[ul, phantom, "\ulcorner", very near start]
 \addcontentsline{toc}{section}{References}
 \printbibliography
 \end{document}
+

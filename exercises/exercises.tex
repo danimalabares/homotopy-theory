@@ -398,6 +398,15 @@
 \end{proof}
 
 Let $f : X \to Y$ be a map. Let $E_f$ be the pullback of $f : X \to Y$ and of $\ev_0 :\Map(I,Y)\to Y$. Let $h:X\to E_f$ be the map that sends $x$ to $(x,\operatorname{const}(f(x)))$, where $\operatorname{const}(f(x)) : I \to Y$ is the constant path at $f(x)$. Let $g : E_f \to Y$ be the composition of projection map $E_f \to \Map(I,Y)$ with $\ev_1 :\Map(I,Y)\to Y$.
+\begin{exercise}
+	\begin{enumerate}
+		\item[b.] Show that $h:X\to E_{f}$ is an inclusion of a deformation retract.
+		\item[c.] Show that $g:E_{f}\to Y$ is a fibration.
+	\end{enumerate}
+	
+\end{exercise}
+
+
 \section{Homework 1.5}
 \subsection{Exercise on model categories}
 \begin{exercise}[3.1.8 from \cite{riehl}]
@@ -550,8 +559,15 @@ so
 \end{proof}
 
 \begin{exercise}[4.2.2]
-	Show the action of $\pi_1(\R P^n)$ on $\pi_n(\R P^n)\cong\Z$ is trivial for $n$ odd and nontrivial for $n$ even.
+	Show that the action of $\pi_1(\R P^n)$ on $\pi_n(\R P^n)\cong\Z$ is trivial for $n$ odd and nontrivial for $n$ even.
 \end{exercise}
+\begin{proof}[Solution]
+	(I have used \href{https://math.stackexchange.com/questions/375968/the-action-of-the-group-of-deck-transformation-on-the-higher-homotopy-groups}{StackExchange} as suggested in Telegram chat, and also \href{https://pages.uoregon.edu/njp/hw7solutions.pdf}{this internet pdf}.)
+
+	By exercise 4.1.4 the action of $\pi_{1}(\mathbb{R}P^{n})$ on $\pi_{n}(\mathbb{R}P^{n})$ can be identified with the action of deck transformations $G(S^{n})\cong \pi_{1}(\mathbb{R}P^{n})\cong \Z/2$. The nontrivial element in such a group is the antipodal map, and it acts on $\pi_{n}(\mathbb{R}P^{n})$ by concatenation with the map induced on homotopy by the deck transformation (and a change of base point isomorphism).
+
+	Then we use Corollary 4.25, which says that the degree map $\pi_{n}(S^{n})\to\Z$ is an isomorphism. Then our action, which is a map $\pi_{1}(\mathbb{R}P^{n})\to \operatorname{Aut}\pi_{n}(S^{n})\overset{\operatorname{deg}}{\cong } \mathbb{Z}$ is trivial for $n$ odd and nontrivial for $n$ even since antipodal map multiplies degree by $(-1)^{n+1}$.
+\end{proof}
 
 \begin{exercise}[4.2.8]
 	Show that the suspension of an acyclic CW complex is contractible.
@@ -611,6 +627,8 @@ so
 \end{proof}
 
 \begin{exercise}[4.2.31]
+	(This was solved using comments from exercise lecture and again \href{https://pages.uoregon.edu/njp/hw7solutions.pdf}{this internet pdf}.)
+
 	For a fiber bundle $F\to E\to B$ such that the inclusion $F\hookrightarrow E$ is homotopic to a constant map, show that the long exact sequence of homotopy groups breaks into split short exact sequences giving isomorphisms $\pi_n(B)\cong \pi_n(E)\oplus\pi_{n-1}(F)$. In particular, for the Hopf bundles $S^3\to S^7\to S^4$ and $S^7\to S^{15}\to S^8$  this yields isomorphisms
 	\begin{align*}
 		\pi_n(S^4)&\cong \pi_n(S^7)\oplus\pi_{n-1}(S^3)\\
@@ -631,13 +649,18 @@ This yields
 	0\arrow[r]&\pi_i(E)\arrow[r]&\pi_i(B)\arrow[r]&\pi_{i-1}(F)\arrow[r]&0
 \end{tikzcd}
 .\]
-We want tto show that this sequence splits, show we may show that there is a backward arrow on the right part of the diagram.
-
+To show that this sequence splits we show there is an arrow that goes backward in the last part of the previous sequence. Let $f$ represent a homotopy class in $\pi_{i-1}(F)$ and construct the following diagram:
 \[\begin{tikzcd}[column sep=small]
-	S^{n-1}\arrow[r]\arrow[d]&F\arrow[d]\\
+	S^{n-1}\arrow[r,"f"]\arrow[d]&F\arrow[d]\\
 	D^n\arrow[d]\arrow[r,dashed]&E\arrow[d]\\
 	D^n/S^{n-1}\cong S^n\arrow[r]&B
 \end{tikzcd}\]
+where the dashed arrow is defined by
+\[D^{n} \ni v\mapsto \begin{cases}
+	H(f(v/|v|),|v|)\qquad &v\neq 0\\
+	\text{basepoint} \qquad &v=0
+\end{cases}\]
+with respect to a nullhomotopy $H:F\times I\to E$ of the inclusion $F\hookrightarrow E$.
 \end{proof}
 
 
@@ -646,12 +669,12 @@ We want tto show that this sequence splits, show we may show that there is a bac
 		S^k\arrow[r]&S^m\arrow[r]&S^n
 	\end{tikzcd} is a fiber bundle, then $k=n-1$ and $m=2n-1$. [Look at the long exact sequence of homotopy groups.]
 \end{exercise}
-\begin{proof}[Solution (in progress…)]
+\begin{proof}[Solution]
 	From the previous exercise we have
 	\[
 	\pi_i(S^n)=\pi_i(S^m)\oplus\pi_{i-1}(S^k)
 	.\]
-	Notice that the inclusion of the fiber in the total space \textit{is} homotopic to a constant map because this is a fibration, ie. there are local neighbourhoods in tha base where the preimage looks like $\R^n\times S^n$, implying that $n+k=m$, that is, $k<m$. So $\pi_k(S^m)=0$.
+	Notice that the inclusion of the fiber in the total space \textit{is} homotopic to a constant map because this is a fibration, ie. there are local neighbourhoods in the base where the preimage looks like $\R^n\times S^n$, implying that $n+k=m$, that is, $k<m$. So $\pi_k(S^m)=0$.
 
 	Now if we take $i=n$, we get that
 	\[
@@ -706,7 +729,7 @@ which makes $f_*:H_3(T^3)\to H_3(S^3)$ an isomorphism.
 \end{proof}
 
 
-\section{cohomology ring of $\C P^n$}
+\section{Cohomology ring of $\C P^n$}
 	\begin{exercise}
 	Show that
 	\[H^\bullet(\C P^n)\cong \Z[\alpha]/(\alpha^{n+1})\]
@@ -761,157 +784,152 @@ which makes $f_*:H_3(T^3)\to H_3(S^3)$ an isomorphism.
 	The case for dimension $n$ follows by induction.
 \end{proof}
 
-\section{spectral sequences}\label{sec:spectral sequences}
-Here I assemble some examples we worked on in the lectures. 
+\section{Spectral sequences}\label{sec:spectral sequences}
+\subsection{Wang spectral sequence}\label{ssec:Wang spectral sequence}
 
-First let's make a spectral sequences quick summary following \cite{hatcher}:
-\begin{enumerate}
- 	\item Suppose a space $X$ is expressed a union of a sequence of subspaces $\ldots\subset X_p\subset X_{p+1}\subset \ldots$. Such a sequence is called a \textit{\textbf{filtration of $X$}}. For example, $X$ could be a CW comples and $X_p$ its $p$-skeleton.
-	\item Given such a filtration, for every $p$ we have a pair $(X_p,X_{p-1})$ that yields a long exact sequence. All these long exact sequences can be arranged in a staricase fashion:
-\[\begin{tikzcd}[column sep=tiny,row sep=small]
-	H_{p+q}(X_p)\arrow[r]\arrow[d,"i",swap]\arrow[r,red,shift={(0,0.2)}]&H_{p+q}(X_p/X_{p-1})\arrow[r]\arrow[r,red,shift={(0,0.2)}]\arrow[d]&H_{p+q-1}(X_{p-1})\arrow[r]\arrow[d,red,shift={(0.2,0)}]\arrow[d,"i",swap]&H_{p+q-1}(X_{p-1}/X_{p-2})\arrow[d]\arrow[r]&\cdots\\
-	H_{p+q}(X_{p+1})\arrow[r]\arrow[d,"i",swap]&H_{p+q}(X_{p+1}/X_{p})\arrow[r]\arrow[d]&H_{p+q-1}(X_{p})\arrow[r,"j",swap]\arrow[r,red,shift={(0,0.2)}]\arrow[d,"i",swap]&H_{p+q-1}(X_{p}/X_{p-1})\arrow[r,red,shift={(0,0.2)}]\arrow[d]\arrow[r,"k",swap]&\cdots\\
-	\cdots&\cdots&\cdots&\cdots
+Let's use course notes from S. Burkin and \href{https://en.wikipedia.org/wiki/Spectral_sequence#Wang_sequence}{wikipedia} to understand Wang spectral sequence.
+
+We will use the following result:
+
+\begin{thm}[Serre spectral sequence for homology]
+	Let $F\to X\to B$ be a fibration with $B$ path-connected. If $\pi_1(B)$ acts trivially on $H_*(F;G)$, then there is a spectral sequence $\{E^r_{p,q},d_r\}$ with
+	\begin{itemize}
+		\item
+			\[d^r_{p,q}:E^r_{p,q}\to E^r_{p-q,q+r-1}\qquad \text{and} \qquad E^{r+1}_{p,q}=\ker d^r_{p,q}/\img d^r_{{\color{magenta}?}}\]
+		\item The groups
+			\[F_pH_n:=\img(H_n(X_p)\to H_n(X))\]
+		where the map $H_{n}(X_p)\to H_{n}(X)$ is just the induced map by inclusion $X_p\hookrightarrow X$, form a filtration
+			%\item Stable terms $E^\infty_{p,n-p}$ are isomorphic to the successive quotients $F_n^p/F^{p-1}_n$ in a filtration
+		\[0\subset F_0H_n\subset \ldots\subset F_nH_n=H_n(X;G)\]
+		of $H_n(X;G)$ such that
+		\[E^\infty_{p,n-p}\cong F_pH_n/F_{p-1}H_n.\]
+		Another way to write this is
+		\[H_{p,q}^\infty=F_pH_{p+q}\Big/F_{p-1}H_{p+q}.\]
+	\item \[E^2_{p,q}\cong H_p(B;H_q(F;G))\]
+\end{itemize}
+\end{thm}
+
+
+To start consider a fibration over a sphere $F\hookrightarrow E\to B$. According to our theorem for Serre spectral sequences, we know that the $n$-th page looks as follows:
+\begin{align*}
+\begin{array}{c|cccccccc}
+	n&H_n(F)&&&&&&&H_{n}(F)\\
+	 &\vdots&&&&&&&\vdots\\
+	2&H_2(F)&&&&&&&H_2(F)\\
+	1&H_1(F)&&&&&&&H_1(F)\\
+	0&H_0(F)&&&&&&&H_0(F)\\
+	\hline\\
+	 &0&&&\ldots&&&&n
+\end{array}
+\end{align*}
+We can see there can be nontrivial differentials only on the $n$th page, so that $E^{n+1}=E^n$. Moreover, the differentials that don't vanish is are of the form
+\[\begin{tikzcd}
+E^n_{n,q}\arrow[r,"d^n_{n,q}"]&E^n_{0,q+n-1}
 \end{tikzcd}\]
-	\item If you put all the absolute groups $H_n(X_p)$ in a big $A=\bigoplus_{n,p\in \N}H_n(X_p)$ and all the relative $H_n(X_p,X_{p-1})$ in a big $E=\bigoplus_{n,p\in \N}H_n(X_p,X_{p-1})$, you can write all those long exact sequences in a compact triangle diagram called an \textit{\textbf{exact couple}} triangle diagram
-	\[
-	\begin{tikzcd}[column sep=tiny,row sep=tiny]
-		A\arrow[rr,"i"]&&A\arrow[dl,"j"]\\
-		&E\arrow[ul,"k"]
-	\end{tikzcd}
-\]
-here the maps $i,j$ and $k$ are just the maps from the long exact sequences in the other big diagram (which makes the exact couple actually \textit{exact}).
-
-
-	\item There is a nice way to define new groups $A'$ and $E'$ and maps between them that yield a \textit{\textbf{derived couple}}, which is another exact couple.	Namely,
-		\begin{itemize}
-			\item $A^1_{n,p}:=H_n(X_p)$
-			\item $E^1_{n,p}:=H_n(X_p,X_{p-1})$.
-			\item $d:=jk$
-			\item $E':=\ker d/\operatorname{img}d$, the homology of $E$ respect to $d$.
-			\item $A':=i(A)\subset A$.
-			\item $i':=i|_{A'}$.
-			\item $j'(ia):=[ja]\in E'$.
-			\item $k'[e]:=ke$.
-		\end{itemize}
-	anyway, they are well defined and yield the exact
-	\[\begin{tikzcd}[column sep=small,row sep=small]
-		A'\arrow[rr,"i'"]&&A'\arrow[dl,"j'"]\\
-		&E'\arrow[ul,"k'"]
-	\end{tikzcd}\]
-	\item The sequence $E,E',\ldots$ is called a \textit{\textbf{spectral sequence}}.
-	\item Notice two things: $E^{r+1}=\ker d_r/\img d_r$ and that knowing $E^{r}$ and $d^r$ is enough to know $E^{r+1}$ but not to know $d_{r+1}$.
-	\item As we pass to the derived couple, 
-	\begin{itemize}
-		\item Each group $A^1_{n,p}$ is replaced by a \textit{subgroup} $A^2_{n,p}$, the image of the term $A^\text{whatever}$ above it under $i$.
-		\item The horizontal maps $j$ now go one to the right and one up.
-		\item Each $E^r_{n,p}$ is replaced by a subquotient of $E^{r+1}_{n,p}$, ie. a subgroup of a quotient. {\color{magenta}In practice, if some $E$ is zero then the next ones will also be zero…}
-		\item In the end, the differential $d_r$ goes upward $r-1$ rows. {\color{blue} And $r$ columns to the right?}
-	\end{itemize}
-	\item In the Serre spectral sequence all but finitely many terms in each $E$ column are zero. This means that for big $r$, $d_r$ will vanish and then $E^r_{n,p}$ will stabilize, meaning \textit{they will be independent of $r$}. These values are denoted $E^\infty_{n,p}$. This is implied by the first of the following three items that hold for Serre spectral sequences:
-	\begin{enumerate}
-	\item All but finitely many of the maps in each $A$-column are isomorphisms. By exactness this is equivalent to saying that only finitely many terms in each $E$ column are nonzero.
-	\item $A^1_{n,-\infty}=0$ for all $n$. {\color{blue}So this is just the $n$-th homology group of the first thing in the filtration $\ldots\subset X_p\subset X_{p+1}\subset \ldots$}.
-	\item $A^1_{n,\infty}=0$ for all $n$. {\color{blue}So maybe this is the $n$th homology of $X$.}
-	\item {\color{blue}Can someone tell me what is the filtration?}
-	\end{enumerate}
-	\item The filtration.
-	\begin{itemize}
-		\item From the $r$th derived couple and the latter assumptions, we see that for very large $r$, maybe where $A^1_{n,p+r=1}=A^1_{n,\infty}$, we shall define $F^p_n:=\ker A^1_{n,p}\to A^1_{n,\infty}$. And all this means is that $F_n^p:=\img(H_n(X_p)\to H_n(X))$ where the map $H_{n}(X_p)\to H_{n}(X)$ is just the induced map by inclusion $X_p\hookrightarrow X$. (It turns out that in some lucky cases like Serre fibration, for $p\gg n$ this map (on homology) is an isomorphism and we get the following construction regarding the filtration.)
- 
-		\item The group $\bigoplus_{p}F^p_n/F^{p-1}_n$ is called the \textit{\textbf{associated graded group of the filtered group $H_n(X)$}}.
-		\item The proposition (5.2) says that this graded is isomorphic to $\bigoplus_{p}E^\infty_{n,p}$.
-		\item So this gives us
-				\[E^\infty_{p,q}\cong F^p_{p,q}/F^{p-1}_{p+q}\]
-		\item And of course it is interesting because $\operatorname{gr}H_{p+q}(X)=\bigoplus_{p}F^p_{p+q}/F^{p-1}_{p+q}$. It turns out that not always can we get $H_{p+q}(X)$ from this information...  
-	\end{itemize}
-	\item And then, the \textit{\textbf{Serre spectral sequence for homology}}. 
-
-	Let $F\to X\to B$ be a fibration with $B$ path-connected. If $\pi_1(B)$ acts trivially on $H_*(F;G)$, then there is a spectral sequence $\{E^r_{p,q},d_3\}$ with
-	\begin{enumerate}[label=\alph*.]
-		\item $d_r:E^r_{p,q}\to E^r_{p-q,q+r-1}$ and $E^{r+1}_{p,q}=\ker d_r/\img d_r$ at $E^r_{p,q}$.
-		\item Stable terms $E^\infty_{p,n-p}$ are isomorphic to the successive quotients $F_n^p/F^{p-1}_n$ in a filtration
-		\[0\subset F^0_n\subset \ldots\subset F^n_n=H_n(X;G)\]
-		of $H_n(X;G)$.
-		\item {\color{blue}$E^2_{p,q}\cong H_p(B;H_q(F;G))$.}
-\end{enumerate}
-	
-
-\item 	And then, the \textit{\textbf{Serre spectral sequence for cohomology}} .
-
-	Let $F\to X\to B$ be a Serre fibration with $\pi_0(B)=0$ such that the action $\pi_1(B)\curvearrowright H^*(F;G)$ is trivial.
-
-Then there is a spectral sequence $\{E_r^{p,q},d_r\}$ such that
-\begin{enumerate}[label=\alph*.]
-	\item $d_r:E_r^{p,q}\to E_r^{p+r,q-r+q};\qquad E_{r+1}^{p,q}=\ker d_r/\img d_r$.
-	\item {\color{blue}$E_{\infty}^{p,q}\cong F^{p+q}_p/F^{p+q}_{p+1}$}; {\color{blue}$\qquad 0\subset F^{p+q}_{p+q}\subset\ldots\subset F^{p+q}_0=H^{p+q}(X,G)$, this is the filtration!}.
-	\item {\color{blue}$E^{p,q}_2=H^p(B,H^{q}(F,G))$.}
-	\item $E^{p,q}_2\times E^{s,t}_2\to E^{p+s,q+t}_2$, which is given by $(-1)^{qs}$.
-	\[H^p(B,H^q(F,R))\times H^s(B,H^t(F,R))\overset{\smile}{\to} H^{p+s}(B,H(F,R))\]
-	now supposing that $G=R$ is a ring.
-	\item This
-	\begin{align*}
-		F^m_p\times F^n_s&\overset{\smile}{\to}F^{m+n}_{p+s}
-	\end{align*}
-	induces
-	\[F^m_p/F^m_{p+1}\times F^n_s/F^n_{s+1}\to F^{m+n}_{p+s}/F^{m+n}_{p+s+1}\]
-	and is
-	\[F_\infty^{p,m-p}\times E_\infty^{s,n-s}\to E_{\infty}^{p+s,m+n-p-s}\]
-\end{enumerate}
-\end{enumerate}
-Ok, here are some questions:
-\begin{enumerate}
-	\item What was the action of $\pi_{1}(F)$ on $H_{*}(F,G)$? Is there some intuition about this? There is an action of $\pi_{1}(X)$ on $\pi_{n}(X)$.
-	\item Was the point of Serre classes to show that homotopy groups of the sphere are finitely generated? How did this go, using Hurewicz theorem?
-	\item Wang and Gysin exact sequences.
-	\item Transgression.
-\end{enumerate}
-
-Here are some answers:
-
-\paragraph{action of $\pi_1$ on homology.} 
-
-\clearpage
-Ok, so, some exercises now.
-
-The first one is from \cite{sssguide}, which a nice first example but it is kind of cheating since we must use previous knowledge of the cohomology of spheres for it to make sense.
-
-\begin{exercise}[my first Serre spectral sequence]
-	Consider the Serre fibration $S^1\to S^3\to S^2$.  Always remember that
-	\[
-		{\color{blue}E^2_{p,q}=H_p(B;H_q(F;G))}
-	.\]
-	Or, as in \cite{sssguide},
-	\[
-	{\color{blue}E^{s,t}_2=H^s(B,H^t(F))}
-	.\]
-	
-	
-
-
-	We see that the second page is
-	\[
-	\begin{tikzcd}[column sep=small,row sep=small]
-			&\leavevmode\arrow[d,"p"]\\
-			\leavevmode\arrow[r,"q"]&\Z&0&\Z\\
-			&\Z&0&\Z\arrow[ull,"d"]\arrow[ull,"\cong",swap]\\
-	\end{tikzcd}\]
-	
-	Also always remember that
-	{\color{blue}\begin{align*}
-		E_{r+1}^{s,t}	&=\ker d_r/\operatorname{img}d_r\\
-				&=\frac{\ker d_r:E^{s,t}_{r}\to E^{s+r,t+1-r}_{r}}{\operatorname{img}d_r:E^{s-r,t-1+r}_{r}\to E^{s,t}_{r}}
-	\end{align*}}
-	Then you can see that the third page is	
-	\[
-	\begin{tikzcd}[column sep=small,row sep=small]
-	\Z/\img d_2&0&\Z\\
-	\Z&0&\Z/\img d_2
-	\end{tikzcd}\
-	\]
-	so $E^3=E^\infty$.
-
+For $d_{n,q-n}^n$ we obtain
+\[\begin{tikzcd}
+	0\arrow[r]&\ker d^n_{n,q-n}\arrow[r,"\text{inclusion} ",hook]&E^n_{n,q-n}\arrow[r,"d^n_{n,q-n}"]&E^n_{0,q-1}\arrow[r,"\text{quotient}",two heads]&\operatorname{coker}d^n_{n,q-n}\arrow[r]&0
+\end{tikzcd}\]
+But all that is just
+\[\begin{tikzcd}[row sep=small]
+	0\arrow[r]&\ker d^n_{n,q-n}\arrow[r,"\text{inclusion} ",hook]\arrow[d,equals]&E^n_{n,q-n}\arrow[r,"d^n_{n,q-n}"]\arrow[d,equals]&E^n_{0,q-1}\arrow[r,"\text{quotient}",two heads]\arrow[d,equals]&\operatorname{coker}d^n_{q-n}\arrow[r]\arrow[d,equals]&0\\
+	0\arrow[r]&\dfrac{\ker d^n_{n,q-n}}{\cancelto{0}{\img d^{n-1}_{n,q-n}}}\arrow[r]\arrow[d,equals]&E^2_{n,q-n}\arrow[r]\arrow[d,equals]&E^2_{0,q-1}\arrow[r]\arrow[d,equals]&\dfrac{E^n_{n,q-n}}{\img d^n_{n,q-n}} \arrow[d,equals]\arrow[r]&0\\
+	0\arrow[r]&E^\infty_{n,q-n}\arrow[r]&H_{q-n}(F)\arrow[r]&H_{q-1}(F)\arrow[r]&E^{\infty}_{0,q-1}\arrow[r]&0
+\end{tikzcd}\]
+This is the first "half" of the Wang sequence. For the other half recall that by the theorem of Serre spectral sequence for homology we know that
+\[E^{\infty}_{p,n-p}=F_pH_n/F_{p-1}H_n\]
+for a filtration on the $n$-th homology group of the total space 
+\[\varnothing=F_{-1}\subset F_0 \subset F_1\subset \ldots\subset F_n=H_{n}(E).\]
+And recall that we may also write
+\[E^\infty_{p,q}=F_pH_{p+q}/F_{p-1}H_{p+q}.\]
+Then we can see that
+\iffalse\[\begin{tikzcd}[row sep=small]
+	0\arrow[r]&E^\infty_{0,p+n-1}\arrow[d,equal]\arrow[r]&H_{p+n-1}(E)\arrow[r]&E^\infty_{n,q-1}\arrow[r]\arrow[d,equal]&0\\
+		  &\dfrac{F_0H_{p+n-1}(F)}{\cancelto{0}{F_{-1}H_{p+n-1}(F)}} &&\dfrac{F_nH_{p+n-1}}{F_{n-1}H_{p+n-1}}
+\end{tikzcd}\]\fi
+\[\begin{tikzcd}[row sep=small]
+	0\arrow[r]&E^\infty_{0,q}\arrow[d,equal]\arrow[r,"i^*"]&H_{q}(E)\arrow[r]&E^\infty_{n,q-n}\arrow[r]\arrow[d,equal]&0\\
+		  &\dfrac{F_0H_{q}(F)}{\cancelto{0}{F_{-1}H_{q}(F)}} &&\dfrac{F_nH_{q}(E)}{F_{n-1}H_{q}(E)}
+\end{tikzcd}\]
+But 
+\[E^\infty_{0,q}=\dfrac{F_0H_{q}(F)}{\cancelto{0}{F_{-1}H_{q}(F)}}{\color{magenta}\quad \overset{\text{why?}}{=}}H_{q}(F)\]
+\iffalse
+	these groups are just {\color{magenta}(why?)}
+\[\begin{tikzcd}[row sep=small]
+	0\arrow[r]&E^\infty_{0,q}\arrow[d,equal,magenta]\arrow[r]&H_{q}(E)\arrow[r]\arrow[d,equal]&E^\infty_{n,q-n}\arrow[r]\arrow[d,equal,magenta]&0\\
+	0\arrow[r]&H_q(F)\arrow[r]&H_{q}(E)\arrow[r]&H_{q-n}(F)\arrow[r]&0
+\end{tikzcd}\]\fi
+This is the other "half" of the Wang sequence. It only remains to put both halves together and conclude that
+\[\begin{tikzcd}[column sep=small]
+	\cdots\arrow[r]&H_{q}(F)\arrow[r,"i^*"]&H_{q}(E)\arrow[r]&E^{\infty}_{n,q-n}\arrow[r,"d^n_{n,q-n}"]&H_{q-n}(F)\arrow[r]&H_{q-1}(F)\arrow[r]&E^\infty_{0,q-1}\arrow[r]&\cdots
+\end{tikzcd}\]
+But we may remove the $E^\infty$ terms to get
+\[\begin{tikzcd}[column sep=small]
+	\cdots\arrow[r]&H_{q}(F)\arrow[r,"i^*"]&H_{q}(E)\arrow[r]&H_{q-n}(F)\arrow[r,"d^n_{n,q-n}"]&H_{q-1}(F)\arrow[r]&H_{q-1}(E)\arrow[r]&H_{q-n-1}(F)\arrow[r]&\cdots
+\end{tikzcd}\]
+\subsection{Extra exercise on spectral sequences}\label{ssec:Extra exercise on spectral sequences}
+\begin{exercise}[June 20]
+	Let $F\hookrightarrow E\to B$ be a Serre fibration, $\mathbb{F}$ a field and suppose the $\pi_{1}(B)\curvearrowright  H_{*}(F,\mathbb{F})$ is trivial. Suppose $\chi(B)$ and $\chi(F)$ exist. Show that $\chi(E)=\chi(F)\cdot \chi(B)$.
 \end{exercise}
+\begin{proof}[Solution]
+	Recall that for a topological space $X$,
+	\[\chi(X)=\sum_{i}(-1)^i\dim H_{i}(X,\mathbb{F}).\]
+	Also recall that when the coefficients in a spectral sequence are a field, we have the following nice expression for the associated graded:
+	\[H_{n}(X)\cong \bigoplus_{p}E^\infty_{p,n-p}=\bigoplus_{p} F_{p}H_{n}/F_{p-1}H_{n} \]
+	Then we have that 
+	\begin{align*}
+		\chi(E)&=\sum_{i}(-1)^i\dim H_{i}(E)\\
+		       &=(-1)^i\sum_{i}\dim \left( \bigoplus_{p}F_{p}/F_{p-1}   \right)\\
+		       &=(-1)^i\sum_{i}\dim E^\infty_{p,n-p}
+	\end{align*}
+	On the other hand, we have that
+	\[\chi(F)\cdot \chi(B)=\sum_{i}(-1)^i\dim H_{i}(F)\cdot \sum_{j}(-1)^{j}\dim H_{j}(B)={\color{magenta}\sum_{i,j}(-1)^{i+j}E^r_{j,i}}.\]
+	If we understand the last equation, our exercise is solved once we show that
+	\begin{claim}
+		The expression $\sum_{i,j}(-1)^{i+j}E^r_{j,i}}$	does note depend on $r$.
+	\end{claim}
+	
+
+	Here's a few facts that will turn out helpful
+	\begin{itemize}
+		\item $H_{i}(X,\mathbb{F}^k)\cong \bigoplus_{k} H_{i}(X,\mathbb{}) $
+		\item $H_{i}(X,V)=V\otimes H_{i}(X,\mathbb{F})$ for a vector space $V$ over $\mathbb{F}$.
+		\item $H_{p}(B,H_{q}(F,\mathbb{F}))\cong H_{q}(F,\mathbb{F})\otimes H_{p}(B,\mathbb{F})$.
+		\item For a chain complex 
+			\[\begin{tikzcd}[column sep=small]
+				\cdots \arrow[r]&C_{k}\arrow[r]&C_{k-1}\arrow[r]&\cdots
+			\end{tikzcd}\]
+			we have
+			\[\sum_{i}(-1)^i\dim C_i=\sum_{i}(-1)^i\dim H_{i}(C_{\bullet})\]
+	\end{itemize}
+	
+\end{proof}
+
+\section{Exam questions}\label{sec:Exam questions}
+\subsection{Computation of $\pi_{4}(S^{3})$}\label{ssec:Computation of }
+\subsubsection{Solution from  \href{https://math.stackexchange.com/questions/1102897/computing-pi-4s3-using-serre-spectral-sequence}{StackExchange}}
+
+
+\subsubsection{Solution from \href{https://people.math.wisc.edu/~lmaxim/754notes.pdf}{754notes.pdf}}\label{ssec:Solution of }
+When we apply the Postnikov tower to $S^{3}$, we obtain from the third and fourth levels a fibration
+\[(\pi_{4}(S^{3}),4)\hookrightarrow Y_{4}\to Y_3=K(\mathbb{Z},3).\]
+Recall that a CW decomposition of $S^{3}$ is given by a 3-cell and a 0-cell. Since $Y_4$ is obtained from $S^{3} $ by attaching cells of dimension $n+2$, we get that
+\[H_{4}(Y_{4})=H_{5}(Y_5)=0.\]
+Now we do the homology spectral sequence of this fibration. We get the following second page
+	\begin{align*}
+		\begin{array}{c|cccc}
+			&&&&\\
+			1&&&&\Z\\
+			0&&&&\Z\\
+			\hline
+			 &0&1&2&
+		\end{array}
+	\end{align*}
+So finally we are convinced that we should compute $H^{5}(K(\mathbb{Z},3)\mathbb{Z})$. First thing is 
+
+\begin{quotation}
+	and because the generator squared is minus the generator, the group must be $\mathbb{Z}/2$.
+\end{quotation}
 
 \addcontentsline{toc}{section}{References}
 \printbibliography
