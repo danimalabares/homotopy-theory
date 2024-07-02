@@ -912,19 +912,35 @@ But we may remove the $E^\infty$ terms to get
 
 \subsubsection{Solution from \href{https://people.math.wisc.edu/~lmaxim/754notes.pdf}{754notes.pdf}}\label{ssec:Solution of }
 When we apply the Postnikov tower to $S^{3}$, we obtain from the third and fourth levels a fibration
-\[(\pi_{4}(S^{3}),4)\hookrightarrow Y_{4}\to Y_3=K(\mathbb{Z},3).\]
+\[K(\pi_{4}(S^{3}),4)\hookrightarrow Y_{4}\to Y_3=K(\mathbb{Z},3).\]
 Recall that a CW decomposition of $S^{3}$ is given by a 3-cell and a 0-cell. Since $Y_4$ is obtained from $S^{3} $ by attaching cells of dimension $n+2$, we get that
 \[H_{4}(Y_{4})=H_{5}(Y_5)=0.\]
 Now we do the homology spectral sequence of this fibration. We get the following second page
 	\begin{align*}
-		\begin{array}{c|cccc}
-			&&&&\\
-			1&&&&\Z\\
-			0&&&&\Z\\
+		\begin{array}{c|c c c c}
+			4&\pi_{4}&&&\pi_{4}\\
+			3&&&&\\
+			2&&&&\\
+			1&&&&\\
+			0&&&&\\
 			\hline
-			 &0&1&2&
+			 &0&1&2&3
 		\end{array}
 	\end{align*}
+
+	\begin{align*}
+		\begin{array}{c|c c c c c}
+			5&&&&&\\
+			4&\pi_{4}&&&&\pi_{4}\\
+			3&&&&&\\
+			2&&&&&\\
+			2&&&&&\\
+			0&&&&&\Z\\
+			\hline
+			 &0&1&2&3&4&5
+		\end{array}
+	\end{align*}
+
 So finally we are convinced that we should compute $H^{5}(K(\mathbb{Z},3)\mathbb{Z})$. First thing is 
 
 \begin{quotation}
