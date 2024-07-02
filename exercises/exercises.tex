@@ -913,8 +913,6 @@ But we may remove the $E^\infty$ terms to get
 \subsubsection{Solution from \href{https://people.math.wisc.edu/~lmaxim/754notes.pdf}{754notes.pdf}}\label{ssec:Solution of }
 When we apply the Postnikov tower to $S^{3}$, we obtain from the third and fourth levels a fibration
 \[K(\pi_{4}(S^{3}),4)\hookrightarrow Y_{4}\to Y_3=K(\mathbb{Z},3).\]
-Recall that a CW decomposition of $S^{3}$ is given by a 3-cell and a 0-cell. Since $Y_4$ is obtained from $S^{3} $ by attaching cells of dimension $n+2$, we get that
-\[H_{4}(Y_{4})=H_{5}(Y_5)=0.\]
 Now we do the homology spectral sequence of this fibration. We get the following second page
 	\begin{align*}
 		\begin{array}{c|c c c c}
@@ -922,26 +920,36 @@ Now we do the homology spectral sequence of this fibration. We get the following
 			3&&&&\\
 			2&&&&\\
 			1&&&&\\
-			0&&&&\\
+			0&\pi_4&&&\pi_4\\
 			\hline
-			 &0&1&2&3
+			E^{2}&0&1&2&3
 		\end{array}
 	\end{align*}
+	where $\pi_4=\pi_{4}(S^{3})$. But we don't know what lies further up nor right.
 
+	We should look at the 5th page, since the differential
+	\[d^{5}_{5,0}:E^{5}_{5,0}\to E^{5}_{0,4}\]
+	has chances of being non-trivial.
 	\begin{align*}
-		\begin{array}{c|c c c c c}
-			5&&&&&\\
-			4&\pi_{4}&&&&\pi_{4}\\
-			3&&&&&\\
-			2&&&&&\\
-			2&&&&&\\
-			0&&&&&\Z\\
+		\begin{array}{c|c c c c c c}
+			4&\pi_{4}&&&\pi_{4}&&\\
+			3&&&&&&\\
+			2&&&&&&\\
+			1&&&&&&\\
+			0&\pi_4&&&\pi_4&&?\\
 			\hline
-			 &0&1&2&3&4&5
+			&0&1&2&3&4&5
 		\end{array}
 	\end{align*}
 
-So finally we are convinced that we should compute $H^{5}(K(\mathbb{Z},3)\mathbb{Z})$. First thing is 
+	Recall that a CW decomposition of $S^{3}$ is given by a 3-cell and a 0-cell. Since $Y_4$ is obtained from $S^{3} $ by attaching cells of dimension $n+2$, we get that
+\[H_{4}(Y_{4})=H_{5}(Y_5)=0.\]
+We know there is a filtration on homology
+\[0=F_{-1}H_{n}\subset F_{0}H_{n}\subset \ldots\subset F_{n}H_n=H_n\]
+such that
+\[E^{\infty}_{p,q}=F^{p} H^{p+q} /F^{p-1} H^{p+q}.\]
+But the 4th and 5th homology groups are zero, so the filtration is zero and so are the groups $E^{\infty}_{p,q}$ with $p+q=4,5$.
+…so finally we are convinced that we should compute $H^{5}(K(\mathbb{Z},3)\mathbb{Z})$. First thing is 
 
 \begin{quotation}
 	and because the generator squared is minus the generator, the group must be $\mathbb{Z}/2$.
