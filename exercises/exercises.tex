@@ -951,10 +951,37 @@ such that
 But the 4th and 5th homology groups are zero, so the filtration is zero and so are the groups $E^{\infty}_{p,q}$ with $p+q=4,5$. And of course the groups $E^{6}_{5,0}$ and $E^{6}_{0,4}$ are (always) already $E^{\infty}_{5,0}$ and $E^{\infty}_{0,4}$, meaning
 \[0=E^{6}_{5,0}=\dfrac{\ker d^5}{\img d^{5}}{\color{red}\implies }\pi_{4}(S^{3})\cong H_{5}(K(\mathbb{Z},3)).\]
 
-…so finally we are convinced that we are looking for $H^{5}(K(\mathbb{Z},3)\mathbb{Z})$.
+…so finally we are convinced that we are looking for $H^{5}(K(\mathbb{Z},3),\mathbb{Z})$.
+
+To find such a group let's compute the cohomology spectral sequence of the fibration
+\[\Omega K(\mathbb{Z},3)\hookrightarrow PK(\mathbb{Z},3)\to K(\mathbb{Z},3).\]
+We immediately notice $\pi_{i}(\Omega K(\mathbb{Z},3))\cong \pi_{i+1}(K(\mathbb{Z},3))$ by the long exact sequence in homotopy. So, another name for $\Omega K(\mathbb{Z},3)$ is $K(\mathbb{Z},2)$ which in turn is just $\mathbb{C}P^{\infty}$. So the second page is 
+\begin{align*}
+\begin{array}{c|c c c c c c c}
+	4&a^{2}\mathbb{Z}&&&sa^{2} \mathbb{Z}&&&\\
+	3&&&&&&&\\
+	2&a\mathbb{Z}&&&sa\mathbb{Z}&&&\\
+	1&&&&&&&\\
+	0&\mathbb{Z}&&&s\mathbb{Z}&&&?\\
+	\hline
+	 &0&1&2&3&4&5&6
+\end{array}
+\end{align*}
+where we have chosen generators for each cohomology group in $H^{\bullet}(\mathbb{C}P^{\infty})$ according to its product structure.
+
+Now recall that the \href{https://en.wikipedia.org/wiki/Universal_coefficient_theorem#Universal_coefficient_theorem_for_cohomology}{universal coefficient theorem for cohomology} gives us a natural short exact sequence
+\[\begin{tikzcd}
+	0\arrow[r]&\opertatorame{Ext}(H_{i-1}(X;R),G)\arrow[r]&H^{i}(X;G)\arrow[r,"h"]&\opertatorame{Hom}(H_{i}(X;R),G)\arrow[r]&0
+\end{tikzcd}\]
+which splits, giving for $i=5$
+\[H^{5}=\opertatorame{Hom}(H_{5},\mathbb{Z})\oplus \opertatorame{Ext}(H_{4},\mathbb{Z}),\]
+where the homology and cohomolgy groups correspond to $K(\mathbb{Z},3)$.
+
+Since cohomology groups are finitely generated, {\color{magenta}we may write
+\[H_{5}=\text{Free part of } H^{5}\oplus \text{Torsion part of } H^{6}.\]}
 
 \begin{quotation}
-	and because the generator squared is minus the generator, the group must be $\mathbb{Z}/2$.
+"	and because the generator squared is minus the generator, the group $H^{5}$ must be $\mathbb{Z}/2$. And $H^{6}$ is zero."
 \end{quotation}
 
 \addcontentsline{toc}{section}{References}
