@@ -886,7 +886,7 @@ But we may remove the $E^\infty$ terms to get
 	\[\chi(F)\cdot \chi(B)=\sum_{i}(-1)^i\dim H_{i}(F)\cdot \sum_{j}(-1)^{j}\dim H_{j}(B)={\color{magenta}\sum_{i,j}(-1)^{i+j}E^r_{j,i}}.\]
 	If we understand the last equation, our exercise is solved once we show that
 	\begin{claim}
-		The expression $\sum_{i,j}(-1)^{i+j}E^r_{j,i}}$	does note depend on $r$.
+		The expression $\sum_{i,j}(-1)^{i+j}E^r_{j,i}$	does note depend on $r$.
 	\end{claim}
 	
 
@@ -906,11 +906,11 @@ But we may remove the $E^\infty$ terms to get
 \end{proof}
 
 \section{Exam questions}\label{sec:Exam questions}
-\subsection{Computation of $\pi_{4}(S^{3})$}\label{ssec:Computation of }
+\subsection{Computation of $\pi_{4}(S^{3})$}
 \subsubsection{Solution from  \href{https://math.stackexchange.com/questions/1102897/computing-pi-4s3-using-serre-spectral-sequence}{StackExchange}}
 
 
-\subsubsection{Solution from \href{https://people.math.wisc.edu/~lmaxim/754notes.pdf}{754notes.pdf}}\label{ssec:Solution of }
+\subsubsection{Solution from \href{https://people.math.wisc.edu/~lmaxim/754notes.pdf}{754notes.pdf}}
 When we apply the Postnikov tower to $S^{3}$, we obtain from the third and fourth levels a fibration
 \[K(\pi_{4}(S^{3}),4)\hookrightarrow Y_{4}\to Y_3=K(\mathbb{Z},3).\]
 Now we do the homology spectral sequence of this fibration. We get the following second page
@@ -955,21 +955,23 @@ But the 4th and 5th homology groups are zero, so the filtration is zero and so a
 
 To find such a group let's compute the cohomology spectral sequence of the fibration
 \[\Omega K(\mathbb{Z},3)\hookrightarrow PK(\mathbb{Z},3)\to K(\mathbb{Z},3).\]
-We immediately notice $\pi_{i}(\Omega K(\mathbb{Z},3))\cong \pi_{i+1}(K(\mathbb{Z},3))$ by the long exact sequence in homotopy. So, another name for $\Omega K(\mathbb{Z},3)$ is $K(\mathbb{Z},2)$ which in turn is just $\mathbb{C}P^{\infty}$. So the second page is 
+We immediately notice $\pi_{i}(\Omega K(\mathbb{Z},3))\cong \pi_{i+1}(K(\mathbb{Z},3))$ by the long exact sequence in homotopy. So, another name for $\Omega K(\mathbb{Z},3)$ is $K(\mathbb{Z},2)$ which in turn is just $\mathbb{C}P^{\infty}$. To find out how the second page looks like we use the fact that homology groups of $\mathbb{C}P^{\infty}$ are finitely generated, {\color{magenta}so that by the universal coefficients theorem we have
+\[E^{p,q}_{2}=H^{p}(K(\mathbb{Z},3);H^{q}(\mathbb{C}P^{\infty}))\cong H^{p}(K(\mathbb{Z},3))\otimes H^{q}(\mathbb{C}P^{\infty}).\]}
+This gives us
 \begin{align*}
 \begin{array}{c|c c c c c c c}
-	4&a^{2}\mathbb{Z}&&&sa^{2} \mathbb{Z}&&&\\
+	4&a^{2}\mathbb{Z}&&&s\mathbb{Z}\otimes a^{2} \mathbb{Z}&&&\\
 	3&&&&&&&\\
-	2&a\mathbb{Z}&&&sa\mathbb{Z}&&&\\
+	2&a\mathbb{Z}&&&s\mathbb{Z}\otimes a\mathbb{Z}&&&\\
 	1&&&&&&&\\
-	0&\mathbb{Z}&&&s\mathbb{Z}&&&?\\
+	0&\mathbb{Z}&&&s\mathbb{Z}\otimes \mathbb{Z}&&&?\\
 	\hline
 	 &0&1&2&3&4&5&6
 \end{array}
 \end{align*}
-where we have chosen generators for each cohomology group in $H^{\bullet}(\mathbb{C}P^{\infty})$ according to its product structure.
+where we have chosen generators for each cohomology group in $H^{\bullet}(K(\mathbb{Z},3))\otimes H^{\bullet}(\mathbb{C}P^{\infty})$ according to its product structure.
 
-Now recall that the \href{https://en.wikipedia.org/wiki/Universal_coefficient_theorem#Universal_coefficient_theorem_for_cohomology}{universal coefficient theorem for cohomology} gives us a natural short exact sequence
+ow, again by the \href{https://en.wikipedia.org/wiki/Universal_coefficient_theorem#Universal_coefficient_theorem_for_cohomology}{universal coefficient theorem for cohomology} we have a short exact sequence
 \[\begin{tikzcd}
 	0\arrow[r]&\opertatorame{Ext}(H_{i-1}(X;R),G)\arrow[r]&H^{i}(X;G)\arrow[r,"h"]&\opertatorame{Hom}(H_{i}(X;R),G)\arrow[r]&0
 \end{tikzcd}\]
