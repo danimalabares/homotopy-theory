@@ -964,14 +964,14 @@ This gives us
 	3&&&&&&&\\
 	2&a\mathbb{Z}&&&s\mathbb{Z}\otimes a\mathbb{Z}&&&\\
 	1&&&&&&&\\
-	0&\mathbb{Z}&&&s\mathbb{Z}\otimes \mathbb{Z}&&&?\\
+	0&\mathbb{Z}&&&s\mathbb{Z}\otimes \mathbb{Z}&&?&?\\
 	\hline
 	 &0&1&2&3&4&5&6
 \end{array}
 \end{align*}
 where we have chosen generators for each cohomology group in $H^{\bullet}(K(\mathbb{Z},3))\otimes H^{\bullet}(\mathbb{C}P^{\infty})$ according to its product structure.
 
-ow, again by the \href{https://en.wikipedia.org/wiki/Universal_coefficient_theorem#Universal_coefficient_theorem_for_cohomology}{universal coefficient theorem for cohomology} we have a short exact sequence
+Our interest in groups marked with a question mark is justified as follows. Again by the \href{https://en.wikipedia.org/wiki/Universal_coefficient_theorem#Universal_coefficient_theorem_for_cohomology}{universal coefficient theorem for cohomology} we have a short exact sequence
 \[\begin{tikzcd}
 	0\arrow[r]&\opertatorame{Ext}(H_{i-1}(X;R),G)\arrow[r]&H^{i}(X;G)\arrow[r,"h"]&\opertatorame{Hom}(H_{i}(X;R),G)\arrow[r]&0
 \end{tikzcd}\]
@@ -981,11 +981,15 @@ where the homology and cohomolgy groups correspond to $K(\mathbb{Z},3)$.
 
 Since cohomology groups are finitely generated, {\color{magenta}we may write
 \[H_{5}=\text{Free part of } H^{5}\oplus \text{Torsion part of } H^{6}.\]}
+Now let's try to compute those groups. First notice that since $E_{2}^{p,q}=0$ for $q$ odd, we have that $d_{2}=0$, so that $E_{2}= E_{3}$. The same happens for all even pages, i.e. $E_{2k}=E_{2k+1}$.
 
-\begin{quotation}
-"	and because the generator squared is minus the generator, the group $H^{5}$ must be $\mathbb{Z}/2$. And $H^{6}$ is zero."
-\end{quotation}
+To find $H^{6}$ notice that
+\[d_{3}^{3,2}:E^{3,2}_{3}\to E^{6,0}_{3}=H^{6}(K(\mathbb{Z},3))\otimes \mathbb{Z}\] 
+maps
+\[s\otimes a\longmapsto ds\otimes a-s\otimes  da=0\otimes  a\pm s^{2}\]
+which is clear by the other differentials in this page. And because the generator squared is minus the generator, the group $H^{5}$ must be $\mathbb{Z}/2$. And $H^{6}$ is zero.
 
+\clearpage
 \addcontentsline{toc}{section}{References}
 \printbibliography
 \clearpage
