@@ -987,7 +987,29 @@ To find $H^{6}$ notice that
 \[d_{3}^{3,2}:E^{3,2}_{3}\to E^{6,0}_{3}=H^{6}(K(\mathbb{Z},3))\otimes \mathbb{Z}\] 
 maps
 \[s\otimes a\longmapsto ds\otimes a-s\otimes  da=0\otimes  a\pm s^{2}\]
-which is clear by the other differentials in this page. And because the generator squared is minus the generator, the group $H^{5}$ must be $\mathbb{Z}/2$. And $H^{6}$ is zero.
+which is clear by the other differentials in this page. {\color{magenta}And because the generator squared is minus the generator, the group $H^{5}$ must be $\mathbb{Z}/2$. And $H^{6}$ is zero.}
+
+\subsection{Computation of $\pi_{5}(S^{3})$}
+\subsection{$\pi_{i}(S^{2k+1})$ is finite for $i>2k+1$}
+This proof is an induction on $k$. The case $k=0$ is easy since $\pi_{1}(S^{1})$ is trivial (since its universal cover is contractible). For other $k$ we will use the fact proved in lectures that the groups $\pi_{i}(S^{2k+1})$ are finitely generated (and abelian) for all $i>1$. This means that they are finite if they are torsion groups. The exercise is proved once we show that
+\begin{equation}\label{eq:1}
+	\pi_{i}(S^{2k-1})\cong \pi_{i+2}(S^{2k+1})\qquad \mod\text{torsion}.
+\end{equation}
+This will work since it shows that, for instance, $\pi_{i+2}(S^{3})$ are congruent {\color{magenta}modulo torsion} to $\pi_{i}(S^{1})$ for all $i$, which  {\color{magenta}makes them torsion groups?}.
+
+The trick is proving that
+\begin{equation}\label{eq:2}
+	\pi_{2k-1}(\Omega^{2} S^{2k+1})\cong \pi_{2k+1}(S^{2k+1})\cong \mathbb{Z}.
+\end{equation}
+The hardest part is showing that a generator of $\pi_{2k-1}(\Omega^{2} S^{2k+1})$, which is a map $\beta:S^{2k-1}\to \Omega^{2} S^{2k+1}$, induces an isomorphism mod torsion on $H_{*}$, {\color{magenta}which is just another way of saying it is an isomorphism on $H_{*}(-;\mathbb{Q})$}.
+
+When that is proved, the homology long exact sequence of the pair $\Omega^{2}S^{2k+1},S^{2k-1}$ says that
+\[H_\bullet(\Omega^{2} S^{2k+1},S^{2k-1})=0\mod \text{torsion} \]
+and by relative Hurewicz mod torsion theorem we have that
+\[\pi_{i}(\Omega^{2} S^{2k+},S^{2k-1})=0\mod\text{torsion} \forall i>0\]
+giving the desired isomorphism by the long exact sequence in homotopy.
+
+\subsection{$\pi_{i}(S^{2k})$ is finite for $i>2k$ and $i\neq 4k-1$}
 
 \clearpage
 \addcontentsline{toc}{section}{References}
