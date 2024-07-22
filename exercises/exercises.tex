@@ -1,161 +1,9 @@
-\documentclass{article}
-\usepackage{titlesec}
-
-\usepackage[citestyle=authortitle-terse,backref,backend=bibtex]{biblatex}
-\addbibresource{homotopy-theory.bib}
-
-\makeatletter
-\renewcommand\thesection{}
-\renewcommand\thesubsection{\@arabic\c@section.\@arabic\c@subsection}
-\makeatother
-\usepackage{tocloft}
-\renewcommand{\thesubsection}{\arabic{subsection}}
-
-
-\usepackage[left=4cm, right=4cm]{geometry}
-\usepackage{palatino,eulervm,dutchcal,xcolor}
-\usepackage{graphicx,subcaption,float}
-\usepackage{enumitem,parskip,multicol,array}
-\newcolumntype{L}{>{$}c<{$}}%table in mathmode
-\usepackage{amsthm,amssymb,amsmath,mathtools,thmtools,tikz,tikz-cd}
-\usetikzlibrary{%
-	matrix,%
-	calc,%
-	arrows,%
-	shapes,
-	decorations.markings,backgrounds,calc,intersections}
-\tikzcdset{scale cd/.style={every label/.append style={scale=#1},
-		cells={nodes={scale=#1}}}}
-\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
-\hypersetup{%colores
-	colorlinks=true,
-	urlcolor=blue,
-	linkcolor=magenta,
-	citecolor=blue,
-	filecolor=blue,
-	urlbordercolor=white,
-	linkbordercolor=white,
-	citebordercolor=white,
-	filebordercolor=white}
-\usepackage{cleveref}
-
-\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
-\definecolor{azure}{rgb}{0.0, 0.5, 1.0}
-\definecolor{green(ncs)}{rgb}{0.0, 0.62, 0.42}
-\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
-\definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
-\definecolor{palatinateblue}{rgb}{0.15, 0.23, 0.89}
-\definecolor{trueblue}{rgb}{0.0, 0.45, 0.81}
-\definecolor{goldenyellow}{rgb}{1.0, 0.87, 0.0}
-\definecolor{fashionfuchsia}{rgb}{0.96, 0.0, 0.63}
-\definecolor{brightcerulean}{rgb}{0.11, 0.67, 0.84}
-\definecolor{jonquil}{rgb}{0.98, 0.85, 0.37}
-\definecolor{lavendermagenta}{rgb}{0.93, 0.51, 0.93}
-\definecolor{peru}{rgb}{0.8, 0.52, 0.25}
-\definecolor{persimmon}{rgb}{0.93, 0.35, 0.0}
-\definecolor{persianred}{rgb}{0.8, 0.2, 0.2}
-\definecolor{persianblue}{rgb}{0.11, 0.22, 0.73}
-\definecolor{persiangreen}{rgb}{0.0, 0.65, 0.58}
-\definecolor{persianyellow}{rgb}{0.9, 0.89, 0.0}
-
-
-
-\declaretheoremstyle[headfont=\color{trueblue}\normalfont\bfseries,]{colored1}
-\declaretheoremstyle[headfont=\color{forestgreen}\normalfont\bfseries,]{colored2}
-\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored3}
-\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored4}
-\declaretheoremstyle[headfont=\color{brightcerulean}\normalfont\bfseries,]{colored5}
-\declaretheoremstyle[headfont=\color{lavendermagenta}\normalfont\bfseries,]{colored6}
-\declaretheoremstyle[headfont=\color{blue-violet}\normalfont\bfseries,]{colored7}
-\declaretheoremstyle[headfont=\color{green(ncs)}\normalfont\bfseries,]{colored8}
-\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored9}
-\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored10}
-
-\declaretheorem[style=colored1,name=Theorem]{thm}
-\declaretheorem[style=colored2,numberlike=thm,name=proposition]{prop}
-\declaretheorem[style=colored3,numbered=no,name=Lemma]{lemma}
-\declaretheorem[style=colored4,numbered=no,name=Corollary]{coro}
-\declaretheorem[style=colored5,numbered=no,name=Example]{example}
-\declaretheorem[style=colored5,numbered=no,name=Examples]{exemplos}
-\declaretheorem[style=colored7,numbered=no,name=Exercise]{exercise}
-\declaretheorem[style=colored6,numbered=no,name=Remark]{remark}
-\declaretheorem[style=colored8,numbered=no,name=Claim]{claim}
-\declaretheorem[style=colored9,numbered=no,name=Definition]{defn}
-\declaretheorem[style=colored10,numbered=no,name=Question]{question}
-
-\numberwithin{equation}{section}
-
-\newcommand{\A}{\mathbb{A}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\D}{\mathbb{D}}
-\renewcommand{\P}{\mathbb{P}}
-
-\newcommand{\Ac}{\mathcal{A}}
-\newcommand{\Bc}{\mathcal{B}}
-\newcommand{\Cc}{\mathcal{C}}
-\newcommand{\Dc}{\mathcal{D}}
-\newcommand{\Ec}{\mathcal{E}}
-\newcommand{\Fc}{\mathcal{F}}
-\newcommand{\Gc}{\mathcal{G}}
-\newcommand{\Hc}{\mathcal{H}}
-\newcommand{\Ic}{\mathcal{I}}
-\newcommand{\Jc}{\mathcal{J}}
-\newcommand{\Kc}{\mathcal{K}}
-\newcommand{\Lc}{\mathcal{L}}
-\newcommand{\Mc}{\mathcal{M}}
-\newcommand{\Nc}{\mathcal{N}}
-\newcommand{\Oc}{\mathcal{O}}
-\newcommand{\Pc}{\mathcal{P}}
-\newcommand{\Qc}{\mathcal{Q}}
-\newcommand{\Rc}{\mathcal{R}}
-\newcommand{\Sc}{\mathcal{S}}
-\newcommand{\Tc}{\mathcal{T}}
-\newcommand{\Uc}{\mathcal{U}}
-\newcommand{\Vc}{\mathcal{V}}
-\newcommand{\Wc}{\mathcal{W}}
-\newcommand{\Xc}{\mathcal{X}}
-\newcommand{\Yc}{\mathcal{Y}}
-\newcommand{\Zc}{\mathcal{Z}}
-
-\DeclareMathOperator{\img}{img}
-\DeclareMathOperator{\Arg}{Arg}
-\DeclareMathOperator{\id}{id}
-\DeclareMathOperator{\pt}{pt}
-\DeclareMathOperator{\Alt}{Alt}
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\hTop}{h-Top}
-\DeclareMathOperator{\supp}{supp}
-\DeclareMathOperator{\Int}{Int}
-\DeclareMathOperator{\Ob}{Ob}
-\DeclareMathOperator{\Mor}{Mor}
-\DeclareMathOperator{\Top}{Top}
-\DeclareMathOperator{\Set}{Set}
-\DeclareMathOperator{\CGWH}{CGWH}
-\DeclareMathOperator{\Hom}{Hom}
-\DeclareMathOperator{\Map}{Map}
-\DeclareMathOperator{\Tot}{Tot}
-\DeclareMathOperator{\op}{op}
-\DeclareMathOperator{\ev}{ev}
-\DeclareMathOperator{\hofib}{hofib}
-\DeclareMathOperator{\rel}{rel}
-\DeclareMathOperator{\Nat}{Nat}
-\DeclareMathOperator{\Arr}{Arr}
-\DeclareMathOperator{\Funct}{Funct}
-\DeclareMathOperator{\colim}{colim}
-\DeclareMathOperator{\GL}{GL}
-\DeclareMathOperator{\SL}{SL}
-\DeclareMathOperator{\SO}{SO}
-\DeclareMathOperator{\U}{U}
-\DeclareMathOperator{\SU}{SU}
-\DeclareMathOperator{\Sp}{Sp}
-\DeclareMathOperator{\M}{M}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\PGL}{PGL}
-\DeclareMathOperator{\PSL}{PSL}
+%\input{|"curl --stderr /dev/null https://github.com/danimalabares/config/preamble.sty"} 
+%\input{|"curl --stderr /dev/null https://github.com/danimalabares/config/thms.sty"} 
+%\input{|"curl --stderr /dev/null https://github.com/danimalabares/config/ops.sty"} 
+\include{/Users/daniel/github/config/preamble.sty}
+\include{/Users/daniel/github/config/thms.sty}
+\include{/Users/daniel/github/config/ops.sty}
 
 \begin{document}
 {\LARGE algebraic topology exercises}
@@ -329,7 +177,7 @@
 		that is,
 		\[\begin{tikzcd}
 			X\times\{0\}\times I\arrow[r]\arrow[d]&Y\times I\arrow[d,"?"]\arrow[ddr,bend left,"(y\text{,}s)\mapsto y"]\\
-			X\times I\times I\arrow[r,"?",swap]\arrow[drr,bend right,"(x\text{,}t\text{,}s)\mapsto f(x)",swap]&M_f\times I\arrow[ul, phantom, "\ulcorner", very near start]\arrow[dr,dashed]\\
+			X\times I\times I\arrow[r,"?",swap]\arrow[drr,bend right,"(x\text{,}t\text{,}s)\mapsto (x,t(s-1))",swap]&M_f\times I\arrow[ul, phantom, "\ulcorner", very near start]\arrow[dr,dashed]\\
 			&&M_f
 		\end{tikzcd}\]
 		{\color{red}[I certainly got stuck in concluding…]}
@@ -546,7 +394,7 @@ so
 \begin{exercise}[4.2.1]
 	Use homotopy groups to show that there is no retraction $\R P^n\to \R P^k$ for $n>k>0$.
 \end{exercise}
-\begin{proof}[Solution (in progress…)]
+\begin{proof}[Solution]
 	Suppose there is a retraction
 	\[\begin{tikzcd}
 		\R P^k\arrow[r,hook]\arrow[rr,bend right,swap,"\id"]&\R P^n\arrow[r]&\R P^k
@@ -725,7 +573,11 @@ which makes $f_*:H_3(T^3)\to H_3(S^3)$ an isomorphism.
 	\end{tikzcd}\]
 	so when $2n+1>k+1\iff n>k/2$ the homotopy groups of the spheres vanish and we have an isomorphism.
 	
-	The group $\pi_1(\U(n))$ is isomorphic to $\Z$. This follows from the fact that $\U(1)$ is homeomorphic to a circle and by induction using the former isomorphism $\pi_1(\U(n))\cong\pi_1(\U(n+1))$. We also have $\pi_2(\U(1))=0$, so that again by induction we get $\pi_2(\U(n))=0$. Finally, a similar argument shows $\pi_3(\U(n))=0$.
+	The group $\pi_1(\U(n))$ is isomorphic to $\Z$. This follows from the fact that $\U(1)$ is homeomorphic to a circle and by induction using the former isomorphism $\pi_1(\U(n))\cong\pi_1(\U(n+1))$. We also have $\pi_2(\U(1))=0$, so that again by induction we get $\pi_2(\U(n))=0$. Finally, a similar argument shows $\pi_3(\U(n))=0$. Notice $n$ must be at least 2 for the isomorphism to work, so that to compute the first and second homotopy groups of $\U(n)$ we must use the exact sequences
+\[\begin{tikzcd}
+	0\arrow[r]&\SU(2)\arrow[r]&\S(n)\arrow[r]&\S(1)\arrow[r]&0
+\end{tikzcd}\]
+which yield $\pi_{2}(\U(n))=\mathbb{Z}$ and $\pi_{1}(\U(n))=0$.
 \end{proof}
 
 
@@ -990,10 +842,63 @@ maps
 which is clear by the other differentials in this page. {\color{magenta}And because the generator squared is minus the generator, the group $H^{5}$ must be $\mathbb{Z}/2$. And $H^{6}$ is zero.}
 
 \subsection{Computation of $\pi_{5}(S^{3})$}
+Actually, the following argument reproves the previous exercise.
+
+Consider the Whitehead tower of $S^{3}$:
+\[\begin{tikzcd}
+	K(\mathbb{Z},3)\arrow[r]&X_4\arrow[d]\\
+	K(\mathbb{Z},2)\arrow[r]&X_3\arrow[d]\\
+				&S^{3}
+\end{tikzcd}\]
+and quickly notice that
+\[H_{5}(X_4)=\pi_{5}(X_4)=\pi_{5}(S^{3})\]
+and that
+\[H_{4}(X_3)=\pi_{4}(X_3)=\pi_{4}(S^{3})\]
+because of the connectedness of $X_{3}$ and $X_{4}$.
+
+Now let's do cohomology spectral sequence for the second fibration. Recall that $K(\mathbb{Z},2)\cong \mathbb{C}P^{\infty}$. And because all groups are free, we get that
+\[ E^{p,q}_{2}=H^{p}(S^{3},\mathbb{Z})\otimes H^{q}(\mathbb{C}P^{\infty},\mathbb{Z})\]
+so that the second page is
+\begin{align*}
+\begin{array}{c|c c c c c}
+	4&\mathbb{Z}\otimes \mathbb{Z}&&&\mathbb{Z}\otimes \mathbb{Z}&\\
+	3&&&&&\\
+	2&\mathbb{Z}\otimes \mathbb{Z}&&&\mathbb{Z}\otimes \mathbb{Z}&\\
+	1&&&&&\\
+	0&\mathbb{Z}\otimes \mathbb{Z}&&&\mathbb{Z}\otimes \mathbb{Z}&\\
+	\hline
+	 &0&1&2&3&4&
+\end{array}
+\end{align*}
+{\color{magenta}(are these tensor products really correct? Because in the pdf we have only $\mathbb{Z}$…)} So we see that $E^{2}=E^{3}$ and $E^{4}=E^{\infty} $.  
+
+We also know by Hurewicz {\color{magenta}(but of course Hurewicz is on \textit{homology}, telling us that second and third homology groups vanish, so really we should be using universal coefficient theorem to get vanishing cohomology from that… so perhaps we use that \textit{first} and \textit{second} homology vanish to get that second and third cohomology vanish…)} that
+\[H^{2}(X_{3})=H^{3}(X_{3})=0\]
+which means that the groups in the $E_{\infty}=E^{4}$ page are zero (because they are subsequent quotients of a filtration on homology), and this in turn means that the differentials on $E^{3}$ are isomorphisms.
+
+Now let's see what we get from those isomorphisms. We use the product structure on $H^{\bullet}(\mathbb{C}P^{\infty})\cong \mathbb{Z}[x]$ where $x^{2}=1$. We re-write the second page using the generators of each group like this:
+\begin{align*}
+\begin{array}{c|c c c c c}
+	4&x^{2}&&&s^{3}x&\\
+	3&&&&&\\
+	2&x&&&s^{2}&\\
+	1&&&&&\\
+	0&1&&&s&\\
+	\hline
+	 &0&1&2&3&4&
+\end{array}
+\end{align*}
+And then we know that we may choose the generators so that $d_{3}$ maps $x\mapsto s$ (because we have seen that $d_{3}$ is an isomorphism). Then we get by Leibliz property of the product that
+\[d_{3}x^{n} =nx^{n-1} dx=nx^{n-1} u\]
+Where $x^{n} $ is the generator of $E^{0,2n}_{3}$ on the left column and $x^{n-1}u$ is the generator of the corresponding group on the right column. The last equation says that differential $d^{0,2n}_{3}$ maps a generator to $n$ times the generator. That is, it is multiplication by $n$.
+
+Then it very easily follows that the groups on the fourth page, being quotients by the kernel of each differential, are $\mathbb{Z}/k$ coming from the $2k$-th row. And because everything else in the filtration is zero, these groups are the cohomology groups of $X_{3}$, and finally by universal coefficients we know the homology groups.
+
+[Put table here, but it says that for big $k$, the $2k+1$-th cohomology group is  $\mathbb{Z}/k$ and the $2k$ homology is  $\mathbb{Z}/k$.
 \subsection{$\pi_{i}(S^{2k+1})$ is finite for $i>2k+1$}
-This proof is an induction on $k$. The case $k=0$ is easy since $\pi_{1}(S^{1})$ is trivial (since its universal cover is contractible). For other $k$ we will use the fact proved in lectures that the groups $\pi_{i}(S^{2k+1})$ are finitely generated (and abelian) for all $i>1$. This means that they are finite if they are torsion groups. The exercise is proved once we show that
+This proof is an induction on $k$. The case $k=0$ is easy since $\pi_{1}(S^{1})$ is trivial (since its universal cover is contractible). For other $k$ we will use the fact proved in lectures that the groups $\pi_{i}(S^{2k+1})$ are finitely generated (and abelian) for all $i>1$. This means that they are finite if they are torsion groups. This exercise is proved once we show that
 \begin{equation}\label{eq:1}
-	\pi_{i}(S^{2k-1})\cong \pi_{i+2}(S^{2k+1})\qquad \mod\text{torsion}.
+	\pi_{i}(S^{2k-1})\cong \pi_{i+2}(S^{2k+1})\quad \mod\text{torsion}.
 \end{equation}
 This will work since it shows that, for instance, $\pi_{i+2}(S^{3})$ are congruent {\color{magenta}modulo torsion} to $\pi_{i}(S^{1})$ for all $i$, which  {\color{magenta}makes them torsion groups?}.
 
@@ -1001,15 +906,60 @@ The trick is proving that
 \begin{equation}\label{eq:2}
 	\pi_{2k-1}(\Omega^{2} S^{2k+1})\cong \pi_{2k+1}(S^{2k+1})\cong \mathbb{Z}.
 \end{equation}
-The hardest part is showing that a generator of $\pi_{2k-1}(\Omega^{2} S^{2k+1})$, which is a map $\beta:S^{2k-1}\to \Omega^{2} S^{2k+1}$, induces an isomorphism mod torsion on $H_{*}$, {\color{magenta}which is just another way of saying it is an isomorphism on $H_{*}(-;\mathbb{Q})$}.
+The hardest part is showing that a generator of $\pi_{2k-1}(\Omega^{2} S^{2k+1})$, which is a map $\beta:S^{2k-1}\to \Omega^{2} S^{2k+1}$, induces an isomorphism mod torsion on $H_{*}$, {\color{magenta}which is just another way of saying that it is an isomorphism on $H_{*}(-;\mathbb{Q})$}.
 
 When that is proved, the homology long exact sequence of the pair $\Omega^{2}S^{2k+1},S^{2k-1}$ says that
 \[H_\bullet(\Omega^{2} S^{2k+1},S^{2k-1})=0\mod \text{torsion} \]
 and by relative Hurewicz mod torsion theorem we have that
-\[\pi_{i}(\Omega^{2} S^{2k+},S^{2k-1})=0\mod\text{torsion} \forall i>0\]
+\[\pi_{i}(\Omega^{2} S^{2k+},S^{2k-1})=0\mod\text{torsion}\; \forall i>0\]
 giving the desired isomorphism by the long exact sequence in homotopy.
 
 \subsection{$\pi_{i}(S^{2k})$ is finite for $i>2k$ and $i\neq 4k-1$}
+Our objective will be to obtain a contradiction to the hairy-ball theorem by constructing a nowhere-vanishing vector field on $S^{2k}$.
+
+We shall define $E$ to be the tangent bundle of $S^{2k}$  \textit{without} all zero vectors, yielding a fibration
+\[S^{2k-1}\hookrightarrow E\to S^{2k}\]
+since the fiber is $\mathbb{R}^{2k}\backslash \{0\}\simeq S^{2k-1}$. Then the Serre homology spectral sequence reads
+\[E^{2}_{p,q}=H_{p}(S^{2k},H_{q}(S^{2k-1}){\color{magenta}=}H_{p}(S^{2k})\otimes H_{q}(S^{2k-1})\]
+so that there's only four non-trivial entries on the second page:
+\begin{align*}
+\begin{array}{c|c c c c c c}
+	2k-1&\mathbb{Z}&&&&\mathbb{Z}&\\
+	\vdots &&&&&&\\
+	3&&&&&&\\
+	2&&&&&&\\
+	1&&&&&&\\
+	0&\mathbb{Z}&&&&\mathbb{Z}&\\
+	\hline
+	&0&1&2&\cdots &2k&
+\end{array}
+\end{align*}
+so that only the differential $d^{2k}_{2k,0}$ on the $2k$-th page can be non-trivial. And we have that $E^{2}= \ldots=E^{2k}$ and $E^{2k+1}=\ldots=E^{\infty}$.
+
+Our objective shall be to show that
+\[H_{i}(E)=\begin{cases}
+	\text{finite} \qquad &i\neq 0,\; 4k-1\\
+	\mathbb{Z} \oplus \text{finite} \qquad &i=4k-1.
+\end{cases}\]
+{\color{magenta}This will hold if $d^{2k}_{2k,0}\neq 0$.}
+
+In search for a contradiction suppose this differential vanishes. {\color{magenta}Notice} the following diagram commutes:
+\[\begin{tikzcd}
+	\pi_{2k}(S^{2k})\arrow[r,"\partial"]\arrow[d,swap,"h"]\arrow[d,"\cong "]&\pi_{2k-1}(S^{2k-1})\arrow[d,"h"]\arrow[d,"\cong ",swap]\\
+	H_{2k}(S^{2k})\arrow[r,"d^{2k}",swap]&H_{2k-1}(S^{2k-1})
+\end{tikzcd}\]
+where $\partial$ is the connection homomorphism in the homotopy long exact sequence. This means that $d^{2k}=0$ iff $\partial=0$.
+
+Given our hypothesis that $d^{2k}=0$, we get a surjection
+\[\begin{tikzcd}
+	\pi_{2k}(E)\arrow[r,"pi_{*}"]&\pi_{2k}(S^{2k})\arrow[r,"\partial"]&0
+\end{tikzcd}\]
+So, there is a homotopy class $[\phi]\in \pi_{2k}(E)$ mapping to $[\operatorname{id}]$ under $\pi^{*}$. But then $\phi$ is a map $S^{2k}\to E$ and $\pi^{*}[\phi]$ is obtained by precomposing with $\phi$, so we have a diagram
+\[\begin{tikzcd}
+	&E\arrow[d,"\pi"]\\
+	S^{2k}\arrow[ur,"\phi"]\arrow[r,equals,"\operatorname{id}"]&S^{2k}
+\end{tikzcd}\]
+that commutes {\color{magenta}up to homotopy}. This means that by the {\color{magenta}homotopy lifting property} there is a map $\psi:S^{2k}\to E$ lifting the identity, that is, a nowhere vanishing vector field on $S^{2k}$, which is a contradiction.
 
 \clearpage
 \addcontentsline{toc}{section}{References}
